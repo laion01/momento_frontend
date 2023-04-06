@@ -15,7 +15,7 @@ export default function HowSection() {
                     <Image alt="" width={591} height={590} src="/images/howwork.png"/>
                 </div>
                 <div className="w-[591px] flex flex-col justify-center">
-                    <h3 className="text-[#747067] text-[24px] font-bold mb-[10px]">It's easy to create a Momento Photo Locket and save your cherished memories in 3 steps.</h3>
+                    <h3 className="text-[#747067] text-[24px] font-bold mb-[10px]">It&apos;s easy to create a Momento Photo Locket and save your cherished memories in 3 steps.</h3>
                     <div className="flex items-start mb-[16px]">
                         <p className="min-w-[27px] h-[27px] mr-[10px] leading-[27px] text-center rounded-full bg-[#996D01] text-white"> 1 </p>
                         <p className="text-[#747067] text-[16px] leading-[27px]">
