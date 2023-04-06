@@ -6,10 +6,10 @@ export default function HeroSection() {
     return (
         <div className="mx-[40px] bg-[#F5F5F5] relative flex flex-col justify-start items-center relative">
             <div className="w-[223px] h-[332px]">
-                <Image alt="" src={'/images/Jewelry-Digital-Locket 6.png'} width={223} height={332}/>
+                <Image alt="" src={'/images/jewelry.png'} width={223} height={332}/>
             </div>
             <div className="-mt-[9px] relative">
-                <Image alt="" src={'/images/Phone 1.png'} width={394} height={746}/>
+                <Image alt="" src={'/images/phone.png'} width={394} height={746}/>
                 <div className="absolute w-full h-full top-0 left-0 flex justify-center items-end pb-[182px]">
                     <div className="w-[17.73px] h-[30px] rounded-full border-[2px] border-[#747067] flex justify-center pt-[6.2px]">
                         <div className="w-[5.21px] h-[5.21px] bg-[#747067] rounded-full"></div>
