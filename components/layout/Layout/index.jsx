@@ -9,6 +9,7 @@ import VideoSection from "components/LandingPage/VideoSection";
 import AlbumSection from "components/LandingPage/AlbumSection";
 import MemoriesSection from "components/LandingPage/MemoriesSection";
 import HowSection from "components/LandingPage/HowSection";
+import Rings from "components/utils/Rings";
 
 export default function Layout({ children }) {
     const { isOverlay, isSpinner } = useUtil();
@@ -28,7 +29,6 @@ export default function Layout({ children }) {
             <AlbumSection />
             <MemoriesSection />
             <HowSection />
-            
             { isSpinner &&
                 <div className='z-100 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
                 <ClipLoader speedMultiplier={0.5} color='blue' size={50}/>

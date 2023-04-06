@@ -15,6 +15,9 @@ module.exports = {
       zIndex: {
         '45': '45',
         '100': '100',
+      },
+      animation: {
+        'spin-slow': 'pulse 3s ease-out infinite;',
       }
     },
   },

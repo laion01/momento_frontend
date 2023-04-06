@@ -27,7 +27,7 @@ export default function MemoriesSection() {
                 </div>
                 <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
                     <button className="flex items-center px-[16px]">
-                        <div className="w-[46.67px] h-[46.67px] bg-white rounded-full mr-[16px] flex justify-center items-center">
+                        <div className="w-[46.67px] h-[46.67px] pl-[5px] mix-blend-lighten bg-white rounded-full mr-[16px] flex justify-center items-center">
                             <FontAwesomeSvgIcon icon={faPlay} width={32} height={32} />
                         </div>  
                         <p className="text-[#996D01] text-[2rem] text-white"> How it works </p>
@@ -52,7 +52,7 @@ export default function MemoriesSection() {
                 </div>
                 <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
                     <button className="flex items-center px-[16px]">
-                        <div className="w-[46.67px] h-[46.67px] bg-white rounded-full mr-[16px] flex justify-center items-center">
+                        <div className="w-[46.67px] h-[46.67px] pl-[5px] mix-blend-lighten bg-white rounded-full mr-[16px] flex justify-center items-center">
                             <FontAwesomeSvgIcon icon={faPlay} width={32} height={32} />
                         </div>  
                         <p className="text-[#996D01] text-[2rem] text-white]"> How it works </p>
