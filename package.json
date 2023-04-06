@@ -1,0 +1,41 @@
+{
+  "name": "momento-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next export",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-brands-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@reduxjs/toolkit": "^1.8.3",
+    "@thirdweb-dev/react": "^3.9.5",
+    "@thirdweb-dev/sdk": "^3.9.5",
+    "dotenv": "^16.0.1",
+    "ethers": "^5.6.9",
+    "fs": "^0.0.1-security",
+    "next": "12.2.2",
+    "next-videos": "1.4.0",
+    "phaser": "^3.55.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-fontawesome-svg-icon": "^1.1.1",
+    "react-redux": "^8.0.2",
+    "react-spinners": "^0.13.3",
+    "react-toastify": "^9.0.7",
+    "sharp": "^0.30.7"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.7",
+    "eslint": "8.20.0",
+    "eslint-config-next": "12.2.2",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.6"
+  }
+}
