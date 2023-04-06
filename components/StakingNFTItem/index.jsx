@@ -34,10 +34,10 @@ export default function StakingNFTItem({data}) {
             <p className="mx-[21px] text-[#6C6376] text-[12px]"> 5/7 days staking </p>
             <div className="mx-[21px] flex justify-between items-center">
                 { data.owner == address ?
-                    <button className="text-[16px] text-white pointer-events-auto" onClick={() => {onStakeClicked()}}> Stake </button> :
-                    <button className="text-[16px] text-white pointer-events-auto" onClick={() => {onUnStakeClicked()}}> Unstake </button>
+                    <button className="text-[1rem] text-white pointer-events-auto" onClick={() => {onStakeClicked()}}> Stake </button> :
+                    <button className="text-[1rem] text-white pointer-events-auto" onClick={() => {onUnStakeClicked()}}> Unstake </button>
                 }
-                <button className="text-[16px] text-[#91D2F6] pointer-events-auto" onClick={() => {onClaimClicked()}} disabled={data.owner == address}> Claim </button>
+                <button className="text-[1rem] text-[#91D2F6] pointer-events-auto" onClick={() => {onClaimClicked()}} disabled={data.owner == address}> Claim </button>
             </div>
         </div>
     )

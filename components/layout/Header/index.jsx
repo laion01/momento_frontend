@@ -26,7 +26,7 @@ export default function Header() {
     }
 
     return (
-        <div className="z-30 fixed w-full top-0 flex justify-between items-center transition-all duration-500 bg-white h-[72px] px-[40px]">
+        <div className="z-30 fixed w-full top-0 flex justify-between items-center transition-all duration-500 bg-white h-[4.5rem] px-[40px]">
             {/* <div className=' flex justify-between'> */}
                 <div className='h-[40px] flex'>
                     <Image 
@@ -37,7 +37,7 @@ export default function Header() {
                     />
                     <div className='mx-[20px] w-[1px] bg-[#747067] opacity-[0.2]'></div>
                     <Image 
-                        src='/images/galatea-logo 1.png' 
+                        src='/images/galatea-logo.png' 
                         alt=''
                         width={156}
                         height={40}
