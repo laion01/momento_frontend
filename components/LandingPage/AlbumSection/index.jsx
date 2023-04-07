@@ -13,10 +13,10 @@ export default function AlbumSection() {
                     <Image alt="" width={406} height={488} src="/images/album2.jpg"/>
                 </div>
             </div>
-            <h2 className="text-[3rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center mt-[100px] mb-[120px]">
+            <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center mt-[100px] mb-[120px]">
                 Create your Family Album
             </h2>
-            <div className="flex flex-col md:flex-row justify-center items-center px-[1.5rem] mb-[175px]">
+            <div className="flex flex-col md:flex-row justify-center items-center px-[1.5rem] mb-[3rem] md:mb-[5rem] lg: mb-[7rem] xl:mb-[11rem]">
                 <div className="md:mr-[50px] lg:mr-[80px] xl:mr[100px] 2xl:mr-[146px]">
                     <Image alt="" width={406} height={488} src="/images/album3.jpg"/>
                 </div>

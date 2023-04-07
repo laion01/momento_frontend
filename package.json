@@ -27,6 +27,7 @@
     "react-dom": "18.2.0",
     "react-fontawesome-svg-icon": "^1.1.1",
     "react-redux": "^8.0.2",
+    "react-scroll-parallax": "^3.4.0",
     "react-spinners": "^0.13.3",
     "react-toastify": "^9.0.7",
     "sharp": "^0.30.7"

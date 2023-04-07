@@ -7,7 +7,7 @@ export default function HeroSection() {
     return (
         <div className="mx-[20px] md:mx-[40px] w-[calc(100vw-40px)] md:w-[calc(100vw-80px)] bg-[#F5F5F5] relative flex flex-col justify-start items-center relative px-[1.5rem] relative overflow-hidden">
             <div className="absolute w-full top-0 left-0 flex justify-center items-center">
-                <div className="w-[calc(40vw*332/223)] md:w-[660px] mt-[110px] md:-mt-[50px]">
+                <div className="w-[calc(40vw*332/223)] md:w-[660px] mt-[110px] md:-mt-[60px]">
                     <Rings />
                 </div>
             </div>
@@ -24,10 +24,10 @@ export default function HeroSection() {
                 </div>
             </div>
             <div className="lg:absolute lg:right-0 flex flex-col lg:h-[100vh] justify-center md:mt-[350px] w-full lg:w-[calc(50vw-220px)] h-full  px-[1.5rem] pl-[20px] 2xl:pr-[156px] 2xl:pl-[40px] xl:pr-[120px] lg:pr-[50px]">
-                <h1 className="text-[40px] text-[#AC8118] leading-[56px] mb-[24px]">
+                <h1 className="text-[3rem] font-bold text-[#AC8118] leading-[56px] mb-[24px]">
                     The Jewelry That Holds Your Family Photo Album
                 </h1>
-                <p className="text-[#747067] text-[1.125rem] mb-[32px]">
+                <p className="text-[#747067] text-[1.125rem] leading-[2rem] mb-[2rem]">
                     The Momento™ Digital Locket is a piece of smart jewelry that holds all your special moments close to your heart.
                 </p>
                 <div className="flex flex-wrap items-center pb-[20px]">

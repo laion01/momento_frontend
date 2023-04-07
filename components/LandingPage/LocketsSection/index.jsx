@@ -3,13 +3,14 @@ import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon"
 import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import Item from "./Item"
 
-export default function HowSection() {
+export default function LocketsSection() {
     return (
-        <div className="mx-[20px] md:mx-[40px] w-[calc(100vw-40px)] md:w-[calc(100vw-80px)] bg-[#F5F5F5] flex flex-col justify-center relative pt-[20px]">
+        <div className="mx-[20px] md:mx-[40px] w-[calc(100vw-40px)] md:w-[calc(100vw-80px)] bg-[#F5F5F5] flex flex-col justify-center relative pt-[20px] px-[24px]">
             <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center mt-[100px] mb-[40px]">
-                How does it work?
+                Lockets
             </h2>
-            <div className="flex flex-col md:flex-row justify-center px-[1.5rem]">
+            <p className="text-[1.5rem] leading-[2.25rem] text-center text-[#747067] leading-[2.25rem] mb-[1.5rem]"> Buy now and get one for yourself and one for your loved one, so you can share and synchronize your photo album together </p>
+            {/* <div className="flex flex-col md:flex-row justify-center px-[1.5rem]">
                 <div className="mr-[0px] md:mr-[146px]">
                     <Image alt="" width={591} height={590} src="/images/howwork.png"/>
                 </div>
@@ -43,12 +44,17 @@ export default function HowSection() {
                         To learn more on how to use Momento App, <span className="font-bold">click here.</span>
                     </p>
                 </div>
-            </div>
+            </div> */}
             <div className="flex flex-wrap justify-center items-center mt-[20px]">
-                <Item image="/images/sharing.svg" title="Private Data" context="Access your memories anytime and anywhere with our free app, which comes with a limited amount of data storage. If you need more space, you can upgrade to 100gGB or more storage, just like you would with Dropbox. It is secure, private and  your personal family album."/>
-                <Item image="/images/nobatteries.svg" title="No Batteries Needed" context="The NFC chip in your Momento® Digital locket runs without any type of battery and will work with any NFC-enabled smartphone." />
-                <Item image="/images/waterproof.svg" title="Waterproof" context="Momento Lockets are waterproof. Care for it as  you would any piece of fine jewelry." />
-                <Item image="/images/pearl.svg" title="Unique" context="Momento Digital Locket is a patented device and the first of its kind in the world. Don't settle for imitations; choose the original and trusted Momento Digital Locket." />
+                <Item image="/images/lockets/locket1.png" title="Momento® Locket Pearl Flower" price={300.00} categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
+                <Item image="/images/lockets/locket2.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={2}/>
+                <Item image="/images/lockets/locket3.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={3}/>
+                <Item image="/images/lockets/locket4.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
+                <Item image="/images/lockets/locket5.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={11}/>
+                <Item image="/images/lockets/locket6.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13,14,15,16]} selectedColor={14}/>
+                <Item image="/images/lockets/locket7.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
+                <Item image="/images/lockets/locket8.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={12}/>
+                <Item image="/images/lockets/locket9.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
             </div>
         </div>
     )

@@ -3,13 +3,13 @@ import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon"
 import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import Item from "./Item"
 
-export default function HowSection() {
+export default function NewsSection() {
     return (
-        <div className="mx-[20px] md:mx-[40px] w-[calc(100vw-40px)] md:w-[calc(100vw-80px)] bg-[#F5F5F5] flex flex-col justify-center relative pt-[20px]">
+        <div className="mx-[20px] md:mx-[40px] w-[calc(100vw-40px)] md:w-[calc(100vw-80px)] bg-[#F5F5F5] flex flex-col justify-center relative pt-[20px] px-[24px]">
             <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center mt-[100px] mb-[40px]">
-                How does it work?
+                In The News
             </h2>
-            <div className="flex flex-col md:flex-row justify-center px-[1.5rem]">
+            {/* <div className="flex flex-col md:flex-row justify-center px-[1.5rem]">
                 <div className="mr-[0px] md:mr-[146px]">
                     <Image alt="" width={591} height={590} src="/images/howwork.png"/>
                 </div>
@@ -43,12 +43,11 @@ export default function HowSection() {
                         To learn more on how to use Momento App, <span className="font-bold">click here.</span>
                     </p>
                 </div>
-            </div>
+            </div> */}
             <div className="flex flex-wrap justify-center items-center mt-[20px]">
-                <Item image="/images/sharing.svg" title="Private Data" context="Access your memories anytime and anywhere with our free app, which comes with a limited amount of data storage. If you need more space, you can upgrade to 100gGB or more storage, just like you would with Dropbox. It is secure, private and  your personal family album."/>
-                <Item image="/images/nobatteries.svg" title="No Batteries Needed" context="The NFC chip in your Momento® Digital locket runs without any type of battery and will work with any NFC-enabled smartphone." />
-                <Item image="/images/waterproof.svg" title="Waterproof" context="Momento Lockets are waterproof. Care for it as  you would any piece of fine jewelry." />
-                <Item image="/images/pearl.svg" title="Unique" context="Momento Digital Locket is a patented device and the first of its kind in the world. Don't settle for imitations; choose the original and trusted Momento Digital Locket." />
+                <Item label="USA TV KCAL9 NEWS" video="/images/news/1.jpg"/>
+                <Item label="Japan TV News" video="/images/news/2.jpg"/>
+                <Item label="China TV News" video="/images/news/3.jpg"/>
             </div>
         </div>
     )

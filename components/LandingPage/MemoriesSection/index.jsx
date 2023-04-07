@@ -5,11 +5,11 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons"
 export default function MemoriesSection() {
     return (
         <div className="mx-[20px] md:mx-[40px] w-[calc(100vw-40px)] md:w-[calc(100vw-80px)] bg-[#F5F5F5] flex flex-col justify-center relative pt-[20px]">
-            <h2 className="text-[3rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center mt-[100px] mb-[40px]">
+            <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center mt-[100px] mb-[40px]">
                 Memories
             </h2>
             
-            <div className="flex flex-col md:flex-row justify-center mb-[175px] px-[1.5rem]">
+            <div className="flex flex-col md:flex-row justify-center mb-[3rem] md:mb-[5rem] lg: mb-[7rem] xl:mb-[11rem] px-[1.5rem]">
                 <div className="w-full max-w-[406px] flex flex-col justify-center items-start md:items-end mr-[146px]">
                     <h3 className="text-[#747067] text-[1.5rem] leading-[2.25rem] mb-[2rem] font-bold text-left md:text-right">A collection of life’s best moments</h3>
                     <p className="text-[#747067] text-[1.125rem] leading-[2.25rem] text-left md:text-right mb-[2rem]">
@@ -21,7 +21,7 @@ export default function MemoriesSection() {
                     <Image alt="" width={406} height={488} src="/images/memory1.jpg"/>
                 </div>
             </div>
-            <div className="w-full relative mb-[175px] px-[1.5rem]">
+            <div className="w-full relative mb-[3rem] md:mb-[5rem] lg: mb-[7rem] xl:mb-[11rem] px-[1.5rem]">
                 <div className="2xl:px-[269px] xl:px-[210px] lg:px-[100px] px-[0px]">
                     <Image alt="" src={'/images/videoback3.jpg'} width={1372} height={780} />
                 </div>
@@ -34,7 +34,7 @@ export default function MemoriesSection() {
                     </button>
                 </div>
             </div>
-            <div className="flex flex-col md:flex-row justify-center mb-[175px] px-[1.5rem]">
+            <div className="flex flex-col md:flex-row justify-center mb-[3rem] md:mb-[5rem] lg: mb-[7rem] xl:mb-[11rem] px-[1.5rem]">
                 <div className="mr-[0px] md:mr-[146px]">
                     <Image alt="" width={406} height={488} src="/images/memory2.jpg"/>
                 </div>
@@ -46,7 +46,7 @@ export default function MemoriesSection() {
                     <button className="text-white bg-[#996D01] rounded-full h-[3rem] px-[1.5rem]"> Customize Your Locket </button>
                 </div>
             </div>
-            <div className="w-full relative mb-[175px] px-[1.5rem]">
+            <div className="w-full relative mb-[3rem] md:mb-[5rem] lg: mb-[7rem] xl:mb-[11rem] px-[1.5rem]">
                 <div className="2xl:px-[269px] xl:px-[210px] lg:px-[100px] px-[0px]">
                     <Image alt="" src={'/images/videoback4.jpg'} width={1372} height={780} />
                 </div>
