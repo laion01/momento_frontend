@@ -1,6 +1,3 @@
-import Image from "next/image"
-import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon"
-import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import Item from "./Item"
 
 export default function ReviewSection() {

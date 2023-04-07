@@ -13,6 +13,8 @@ import Rings from "components/utils/Rings";
 import LocketsSection from "components/LandingPage/LocketsSection";
 import NewsSection from "components/LandingPage/NewsSection";
 import ReviewSection from "components/LandingPage/ReviewSection";
+import FAQSection from "components/LandingPage/FAQSection";
+import Footer from "../Footer";
 
 export default function Layout({ children }) {
     const { isOverlay, isSpinner } = useUtil();
@@ -27,7 +29,7 @@ export default function Layout({ children }) {
                 </div> */}
                 {/* <Staking /> */}
             {/* </div> */}
-            
+
             <HeroSection />
             <VideoSection />
             <AlbumSection />
@@ -36,7 +38,10 @@ export default function Layout({ children }) {
             <LocketsSection />
             <NewsSection />
             <ReviewSection />
+            <FAQSection />
 
+            <Footer />
+            
             { isSpinner &&
                 <div className='z-100 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
                 <ClipLoader speedMultiplier={0.5} color='blue' size={50}/>
