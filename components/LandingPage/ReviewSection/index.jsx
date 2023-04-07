@@ -22,7 +22,7 @@ export default function ReviewSection() {
                     context: "“Awesome App!!! It can store loads of precious memories and voices on the cloud and the key to unlock it is the connection between the pearl and your phone“",
                     user: {
                         name: "Louis Bryant",
-                        rating: 5,
+                        rating: 3.5,
                         avatar: "/images/avatars/2.jpg",
                     }
                 }}/>

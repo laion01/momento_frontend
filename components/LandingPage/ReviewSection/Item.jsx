@@ -1,5 +1,8 @@
-import { data } from "autoprefixer"
 import Image from "next/image"
+import dynamic from "next/dynamic";
+const StarRatings = dynamic(() => import("react-star-ratings"), {
+  ssr: false,
+});
 
 export default function Item({data}) {
     return (
@@ -9,8 +12,15 @@ export default function Item({data}) {
                 <div className="w-[3.5rem] h-[3.5rem] overflow-hidden rounded-full mr-[1rem]">
                     <Image alt={data.user.name} src={data.user.avatar} width={56} height={56}/>
                 </div>
-                <div className="flex flex-col">
-                    <p className="text-[1.125rem] text-[#AC8118] font-bold mb-[1.5rem]"> { data.user.name } </p>
+                <div className="flex flex-col justify-center">
+                    <p className="text-[1.125rem] text-[#AC8118] font-bold"> { data.user.name } </p>
+                    <StarRatings
+                        rating={data.user.rating}
+                        starRatedColor="#B78E2A"
+                        numberOfStars={5}
+                        starDimension="1.125rem"
+                        starSpacing="0px"
+                    />
                 </div>
             </div>
         </div>
