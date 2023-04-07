@@ -25,10 +25,14 @@ export default function Header() {
         }
     }
 
+    const onHomeClicked = () => {
+        window.location.href = "/";
+    }
+
     return (
         <div className="z-30 bg-[#ffffff90] fixed w-full top-0 flex justify-between items-center transition-all duration-500 bg-white h-[4.5rem] px-[40px]">
             {/* <div className=' flex justify-between'> */}
-                <div className='h-[40px] flex'>
+                <div className='h-[40px] flex' onClick={() => { onHomeClicked() }}>
                     <Image 
                         src='/images/momento-logo.png' 
                         alt=''
