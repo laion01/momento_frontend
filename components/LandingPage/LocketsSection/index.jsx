@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon"
 import { faPlay } from "@fortawesome/free-solid-svg-icons"
-import Item from "./Item"
+import LocketItem from "components/utils/LocketItem/Item"
 
 export default function LocketsSection() {
     return (
@@ -46,15 +46,18 @@ export default function LocketsSection() {
                 </div>
             </div> */}
             <div className="flex flex-wrap justify-center items-center mt-[20px]">
-                <Item image="/images/lockets/locket1.png" title="Momento® Locket Pearl Flower" price={300.00} categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
-                <Item image="/images/lockets/locket2.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={2}/>
-                <Item image="/images/lockets/locket3.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={3}/>
-                <Item image="/images/lockets/locket4.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
-                <Item image="/images/lockets/locket5.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={11}/>
-                <Item image="/images/lockets/locket6.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13,14,15,16]} selectedColor={14}/>
-                <Item image="/images/lockets/locket7.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
-                <Item image="/images/lockets/locket8.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={12}/>
-                <Item image="/images/lockets/locket9.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
+                <LocketItem image="/images/lockets/locket1.png" title="Momento® Locket Pearl Flower" price={300.00} categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
+                <LocketItem image="/images/lockets/locket2.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={2}/>
+                <LocketItem image="/images/lockets/locket3.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={3}/>
+                <LocketItem image="/images/lockets/locket4.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
+                <LocketItem image="/images/lockets/locket5.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={11}/>
+                <LocketItem image="/images/lockets/locket6.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13,14,15,16]} selectedColor={14}/>
+                <LocketItem image="/images/lockets/locket7.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
+                <LocketItem image="/images/lockets/locket8.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={12}/>
+                <LocketItem image="/images/lockets/locket9.png" title="Momento® Locket Pearl Flower" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[1,2,3,4,5,6]} selectedColor={1}/>
+            </div>
+            <div className="w-full flex justify-center mt-[3rem]">
+                <button className="h-[3rem] rounded-full bg-[#996D01] px-[24px] text-white text-[1rem]"> View all </button>
             </div>
         </div>
     )

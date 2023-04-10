@@ -4,8 +4,8 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons"
 
 export default function AboutUs() {
     return (
-        <div className="mx-[20px] md:mx-[40px] w-[calc(100vw-40px)] md:w-[calc(100vw-80px)] bg-[#F5F5F5] flex justify-center pt-[20px]">
-            <div className="container flex flex-col justify-center items-center relative">
+        <div className="mx-[20px] md:mx-[40px] w-full bg-[#F5F5F5] flex justify-center pt-[20px]">
+            <div className="container grow flex flex-col justify-center items-center relative">
                 <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center mt-[100px]">
                     About Us
                 </h2>
@@ -53,7 +53,7 @@ export default function AboutUs() {
                 <h2 className="text-[2rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center">
                     Chi Huynh’s Story
                 </h2>
-                <div className="lg:w-[969px] mb-[5rem] mx-[40px]">
+                <div className="w-[calc(100%-80px)] lg:w-[969px] mb-[5rem] mx-[40px]">
                     <div className="mt-[5rem] mb-[3.5rem]">
                         <Image alt="" width={969} height={523} src="/images/document.jpg"/>
                     </div>

@@ -20,9 +20,9 @@ export default function Home() {
   return (
         <div className={styles.container}>
       <Head>
-        <title>Momento Gaming Studio</title>
+        <title>Momento Lockets</title>
         <meta name="description" content="Casino" />
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/momento.png" />
       </Head>
 
       <main>
@@ -35,7 +35,6 @@ export default function Home() {
         <NewsSection />
         <ReviewSection />
         <FAQSection />
-        <Footer />
       </main>
       <footer></footer>
     </div>
