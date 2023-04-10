@@ -3,6 +3,8 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import LocketItem from "components/utils/LocketItem/Item";
 import LocketViewer from "./LocketViewer"
 import Image from "next/image";
+import { useState } from "react";
+import UploadFileDlg from "components/utils/UploadFileDlg";
 
 const categories=['Silver', 'Yellow Gold'];
 const selectedCat=1;
@@ -52,6 +54,9 @@ const colors = [
 
 
 export default function Locket() {
+
+    const [isOpenDlg, openDlg] = useState(false);
+
     return (
         <div className="mx-[20px] md:mx-[40px] w-full bg-[#F5F5F5] flex justify-center pt-[20px]">
             <div className="container grow flex flex-col justify-center items-center relative">
@@ -101,7 +106,9 @@ export default function Locket() {
                             <button className="h-[3rem] rounded-full bg-[#996D01] px-[24px] text-white text-[1rem]"> Add to Bag </button>
                         </div>
                         <div className="bg-[#D4D4D4] h-[2px] my-[24px]"/>
-                        <button className="h-[4rem] rounded-full bg-[#996D01] px-[32px] text-white text-[1rem] flex items-center justify-center"> 
+                        <button className="w-fit h-[4rem] rounded-full bg-[#996D01] px-[32px] text-white text-[1rem] flex items-center justify-center"
+                            onClick={() => { openDlg(true) }}
+                        > 
                             <div className="w-[32px] h-[32px] flex justify-center items-center">
                                 <Image alt="" width={32} height={32} src="/images/upload.svg"/>
                             </div>
@@ -158,6 +165,9 @@ export default function Locket() {
                 </div>
 
             </div>
+            { isOpenDlg &&
+                <UploadFileDlg onClose={openDlg}/>
+            }
         </div>
     )
 }
