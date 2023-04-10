@@ -4,7 +4,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons"
 
 export default function AboutUs() {
     return (
-        <div className="mx-[20px] md:mx-[40px] w-full bg-[#F5F5F5] flex justify-center pt-[20px]">
+        <div className="mx-[20px] md:mx-[40px] bg-[#F5F5F5] flex justify-center pt-[20px]">
             <div className="container grow flex flex-col justify-center items-center relative">
                 <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center mt-[100px]">
                     About Us

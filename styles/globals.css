@@ -63,31 +63,31 @@ a {
 
 @media (min-width: 576px) {
   .container {
-    max-width: 540px;
+    max-width: 500px;
   }
 }
 
 @media (min-width: 768px) {
   .container {
-    max-width: 720px;
+    max-width: 680px;
   }
 }
 
 @media (min-width: 992px) {
   .container {
-    max-width: 960px;
+    max-width: 920px;
   }
 }
 
 @media (min-width: 1200px) {
   .container {
-    max-width: 1140px;
+    max-width: 1060px;
   }
 }
 
 @media (min-width: 1400px) {
   .container {
-    max-width: 1320px;
+    max-width: 1140px;
   }
 }
 

@@ -58,7 +58,7 @@ export default function Locket() {
     const [isOpenDlg, openDlg] = useState(false);
 
     return (
-        <div className="mx-[20px] md:mx-[40px] w-full bg-[#F5F5F5] flex justify-center pt-[20px]">
+        <div className="mx-[20px] md:mx-[40px] bg-[#F5F5F5] flex justify-center pt-[20px]">
             <div className="container grow flex flex-col justify-center items-center relative">
                 <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] leading-[6.75rem] text-[#AC8118] text-center mt-[100px]">
                     Momento® Locket Pearl Flower
@@ -66,7 +66,7 @@ export default function Locket() {
                 <p className="text-[1.5rem] leading-[2.25rem] text-center text-[#747067] leading-[2.25rem] mb-[3rem]"> 
                     By Galatea Jewelry by Artist
                 </p>
-                <div className="flex flex-col md:flex-row justify-center mb-[3rem]">
+                <div className="flex flex-col md:flex-row justify-center mb-[3rem] px-[3rem]">
                     <LocketViewer images={['/images/jewelry.png', '/images/album3.jpg', '/images/album1.jpg', '/images/logo.png']}/>
                     
                     <div className="flex flex-col ml-[0px] md:ml-[1rem]">
