@@ -15,13 +15,13 @@ import Footer from 'components/layout/Footer';
 export default function Home() {
   useEffect(() => {
 
-    
+
   }, []);
   return (
-        <div className={styles.container}>
+    <div className={styles.container}>
       <Head>
         <title>Momento Lockets</title>
-        <meta name="description" content="Casino" />
+        <meta name="description" content="Momento" />
         <link rel="icon" href="/momento.png" />
       </Head>
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import UploadFileDlg from "components/utils/UploadFileDlg";
 import Item from "components/ShoppingCart/Item";
 import PaymentSection from "./PaymentSection";
+import MyUploadedMemories from "components/MyUploadedMemories";
 
 export default function Checkout() {
     const [isOpenDlg, openDlg] = useState(false);
@@ -26,10 +27,10 @@ export default function Checkout() {
                     </button>
                 </div>
                 <div className="w-full flex mr-[2rem]">
-                    <div className="flex flex-col min-w-[540px] mx-[50px] ">
-                        <div className="bg-white flex flex-col p-[1.5rem] h-fit mb-[2rem] rounded-[0.5rem] shadow">
+                    <div className="flex flex-col min-w-[540px] mx-[50px] w-min">
+                        <div className="bg-white flex flex-col p-[1.5rem] h-fit mb-[2rem] rounded-[0.5rem] shadow mb-[2rem]">
                             <div className="flex justify-between items-center mb-[1.5rem] pb-[1.5rem] border-b-[1px] border-b-[#D4D4D4]">
-                                <p className="text-[#996D01] text-[1.125rem] ml-[10px]"> My Bag (2 items) </p>
+                                <p className="text-primary text-[1.125rem] font-bold ml-[10px]"> My Bag (2 items) </p>
                                 <button className="text-[#747067] flex justify-center items-center" onClick={() => {onClose(false)}}>
                                     <FontAwesomeSvgIcon icon={faAngleDown} width={20} height={20} className="text-[#747067]" />
                                 </button>
@@ -39,16 +40,17 @@ export default function Checkout() {
                                 <Item />
                                 <Item />
                             </div>
-                            <div className="flex justify-between items-center mb-[4px] text-[1rem] font-bold leading-[1.6875rem] text-[#747067]">
+                            <div className="flex justify-between items-center mb-[0.25rem] text-[1rem] font-bold leading-[1.6875rem] text-[#747067]">
                                 <p> Total </p>
                                 <p> $600 </p>
                             </div>
                         </div>
+                        <MyUploadedMemories />
                     </div>
                     { pageNum == 1 ?
                         <div className="flex flex-col grow">
                             <div className="bg-white flex flex-col px-[1.5rem] p-[24px] h-fit mb-[2rem] rounded-[0.5rem] shadow">
-                                <p className="text-[1.5rem] text-[#996D01] font-bold mb-[2rem]"> Shipping Address </p>
+                                <p className="text-[1.5rem] text-primary font-bold mb-[2rem]"> Shipping Address </p>
                                 <div className="flex mb-[1.5rem]">
                                     <div className="grow pr-[0.75rem]">
                                         <input type="text" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="First Name"/>

@@ -14,7 +14,7 @@ export default function PaymentSection({}) {
         <div className="w-full flex flex-col">
             <div className="bg-white flex flex-col p-[1.5rem] rounded-[0.5rem] shadow mb-[2rem]">
                 <div className="flex items-center mb-[0.5rem]">
-                    <p className="text-[1.5rem] font-bold leading-[2.25rem] text-[#996D01] grow">
+                    <p className="text-[1.5rem] font-bold leading-[2.25rem] text-primary grow">
                         Shipping Address
                     </p>
                     <button className="flex items-center">
@@ -32,7 +32,7 @@ export default function PaymentSection({}) {
             </div>
             <div className="bg-white flex flex-col p-[1.5rem] rounded-[0.5rem] shadow mb-[2rem]">
                 <div className="flex items-center mb-[1.5rem]">
-                    <p className="text-[1.5rem] font-bold leading-[2.25rem] text-[#996D01] grow">
+                    <p className="text-[1.5rem] font-bold leading-[2.25rem] text-primary grow">
                         Payment Method
                     </p>
                     <button className="flex items-center mr-[0.5rem] w-[2rem] h-[1.5rem] ">
@@ -69,7 +69,7 @@ export default function PaymentSection({}) {
                 </div>
 
                 <div className="flex flex-col mb-[1.5rem]">
-                    <p className="text-[1.5rem] font-bold leading-[2.25rem] text-[#996D01]">
+                    <p className="text-[1.5rem] font-bold leading-[2.25rem] text-primary">
                         Billing Address
                     </p>
                     <p className="text-[0.875rem] leading-[1.3125rem] text-[#747067]">
@@ -77,7 +77,7 @@ export default function PaymentSection({}) {
                     </p>
                 </div>
 
-                <div className="flex flex-col">
+                <div className="flex flex-col mb-[1rem]">
                     <button className="flex items-center h-[3rem]" onClick={() => {onOptionchaged(1)}}>
                         <div className="rounded-full min-w-[1.25rem] h-[1.25rem] mr-[1rem] border-[#996D01]" style={{ borderWidth : billingAddrOption == 1 ? "5px" : "1px", opacity: billingAddrOption == 1 ? "1.0" : "0.2"}}></div>
                         <p className="text-[1rem] text-[#747067] leading-[1.6875rem]"> Same as shipping address </p>
@@ -87,6 +87,45 @@ export default function PaymentSection({}) {
                         <p className="text-[1rem] text-[#747067] leading-[1.6875rem]"> Use a different billing address </p>
                     </button>
                 </div>
+                { billingAddrOption == 2 &&
+                    <div className="flex flex-col">
+                        <div className="flex mb-[1.5rem]">
+                            <div className="grow pr-[0.75rem]">
+                                <input type="text" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="First Name"/>
+                            </div>
+                            <div className="grow pl-[0.75rem]">
+                                <input type="text" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="Last Name"/>
+                            </div>
+                        </div>
+                        <div className="flex mb-[1.5rem]">
+                            <input type="text" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="Address"/>
+                        </div>
+                        <div className="flex mb-[1.5rem]">
+                            <div className="grow pr-[0.75rem]">
+                                <input type="text" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="Apartment, suite, etc. (optional)"/>
+                            </div>
+                            <div className="grow pl-[0.75rem]">
+                                <input type="text" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="Phone Number"/>
+                            </div>
+                        </div>
+                        <div className="flex mb-[1.5rem]">
+                            <div className="grow pr-[0.75rem]">
+                                <input type="text" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="City"/>
+                            </div>
+                            <div className="grow pl-[0.75rem]">
+                                <input type="text" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="Country"/>
+                            </div>
+                        </div>
+                        <div className="flex mb-[1.5rem]">
+                            <div className="grow pr-[0.75rem]">
+                                <input type="text" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="State"/>
+                            </div>
+                            <div className="grow pl-[0.75rem]">
+                                <input type="text" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="ZIP Code"/>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
 
             <div className="w-full flex justify-between items-center">
@@ -94,7 +133,7 @@ export default function PaymentSection({}) {
                     <Image alt="" src="/images/PaypalButton.png" width={228} height={44} />
                 </button>
                 <button className="h-[3rem] rounded-full bg-[#996D01] disabled:bg-[#BCB9B3] px-[24px] text-white text-[1rem]"
-                > Continue to Payment </button>
+                > Pay Now </button>
             </div>
         </div>
     )

@@ -8,7 +8,6 @@ import Item from "./Item";
 
 
 export default function ShoppingCart() {
-
     const [isOpenDlg, openDlg] = useState(false);
 
     return (
@@ -19,7 +18,7 @@ export default function ShoppingCart() {
                 </h2>
                 <div className="bg-white flex flex-col p-[1.5rem] h-fit mx-[50px] mb-[2rem] shadow-md min-w-[540px]">
                     <div className="flex justify-between items-center mb-[1.5rem] pb-[1.5rem] border-b-[1px] border-b-[#D4D4D4]">
-                        <p className="text-[#996D01] text-[1.125rem] ml-[10px]"> My Bag (2 items) </p>
+                        <p className="text-primary text-[1.125rem] font-bold ml-[10px]"> My Bag (2 items) </p>
                         <button className="text-[#747067] flex justify-center items-center" onClick={() => {onClose(false)}}>
                             <FontAwesomeSvgIcon icon={faAngleDown} width={20} height={20} className="text-[#747067]" />
                         </button>
@@ -29,7 +28,7 @@ export default function ShoppingCart() {
                         <Item />
                         <Item />
                     </div>
-                    <div className="flex justify-between items-center mb-[4px] text-[1rem] font-bold leading-[1.6875rem] text-[#747067]">
+                    <div className="flex justify-between items-center mb-[0.25rem] text-[1rem] font-bold leading-[1.6875rem] text-[#747067]">
                         <p> Total </p>
                         <p> $600 </p>
                     </div>

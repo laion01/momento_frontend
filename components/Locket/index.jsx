@@ -115,8 +115,8 @@ export default function Locket() {
                             <p className="text-white text-[1rem]"> UPLOAD YOUR FILE & ORDER NOW </p>
                         </button>
                         <div className="flex items-center mt-[18px] mb-[10px]">
-                            <p className="text-[1.5rem] font-bold leading-[2.25rem] text-[#996D01] mr-[8px]"> Not now. </p>
-                            <p className="text-[1rem] leading-[1.625rem] text-[#996D01]"> I you can upload photos when reciving the locket </p>
+                            <p className="text-[1.5rem] font-bold leading-[2.25rem] text-primary mr-[8px]"> Not now. </p>
+                            <p className="text-[1rem] leading-[1.625rem] text-primary"> I you can upload photos when reciving the locket </p>
                         </div>
                         <div className="bg-[#D4D4D4] h-[2px] my-[24px]"/>
 
@@ -125,7 +125,7 @@ export default function Locket() {
                                 <Image alt="" src="/images/sharing.svg" width={24} height={24}/>
                             </div>
                             <div className="flex flex-col">
-                                <p className="text-[#996D01] text-[1rem] leading-[1.5rem] font-bold"> Unlimited Sharing </p>
+                                <p className="text-primary text-[1rem] leading-[1.5rem] font-bold"> Unlimited Sharing </p>
                                 <p className="text-[#747067] text-[1rem] leading-[1.3125rem]"> Access your memories any time as much as you want. There are no additional fees, access limitations or hidden costs. </p>
                             </div>
                         </div>
@@ -134,7 +134,7 @@ export default function Locket() {
                                 <Image alt="" src="/images/NoBatteries.svg" width={24} height={24}/>
                             </div>
                             <div className="flex flex-col">
-                                <p className="text-[#996D01] text-[1rem] leading-[1.5rem] font-bold"> No Batteries Needed </p>
+                                <p className="text-primary text-[1rem] leading-[1.5rem] font-bold"> No Batteries Needed </p>
                                 <p className="text-[#747067] text-[1rem] leading-[1.3125rem]"> The NFC chip in your Momento® Digital locket runs without any type of battery and will work with any NFC-enabled smartphone. </p>
                             </div>
                         </div>
@@ -143,7 +143,7 @@ export default function Locket() {
                                 <Image alt="" src="/images/heart.svg" width={24} height={24}/>
                             </div>
                             <div className="flex flex-col">
-                                <p className="text-[#996D01] text-[1rem] leading-[1.5rem] font-bold"> Manage your Moments </p>
+                                <p className="text-primary text-[1rem] leading-[1.5rem] font-bold"> Manage your Moments </p>
                                 <p className="text-[#747067] text-[1rem] leading-[1.3125rem]"> After purchase, you can add all your special memories to your smart jewelry through this website or the Galatea Jewelry App. Available for iOS and Android. </p>
                             </div>
                         </div>

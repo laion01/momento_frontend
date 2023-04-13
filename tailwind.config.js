@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary': '#3434FF',
+        'primary': '#996D01',
+        'secondary': '#747067',
       },
       fontFamily: {
         'ibm': ['IBM Plex Sans', 'sans-serif']
@@ -21,5 +22,6 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+  ],
 }

@@ -5,8 +5,7 @@ import Item from "./Item"
 
 export default function NewsSection() {
     return (
-        <div className="mx-[20px] md:mx-[40px] w-[calc(100vw-40px)] md:w-[calc(100vw-80px)] bg-[#F5F5F5] flex flex-col justify-center relative pt-[20px] px-[24px] pb-[80px]">
-            <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center mt-[100px] mb-[40px]">
+        <div className="mx-[20px] md:mx-[40px] w-[calc(100vw-40px)] md:w-[calc(100vw-80px)] bg-[#F5F5F5] flex flex-col justify-center relative pt-[20px] px-[24px] pb-[80px]">            <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center mt-[100px] mb-[40px]">
                 In The News
             </h2>
             {/* <div className="flex flex-col md:flex-row justify-center px-[1.5rem]">

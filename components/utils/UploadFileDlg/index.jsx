@@ -7,12 +7,12 @@ export default function UploadFileDlg({ onClose }) {
         <div className="fixed top-0 left-0 w-[100vw] min-h-[100vh]  z-[50] flex justify-center bg-[#00000080] backdrop-blur-sm">
             <div className="bg-white flex flex-col px-[30px] py-[25px] h-fit mt-[100px] mx-[50px] shadow-md">
                 <div className="flex justify-between items-center mb-[10px]">
-                    <p className="text-[#996D01] text-[2.5rem] ml-[10px]"> Upload files </p>
+                    <p className="text-primary text-[2.5rem] ml-[10px]"> Upload files </p>
                     <button className="text-[#747067] flex justify-center items-center" onClick={() => {onClose(false)}}>
                         <FontAwesomeSvgIcon icon={faClose} width={20} height={20} className="text-[#747067]" />
                     </button>
                 </div>
-                <div className="border-[1px] border-[#BDBDBD] text-[#996D01] px-[20px] py-[10px]">
+                <div className="border-[1px] border-[#BDBDBD] text-primary px-[20px] py-[10px]">
                     <p> My Photos </p>
                 </div>
                 <div className="border-[1px] border-t-[0px] border-[#BDBDBD] p-[32px] flex bg-[#F5F5F5]">

@@ -12,7 +12,7 @@ export default function Home() {
         <div className={styles.container}>
       <Head>
         <title>Momento - About Us</title>
-        <meta name="description" content="Casino" />
+        <meta name="description" content="Momento" />
         <link rel="icon" href="/momento.png" />
       </Head>
 

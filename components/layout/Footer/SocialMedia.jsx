@@ -28,8 +28,8 @@ export default function SocialMedia({link, iconName}) {
     return (
         <Link href={link}>  
             <a target="_blank" 
-                className="m-[8px] bg-transparent hover:bg-[#747067] w-[40px] h-[40px] flex justify-center items-center rounded-[6px] mb-[1.5rem]"> 
-                <FontAwesomeIcon icon={getIcon(iconName)} inverse className="text-[24px] hover:text-white text-[#747067] p-[5px]"/> 
+                className="mx-[0.375rem] bg-transparent hover:bg-[#747067] w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-[0.5rem]"> 
+                <FontAwesomeIcon icon={getIcon(iconName)} inverse className="text-[1rem] hover:text-white text-[#747067] p-[5px]"/> 
             </a>
         </Link>
     )
