@@ -1,4 +1,7 @@
+import { useState } from "react"
+
 export default function Details() {
+    
     return (
         <div className="bg-white rounded-[1rem] px-[1.125rem] py-[1rem] flex flex-col h-fit grow">
             <h6 className="text-[1.5rem] leading-[2.25rem] font-bold text-primary mb-[1rem]"> Account Details </h6>
@@ -26,6 +29,7 @@ export default function Details() {
                     <input type="password" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="repeat Password"/>
                 </div>
 
+                <button className="w-fit h-[3rem] rounded-full bg-[#996D01] px-[24px] text-white text-[1rem] mb-[2rem]"> Save changes </button>
 
             </div>
         </div>

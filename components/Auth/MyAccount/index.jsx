@@ -20,7 +20,7 @@ export default function MyAccount() {
                             { TABLIST.map((item, index) =>
                                 <TabItem label={item} selectedItem={selectedTab} selectItem={selectTab} id={index} key={index}/>
                             )}
-                            <button className="md:w-full whitespace-nowrap px-[30px] text-[1rem] text-left text-primary leading-[1.6875rem]  pt-[1.25rem] pb-[0.625rem] md:pb-[1.25rem] border-b-[1px] border-primary md:border-[#D4D4D4]">
+                            <button className="md:w-full whitespace-nowrap px-[30px] text-[1rem] text-left text-primary leading-[1.6875rem]  pt-[1.25rem] pb-[0.625rem] md:pb-[1.25rem] border-b-[1px] md:border-b-[0px] border-primary md:border-[#D4D4D4]">
                                 <p className=""> Log out </p>
                             </button>
                         </div>

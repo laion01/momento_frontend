@@ -1,5 +1,6 @@
 import { data } from "autoprefixer";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function OrderItem({data}) {
     return (
@@ -10,7 +11,12 @@ export default function OrderItem({data}) {
             <td className="text-[#9E785D] text-[0.875rem] leading-[1.375] w-[80px]"> { data.quantity } </td>
             <td className="text-[#9E785D] text-[1rem] leading-[1.375] w-[120px] font-medium"> $ { data.totalPrice } </td>
             <td className="flex justify-start items-center w-[7.5rem]">
-                <button className="h-[3rem] rounded-full bg-[#996D01] px-[24px] text-white text-[1rem]"> Details </button>
+                <Link href={`/order?id=${data.id}`}>
+                    <a target="_blank"
+                        className="leading-[3rem] rounded-full bg-[#996D01] px-[24px] text-white text-[1rem]">
+                        Details
+                    </a>
+                </Link>
             </td>
             <td className="flex justify-start items-center w-[8rem] grow">
                 <Image alt="" src="/images/download.svg" width={24} height={24} />
