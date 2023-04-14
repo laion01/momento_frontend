@@ -13,7 +13,7 @@ export default function HeroSection() {
             </div>
             
             <div className="w-2/3 md:w-[223px] flex justify-center items-center">
-                <img alt="" src={'/images/jewelry.png'} width={223} height={332}/>
+                <Image alt="" src={'/images/jewelry.png'} width={223} height={332}/>
             </div>
             <div className="-mt-[9px] relative">
                 <Image alt="" src={'/images/phone.png'} width={394} height={746}/>
