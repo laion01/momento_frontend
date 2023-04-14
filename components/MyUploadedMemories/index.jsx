@@ -9,7 +9,7 @@ export default function MyUploadedMemories({}) {
             </div>
             <div className="flex flex-wrap">
                 { images.map((item, index) => 
-                    <Item image={item.image} type={item.type}/>
+                    <Item key={index} image={item.image} type={item.type}/>
                 )}
                 <div className="md:w-1/4 w-1/3"></div>
                 <div className="md:w-1/4 w-1/3"></div>
