@@ -8,7 +8,7 @@ export default function Forgot() {
         value: '', error: ''
     });
     return (
-        <div className="mx-[20px] md:mx-[40px] bg-[#F5F5F5] flex flex-col items-center pt-[8rem] pb-[3rem] min-h-[calc(100vh-1.5rem)] md:min-h-[calc(100vh-9rem)]">
+        <div className="mx-[20px] md:mx-[40px] bg-[#F5F5F5] flex flex-col items-center pt-[8rem] pb-[3rem] min-h-[calc(100vh-6rem)] md:min-h-[calc(100vh-4.5rem)]">
             <div className="bg-white flex flex-col items-center p-[1.5rem] h-fit mx-[50px] mb-[2rem] shadow-md w-[calc(100%-40px)] md:w-[450px] mb-[2rem] rounded-[0.5rem]">
                 <p className="text-primary text-[1.5rem] text-center font-bold mb-[2rem] leading-[2.25rem]"> Forgot your password </p>
                 <p className="text-[#747067] text-[1rem] text-center mb-[1.5rem] leading-[1.6875rem]"> Enter your registered email below to receive password reset instructions </p>

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import { useAuth } from 'store/hook';
+import Link from 'next/link';
 
 export default function Header() {
     const { logined } = useAuth();
@@ -24,28 +25,25 @@ export default function Header() {
         }
     }
 
-    const onHomeClicked = () => {
-        window.location.href = "/";
-    }
-
     return (
         <div className="z-30 bg-[#ffffff90] fixed w-full top-0 flex justify-between items-center transition-all duration-500 bg-white h-[4.5rem] px-[40px]">
-            {/* <div className=' flex justify-between'> */}
-            <div className='h-[40px] flex' onClick={() => { onHomeClicked() }}>
-                <Image
-                    src='/images/momento-logo.png'
-                    alt=''
-                    width={120}
-                    height={40}
-                />
-                <div className='mx-[20px] w-[1px] bg-[#747067] opacity-[0.2]'></div>
-                <Image
-                    src='/images/galatea-logo.png'
-                    alt=''
-                    width={156}
-                    height={40}
-                />
-            </div>
+            <Link href="/auth/signin">
+                <a target="_self" className='h-[40px] flex cursor-pointer items-center'>
+                    <Image
+                        src='/images/momento-logo.png'
+                        alt=''
+                        width={120}
+                        height={40}
+                    />
+                    <div className='mx-[20px] w-[1px] bg-[#747067] opacity-[0.2]'></div>
+                    <Image
+                        src='/images/galatea-logo.png'
+                        alt=''
+                        width={156}
+                        height={40}
+                    />
+                </a>
+            </Link>
             <div className='flex justify-center items-center'>
                 <Navbar className="hidden lg:block" />
                 <button className='w-[40px] h-[40px] mx-[20px]'>
@@ -63,7 +61,7 @@ export default function Header() {
                                     <Image alt="" src="/images/triangle.svg" width={48} height={40} />
                                 </div>
                             </div>
-                            { logined ?
+                            {logined ?
                                 <div className="-mt-[1px] bg-white rounded-tr-[0px] rounded-[8px] flex flex-col p-[1.125rem] border-[1px] border-[#D4D4D4] drop-shadow z-[20]">
                                     <div className='flex flex items-center'>
                                         <div className='w-[24px] h-[24px] flex items-center mr-[0.5rem]'>
@@ -87,19 +85,23 @@ export default function Header() {
                                     </div>
                                 </div> :
                                 <div className="-mt-[1px] bg-white rounded-tr-[0px] rounded-[8px] flex flex-col p-[1.125rem] border-[1px] border-[#D4D4D4] drop-shadow z-[20]">
-                                    <div className='flex flex items-center'>
-                                        <div className='w-[24px] h-[24px] flex items-center mr-[0.5rem]'>
-                                            <Image alt="" src="/images/sign-in.svg" width={24} height={24} />
-                                        </div>
-                                        <p className='text-[#747067] text-[1rem] leading-[1.6875rem]'> Sign in </p>
-                                    </div>
+                                    <Link href="/auth/signin">
+                                        <a target="_self" className='flex flex items-center'>
+                                            <div className='w-[24px] h-[24px] flex items-center mr-[0.5rem]'>
+                                                <Image alt="" src="/images/sign-in.svg" width={24} height={24} />
+                                            </div>
+                                            <p className='text-[#747067] text-[1rem] leading-[1.6875rem]'> Sign in </p>
+                                        </a>
+                                    </Link>
                                     <div className='w-full my-[0.75rem] h-[1px] border-[#C6C6C8]'></div>
-                                    <div className='flex flex items-center'>
-                                        <div className='w-[24px] h-[24px] flex items-center mr-[0.5rem]'>
-                                            <Image alt="" src="/images/avatar.svg" width={24} height={24} />
-                                        </div>
-                                        <p className='text-[#747067] text-[1rem] leading-[1.6875rem]'> Create account </p>
-                                    </div>
+                                    <Link href="/auth/signup">
+                                        <a target="_self" className='flex flex items-center'>
+                                            <div className='w-[24px] h-[24px] flex items-center mr-[0.5rem]'>
+                                                <Image alt="" src="/images/avatar.svg" width={24} height={24} />
+                                            </div>
+                                            <p className='text-[#747067] text-[1rem] leading-[1.6875rem]'> Create account </p>
+                                        </a>
+                                    </Link>
                                 </div>
                             }
 
