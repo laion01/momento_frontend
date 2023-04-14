@@ -7,6 +7,7 @@ import Link from 'next/link';
 export default function Header() {
     const { logined } = useAuth();
     const [isDropDown, openDropdown] = useState(false);
+    const [notificationCount, setNotificationCount] = useState(5);
     const [isShadow, showShadow] = useState(false);
 
     useEffect(() => {
@@ -46,13 +47,20 @@ export default function Header() {
             </Link>
             <div className='flex justify-center items-center'>
                 <Navbar className="hidden lg:block" />
-                <button className='w-[40px] h-[40px] mx-[20px]'>
+                <button className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
                     <Image alt='' src='/images/bag.png' width={40} height={40} />
+                    { notificationCount > 0 &&
+                        <p className='absolute text-white min-w-[1.625rem] min-h-[1.625rem] px-[0.25rem] -top-[0.25rem] -right-[0.75rem] bg-primary rounded-[10px] rounded-bl-[0px] border-[0.125rem] border-white'>
+                            { notificationCount }
+                        </p>
+                     }
                 </button>
                 <div className='w-[2.5rem] h-[2.5rem] mx-[20px] relative cursor-pointer'>
                     <div className='w-[2.5rem] h-[2.5rem]' onClick={() => { openDropdown(true) }}>
                         <Image alt='' src='/images/avatar.png' width={40} height={40} />
                     </div>
+                    
+                    
                     {isDropDown &&
                         <div className='absolute top-[60px] right-[0.5rem] flex flex-col min-w-[280px]'>
                             <div className='fixed top-0 left-0 min-w-[100vw] min-h-[100vh] z-10' onClick={() => { openDropdown(false) }}></div>
@@ -94,6 +102,7 @@ export default function Header() {
                                         </a>
                                     </Link>
                                     <div className='w-full my-[0.75rem] h-[1px] border-[#C6C6C8]'></div>
+                                    
                                     <Link href="/auth/signup">
                                         <a target="_self" className='flex flex items-center'>
                                             <div className='w-[24px] h-[24px] flex items-center mr-[0.5rem]'>
