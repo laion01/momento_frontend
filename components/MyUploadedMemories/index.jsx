@@ -1,5 +1,5 @@
 import { FontAwesomeSvgIcon} from "react-fontawesome-svg-icon"
-import Item from "./Item"
+import ImageItem from "components/utils/ImageItem"
 
 export default function MyUploadedMemories({}) {
     return (
@@ -9,7 +9,7 @@ export default function MyUploadedMemories({}) {
             </div>
             <div className="flex flex-wrap">
                 { images.map((item, index) => 
-                    <Item key={index} image={item.image} type={item.type}/>
+                    <ImageItem key={index} image={item.image} type={item.type}/>
                 )}
                 <div className="md:w-1/4 w-1/3"></div>
                 <div className="md:w-1/4 w-1/3"></div>

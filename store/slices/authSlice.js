@@ -5,13 +5,15 @@ import {
   
   const initialState = {
     logined: false,
-    wallet: "",
     token: "",
-    user_name: "",
-    user_email: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    address: "",
     is_verify: 0,
-    user_id: null,
-    nonce: null,
+    phone: "",
+    userId: null,
+    billingAddress: {}
   };
   
   export const loginSlice = createSlice({
@@ -24,36 +26,45 @@ import {
       
       login: (state, action) => {
         state.logined = true;
-        state.wallet = action.payload['wallet'];
+        state.userId = action.payload['id'];
         state.token = action.payload['token'];
-        state.user_name = action.payload['user_name'];
-        state.user_email = action.payload['user_email'];
+        state.firstName = action.payload['firstName'];
+        state.lastName = action.payload['lastName'];
+        state.email = action.payload['email'];
         state.is_verify = action.payload['is_verify'];
-        state.user_id = action.payload['user_id'];
-        state.nonce = action.payload['nonce'];
+        state.address = action.payload['address'];
+        state.phone = action.payload['phone'];
+        state.billingAddress = action.payload['billingAddress'];
 
         localStorage.setItem('auth', JSON.stringify(state));
         localStorage.setItem('token', state.token);
       },
 
       logout: (state) => {
+        state.userId = null,
         state.logined = false,
-        state.wallet = "",
         state.token = "",
-        state.user_name = "",
-        state.user_email = "",
+        state.firstName = "",
+        state.lastName = "",
+        state.email = "",
+        state.address = "",
         state.is_verify = 0,
-        state.user_id = null,
-        state.nonce = null
+        state.phone = "",
+        state.billingAddress = {}
         localStorage.removeItem('auth');
         localStorage.removeItem('token');
-      }
+      },
+
+      setBillingAddress: (state, action) => {
+        state.billingAddress = action.payload['billingAddress'];
+      },
     },
   });
   // Here we are just exporting the actions from this slice, so that we can call them anywhere in our app.
   export const {
     login,
-    logout
+    logout,
+    setBillingAddress
   } = loginSlice.actions;
   
   // exporting the reducer here, as we need to add this to the store

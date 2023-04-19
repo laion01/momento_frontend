@@ -5,8 +5,10 @@ import UploadFileDlg from "components/utils/UploadFileDlg";
 import Item from "components/ShoppingCart/Item";
 import PaymentSection from "./PaymentSection";
 import MyUploadedMemories from "components/MyUploadedMemories";
+import { useDispatch } from "react-redux";
 
 export default function Checkout() {
+    const dispatch = useDispatch()
     const [isOpenDlg, openDlg] = useState(false);
     const [pageNum, setPageNum] = useState(1);
 

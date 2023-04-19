@@ -5,9 +5,16 @@ import Dashboard from "./Dashboard";
 import Orders from "./Orders";
 import Address from "./Address";
 import Details from "./Details";
+import { useDispatch } from "react-redux";
+import { logout } from "store/slices/authSlice";
 
 export default function MyAccount() {
+    const dispatch = useDispatch();
     const [selectedTab, selectTab] = useState(0);
+
+    const onLogoutClicked = async () => {
+        dispatch(logout());
+    }
 
     return (
         <div className="mx-[20px] md:mx-[40px] bg-[#F5F5F5] flex justify-center pt-[20px]">
@@ -20,7 +27,9 @@ export default function MyAccount() {
                             { TABLIST.map((item, index) =>
                                 <TabItem label={item} selectedItem={selectedTab} selectItem={selectTab} id={index} key={index}/>
                             )}
-                            <button className="md:w-full whitespace-nowrap px-[30px] text-[1rem] text-left text-primary leading-[1.6875rem]  pt-[1.25rem] pb-[0.625rem] md:pb-[1.25rem] border-b-[1px] md:border-b-[0px] border-primary md:border-[#D4D4D4]">
+                            <button onClick={() => {
+
+                            }} className="md:w-full whitespace-nowrap px-[30px] text-[1rem] text-left text-primary leading-[1.6875rem]  pt-[1.25rem] pb-[0.625rem] md:pb-[1.25rem] border-b-[1px] md:border-b-[0px] border-primary md:border-[#D4D4D4]">
                                 <p className=""> Log out </p>
                             </button>
                         </div>

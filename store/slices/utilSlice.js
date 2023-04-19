@@ -6,9 +6,8 @@ import {
   const initialState = {
     isOverlay: false,
     isSpinner: false,
-    isWalletConnector: false,
-    isCryptoPayment: false,
-    isPaypalPayment: false,
+    myBag: [],
+    notifications: [],
   };
   
   export const utilSlice = createSlice({
@@ -34,29 +33,13 @@ import {
         state.isOverlay = false;
       },
 
-      showWalletConnector: (state) => {
-        state.isWalletConnector = true;
+      setNotificatioins: (state, action) => {
+        state.notifications = action.payload['notifications'];
       },
 
-      hideWalletConnector: (state) => {
-        state.isWalletConnector = false;
+      setMyBag: (state, action) => {
+        state.notifications = action.payload['myBag'];
       },
-
-      showCryptoPayment: (state) => {
-        state.isCryptoPayment = true;
-      },
-
-      hideCryptoPayment: (state) => {
-        state.isCryptoPayment = false;
-      },
-
-      showPaypalPayment: (state) => {
-        state.isPaypalPayment = true;
-      },
-
-      hidePaypalPayment: (state) => {
-        state.isPaypalPayment = false;
-      }
     },
   });
   // Here we are just exporting the actions from this slice, so that we can call them anywhere in our app.
@@ -65,12 +48,9 @@ import {
     hideSpinner,
     showOverlay,
     hideOverlay,
-    showWalletConnector,
-    hideWalletConnector,
-    showCryptoPayment,
-    hideCryptoPayment,
-    showPaypalPayment,
-    hidePaypalPayment,
+    setNotificatioins,
+    setMyBag,
+    
   } = utilSlice.actions;
   
   // exporting the reducer here, as we need to add this to the store

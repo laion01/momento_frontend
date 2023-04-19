@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useEffect } from 'react';
+import Script from "next/script";
 import styles from '../styles/Home.module.css'
 import HeroSection from "components/LandingPage/HeroSection";
 import VideoSection from "components/LandingPage/VideoSection";
@@ -24,6 +25,7 @@ export default function Home() {
         <meta name="description" content="Momento" />
         <link rel="icon" href="/momento.png" />
       </Head>
+      <script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js"/>
 
       <main>
         <HeroSection />

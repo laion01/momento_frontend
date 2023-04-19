@@ -11,7 +11,7 @@ export default function Item({}) {
             </div>
             <div className="flex flex-col grow">
                 <div className="flex justify-between items-center mb-[0.25rem] text-[1rem] font-bold leading-[1.6875rem] text-[#747067]">
-                    <p> Momento® Locket Pearl Flower </p>
+                    <p> Momento® Locket </p>
                     <p> $300 </p>
                 </div>
                 <p className="text-[0.875rem] text-[#747067] mb-[0.25rem]"> Metal: Silver </p>

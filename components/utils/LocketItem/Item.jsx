@@ -1,5 +1,7 @@
 import Image from "next/image"
+import { useRouter } from "next/router";
 import { useState } from "react"
+import Button from "../Buttons/Button";
 
 const colors = [
     {}, { 
@@ -42,10 +44,17 @@ const colors = [
     }, {}, {}, {}
 ]
 
-export default function LocketItem({image, title, context, price, categories, colorItems, selectedCat, selectedColor}) {
+export default function LocketItem({image, title, context, price, categories, colorItems}) {
+    const router = useRouter();
+    const [selectedColor, selectColor] = useState(1);
+    const [selectedMetal, selectMetal] = useState(1);
+    const [quantity, setQuantity] = useState(1);
+
     return (
-        <div className="w-[436px] h-[569px] p-[20px] m-[10px] bg-white padding-[16px] flex flex-col justify-start items-center shadow">
-            <div className="w-full h-full flex flex-col justify-start items-center bg-[#f5f5f5]">
+        <div className="w-[436px] h-[569px] m-[0.625rem] bg-white padding-[16px] flex flex-col justify-start items-center shadow hover:shadow-md cursor-pointer"
+            onClick={() => { router.push({pathname: "/locket"})}}
+        >
+            <div className="w-[calc(100%-2.5rem)] hover:w-[calc(100%-1.25rem)] hover:pt-[0.5rem] h-full flex flex-col m-[1.25rem] hover:m-[0.75rem] justify-start items-center bg-[#f5f5f5] transition-all duration-500">
                 <div className="mb-[5px] -mt-[20px] flex flex-col">
                     <Image alt="" src={image} width={207} height={257}/>
                 </div>
@@ -53,7 +62,9 @@ export default function LocketItem({image, title, context, price, categories, co
                 <p className="text-[1.125rem] leading-[1.5rem] text-[#747067] mb-[24px] text-center"> $ { price } </p>
                 <div className="flex justify-center items-center mb-[24px]">
                     { categories.map((cat, index) => 
-                    <button key={index} className="rounded-full text-[#747067] text-center leading-[1.3125rem] mx-[4px] px-[12px] border-[#747067] h-[33px]" style={{borderWidth: index==selectedCat ? 2 : 0, backgroundColor: index==selectedCat ? "transparent" : "#74706708"}}>
+                    <button key={index} className="rounded-full text-[#747067] text-center leading-[1.3125rem] mx-[4px] px-[12px] border-[#747067] h-[33px]" style={{borderWidth: index==selectedMetal ? 2 : 0, backgroundColor: index==selectedMetal ? "transparent" : "#74706708"}}
+                        onClick={(e) => { selectMetal(index), e.stopPropagation() }}
+                    >
                         { cat }
                     </button>
                     )}
@@ -62,13 +73,15 @@ export default function LocketItem({image, title, context, price, categories, co
                 <div className="flex justify-center items-center mb-[24px]">
                     { colorItems.map((colorIndex, index) => 
                         // <button key={colorIndex} className="rounded-full mx-[8px] p-[2px] border-[#747067] flex justify-center items-center" style={{borderWidth: colorIndex==selectedColor ? 2 : 0}}>
-                            <div key={colorIndex} className="rounded-full pt-[3px] w-[2.5rem] h-[2.5rem] flex justify-center items-center border-[#747067]" style={{borderWidth: colorIndex==selectedColor ? 2 : 0}}>
+                            <button key={index} className="rounded-full pt-[3px] w-[2.5rem] h-[2.5rem] flex justify-center items-center border-[#747067]" style={{borderWidth: index == selectedColor ? 2 : 0}}
+                                onClick={(e) => { selectColor(index), e.stopPropagation() }}
+                            >
                                 <Image alt={colors[colorIndex].name} src={colors[colorIndex].image} width={32} height={32} />
-                            </div>
+                            </button>
                         // </button>
                     )}
                 </div>
-                <button className="h-[3rem] rounded-full bg-[#996D01] px-[24px] text-white text-[1rem]"> Add to Bag </button>
+                <Button label="Add to Bag" onClick={(e) => {alert("123"), e.stopPropagation()}} />
             </div>
         </div>
     )

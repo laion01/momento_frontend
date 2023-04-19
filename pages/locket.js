@@ -1,4 +1,5 @@
-import LocketsGallery from 'components/LocketsGallery';
+import AboutUs from 'components/AboutUs';
+import Locket from 'components/Locket';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import styles from '../styles/Home.module.css'
@@ -17,7 +18,7 @@ export default function Home() {
       </Head>
 
       <main >
-        <LocketsGallery />
+        <Locket />
       </main>
       <footer></footer>
     </div>
