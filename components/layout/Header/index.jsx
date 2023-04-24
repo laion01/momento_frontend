@@ -1,27 +1,42 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Navbar from './Navbar';
-import { useAuth } from 'store/hook';
+import { useAuth, useUtil } from 'store/hook';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import UserDropdown from './UserDropdown';
+import NotificationMenu from './NotificationMenu';
+import BagMenu from './BagMenu';
+import { setMyBag } from 'store/slices/utilSlice';
+import Button from 'components/utils/Buttons/Button';
 
 export default function Header() {
     const router = useRouter();
     const dispatch = useDispatch();
-    const { logined } = useAuth();
-    const [isDropDown, openDropdown] = useState(false);
-    const [itemsCountInBag, setCountInBag] = useState(5);
-    const [ordersCount, setOrdersCount] = useState(2);
+    const { myBag } = useUtil();
+    const [isUserDropDown, openUserDropdown] = useState(false);
+    const [isNotificationDropDown, openNotificationDropdown] = useState(false);
+    const [isBagDropDown, openBagDropdown] = useState(false);
+    const [ordersCount, setOrdersCount] = useState(4);
     const [isShadow, showShadow] = useState(false);
 
     useEffect(() => {
-        if (window) {
-            window.onscroll = function () {
-                checkScroll();
+        dispatch(setMyBag({myBag: [
+            {
+                image: '/images/jewelry.png',
+                name: 'Momento® Locket Pearl Flower',
+                price: '300.0'
+            }, {
+                image: '/images/jewelry.png',
+                name: 'Momento® Locket Pearl Flower',
+                price: '300.0'
+            }, {
+                image: '/images/jewelry.png',
+                name: 'Momento® Locket Pearl Flower',
+                price: '300.0'
             }
-        }
+        ]}))
     }, [])
 
     const checkScroll = function () {
@@ -53,31 +68,36 @@ export default function Header() {
             </Link>
             <div className='flex justify-center items-center'>
                 <Navbar className="hidden lg:block" />
+                <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
+                    <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { openNotificationDropdown(true) }}>
+                        <Image alt='' src='/images/bell.svg' width={40} height={40} />
+                        { ordersCount > 0 &&
+                            <p className='absolute text-white min-w-[1.625rem] min-h-[1.625rem] px-[0.25rem] -top-[0.25rem] -right-[0.75rem] bg-primary rounded-[10px] rounded-bl-[0px] border-[0.125rem] border-white'>
+                                { ordersCount }
+                            </p>
+                        }
+                    </button>
+                    { isNotificationDropDown && <NotificationMenu onCloseMenu={() => {openNotificationDropdown(false)}}/>}
+                </div>
+                <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
+                    <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { myBag.length && openBagDropdown(true) }}>
+                        <Image alt='' src='/images/bag.png' width={40} height={40} />
+                        { myBag?.length > 0 &&
+                            <p className='absolute text-white min-w-[1.625rem] min-h-[1.625rem] px-[0.25rem] -top-[0.25rem] -right-[0.75rem] bg-primary rounded-[10px] rounded-bl-[0px] border-[0.125rem] border-white'>
+                                { myBag?.length }
+                            </p>
+                        }
+                    </button>
+                    { isBagDropDown && <BagMenu onCloseMenu={() => {openBagDropdown(false)}}/>}
+                </div>
                 
-                <button className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
-                    <Image alt='' src='/images/bell.svg' width={40} height={40} />
-                    { ordersCount > 0 &&
-                        <p className='absolute text-white min-w-[1.625rem] min-h-[1.625rem] px-[0.25rem] -top-[0.25rem] -right-[0.75rem] bg-primary rounded-[10px] rounded-bl-[0px] border-[0.125rem] border-white'>
-                            { ordersCount }
-                        </p>
-                     }
-                </button>
-                <button className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
-                    <Image alt='' src='/images/bag.png' width={40} height={40} />
-                    { itemsCountInBag > 0 &&
-                        <p className='absolute text-white min-w-[1.625rem] min-h-[1.625rem] px-[0.25rem] -top-[0.25rem] -right-[0.75rem] bg-primary rounded-[10px] rounded-bl-[0px] border-[0.125rem] border-white'>
-                            { itemsCountInBag }
-                        </p>
-                     }
-                </button>
-                <div className='w-[2.5rem] h-[2.5rem] mx-[20px] relative cursor-pointer'>
-                    <div className='w-[2.5rem] h-[2.5rem]' onClick={() => { openDropdown(true) }}>
+                <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
+                    <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { openUserDropdown(true) }}>
                         <Image alt='' src='/images/avatar.png' width={40} height={40} />
-                    </div>
+                    </button>
                     
-                    
-                    {isDropDown &&
-                        <UserDropdown />
+                    {isUserDropDown &&
+                        <UserDropdown onCloseMenu={() => {openUserDropdown(false)}}/>
                     }
                 </div>
 

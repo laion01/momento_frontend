@@ -8,6 +8,9 @@ import {
     isSpinner: false,
     myBag: [],
     notifications: [],
+    products: [],
+    colors: [],
+    metals: [],
   };
   
   export const utilSlice = createSlice({
@@ -38,8 +41,20 @@ import {
       },
 
       setMyBag: (state, action) => {
-        state.notifications = action.payload['myBag'];
+        state.myBag = action.payload['myBag'];
       },
+
+      setProducts: (state, action) => {
+        state.products = action.payload['products'];
+      },
+      
+      setMetals: (state, action) => {
+        state.metals = action.payload['metals'];
+      },
+      
+      setColors: (state, action) => {
+        state.colors = action.payload['colors'];
+      }
     },
   });
   // Here we are just exporting the actions from this slice, so that we can call them anywhere in our app.
@@ -50,7 +65,9 @@ import {
     hideOverlay,
     setNotificatioins,
     setMyBag,
-    
+    setProducts,
+    setMetals,
+    setColors,
   } = utilSlice.actions;
   
   // exporting the reducer here, as we need to add this to the store
