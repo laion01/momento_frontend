@@ -12,7 +12,7 @@ export default function NotificationMenu({onCloseMenu}) {
 
 
     return (
-        <div className='absolute top-[60px] right-[0.5rem] flex flex-col min-w-[400px] mb-[0.5rem]'>
+        <div className='absolute top-[60px] right-[0.5rem] flex flex-col min-w-[400px]'>
             <div className='fixed top-0 left-0 min-w-[100vw] min-h-[100vh] z-10' onClick={() => { onCloseMenu() }}></div>
             <div className='flex justify-end overflow-hidden z-30'>
                 <div className='h-[13px] overflow-hidden -mr-[1px]'>

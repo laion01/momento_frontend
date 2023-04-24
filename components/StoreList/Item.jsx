@@ -7,7 +7,7 @@ export default function Item({ index, data}) {
     const [isVisible, showDetails] = useState(false)
     return (
         <div className="flex flex-col">
-            <div className="border-b-[1px] border-b-[#F5F5F5] hover:bg-[#f5f5f5] relative flex items-center">
+            <div className="border-b-[1px] border-b-[#F5F5F5] hover:bg-[#f5f5f5] relative flex items-center w-fit">
                 <p className="min-w-[2.5rem] text-center"> { index } </p>
                 <p className="min-w-[80px] flex items-center font-bold">
                     {data.id}

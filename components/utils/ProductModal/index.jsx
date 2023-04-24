@@ -7,30 +7,46 @@ import { toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { useRouter } from 'next/router';
 import { login } from "store/slices/authSlice";
+import { useUtil } from "store/hook";
+import { useEffect } from "react";
+import { setProducts } from "store/slices/utilSlice";
 
-export default function ProductModal({ type, onClose }) {
+export default function ProductModal({ type, onClose, data }) {
     const dispatch = useDispatch();
+
+    const { products, productTypes } = useUtil();
     const router = useRouter();
     const [productName, setProductName] = useState("");
-    const [productType, setProductType] = useState("");
+    const [productType, setProductType] = useState(0);
 
-    const onLoginClicked = async () => {
-        if (productName == "davidleiva4999@gmail.com" && productType == "admin") {
+    useEffect(() => {
+        if(type == 1) {
+            setProductType(0)
+        } else {
+            setProductType(data.type)
+            setProductName(data.name)
+        }
+    }, [type])
+
+    const getTypeName = (t) => {
+        for(let i = 0 ;i < productTypes.length; i++) {
+            if(productTypes[i].id == t)
+                return productTypes[i].name
+        }
+    }
+
+    const onAddClicked = async () => {
+        if (productName != "" && productType == "0") {
             toast.success("Login success!");
+            const id = products[products.length - 1].id + 1;
+            dispatch(setProducts({ products : [
+                ...products, {
+                    id,
+                    name: productName,
+                    type: productType,
+                }
+            ]}));
 
-            dispatch(login({
-                token: 'asdfasdf',
-                firstName: 'David',
-                lastName: 'Leiva',
-                productName: 'davidleiva4999@gmail.com',
-                is_verify: 1,
-                address: '351 Markham Streen, Toronto',
-                phone: '+12055885568'
-            }));
-
-            router.push({
-                pathname: '/'
-            })
         } else {
             toast.error("Login Failed!");
         }
@@ -43,14 +59,13 @@ export default function ProductModal({ type, onClose }) {
                 <input type="text" value={productName} onChange={(e) => {
                     setProductName(e.target.value)
                 }} className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px] mb-[1rem]" placeholder="Locket name" />                
-                <input type="text" value={productType} onChange={(e) => {
+                {/* <input type="text" value={productType} onChange={(e) => {
                         setProductType(e.target.value)
-                    }} className="grow text-[1rem] outline-none" placeholder="Locket Type" />
-                <select name="cars" id="cars" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px] mb-[1rem]">
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
+                    }} className="grow text-[1rem] outline-none" placeholder="Locket Type" /> */}
+                <select value={productType} className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px] mb-[1rem]">
+                    { productTypes.map((t, index) =>
+                        <option key={index} value={t.id}> {t.name} </option>
+                    )}
                 </select>
                 <div className="flex justify-end items-end w-full">
                     <button className="h-[3rem] rounded-full bg-[#d5d5d5] px-[24px] text-white text-[1rem] mb-[1rem] w-fit mr-[1rem]"
@@ -60,7 +75,7 @@ export default function ProductModal({ type, onClose }) {
                     > Cancel </button>
                     <button className="h-[3rem] rounded-full bg-[#996D01] px-[24px] text-white text-[1rem] mb-[1rem] w-fit"
                         onClick={() => {
-                            onLoginClicked()
+                            onAddClicked()
                         }}
                     > {type == 1 ? "Add" : "Save"} </button>
                 </div>

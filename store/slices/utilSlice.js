@@ -11,6 +11,7 @@ import {
     products: [],
     colors: [],
     metals: [],
+    productTypes: [],
   };
   
   export const utilSlice = createSlice({
@@ -45,15 +46,19 @@ import {
       },
 
       setProducts: (state, action) => {
-        state.products = action.payload['products'];
+        state.products = [...action.payload['products']];
       },
       
       setMetals: (state, action) => {
-        state.metals = action.payload['metals'];
+        state.metals = [...action.payload['metals']];
       },
       
       setColors: (state, action) => {
-        state.colors = action.payload['colors'];
+        state.colors = [...action.payload['colors']];
+      },
+
+      setProductTypes: (state, action) => {
+        state.productTypes = [...action.payload['productTypes']];
       }
     },
   });
@@ -68,6 +73,7 @@ import {
     setProducts,
     setMetals,
     setColors,
+    setProductTypes
   } = utilSlice.actions;
   
   // exporting the reducer here, as we need to add this to the store

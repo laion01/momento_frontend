@@ -55,6 +55,15 @@ export default function Item({ index, data}) {
                             <p className="min-w-[100px]"> Price : <span className="font-semibold text-[0.75rem]">${ product.price}</span> </p>
                             <p className="min-w-[160px]"> Total Price : <span className="font-semibold text-[0.75rem]">${ product.totalPrice}</span> </p>
                             <p className="min-w-[120px]"> Quanity: <span className="font-semibold text-[0.75rem]"> {product.quantity}  </span></p>
+                            <div className="min-w-[120px] flex items-center"> 
+                                <p> Images: </p> 
+                                { images.map((item, index) => 
+                                    <button className="flex w-[1.5rem] h-[1.5rem] rounded-full overflow-hidden ml-[0.5rem]">
+                                        <Image alt="" width={24} height={24} src={item.image}/>
+                                    </button>
+                                )}
+                                <></>
+                            </div>
                         </div>
                     )}
                 </div>
@@ -63,3 +72,19 @@ export default function Item({ index, data}) {
         
     )
 }
+
+const images = [
+    {
+        id : 1,
+        image: "/images/logo.png",
+    }, {
+        id : 2,
+        image: "/images/logo.png",
+    }, {
+        id : 3,
+        image: "/images/logo.png",
+    }, {
+        id : 4,
+        image: "/images/logo.png",
+    }
+]

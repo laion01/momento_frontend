@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import UserDropdown from './UserDropdown';
 import NotificationMenu from './NotificationMenu';
 import BagMenu from './BagMenu';
-import { setMyBag } from 'store/slices/utilSlice';
+import { setColors, setMetals, setMyBag, setProducts, setProductTypes } from 'store/slices/utilSlice';
 import Button from 'components/utils/Buttons/Button';
 
 export default function Header() {
@@ -36,7 +36,98 @@ export default function Header() {
                 name: 'Momento® Locket Pearl Flower',
                 price: '300.0'
             }
+        ]}));
+
+        dispatch(setProductTypes({ productTypes : [
+            { 
+                id: 0, 
+                name: "type 1", 
+            }, 
+            { 
+                id: 1, 
+                name: "type 2", 
+            }, 
+            { 
+                id: 2, 
+                name: "type 3", 
+            }, 
+            { 
+                id: 3, 
+                name: "type 4", 
+            }, 
         ]}))
+
+        dispatch(setMetals({ metals : [
+            { 
+                id: 0,
+                name: "metal 0", 
+            }, 
+            { 
+                id: 1,
+                name: "metal 1", 
+            }, 
+            { 
+                id: 2,
+                name: "metal 2", 
+            }, 
+            { 
+                id: 3,
+                name: "metal 3", 
+            }, 
+        ]}))
+
+        dispatch(setColors({ colors : [
+            {
+                id: 1, 
+                name: "Red",
+                image: "/images/colors/color_1.svg"
+            }, {
+                id: 2, 
+                name: "green",
+                image: "/images/colors/color_2.svg"
+            }, {
+                id: 3, 
+                name: "blue",
+                image: "/images/colors/color_3.svg"
+            }, {
+                id: 4, 
+                name: "yellow",
+                image: "/images/colors/color_4.svg"
+            }, {
+                id: 5, 
+                name: "pink",
+                image: "/images/colors/color_5.svg"
+            }, {
+                id: 6, 
+                name: "purple",
+                image: "/images/colors/color_6.svg"
+            }, 
+        ]}))
+
+        dispatch(setProducts({ products : [
+            {
+                id: 1,
+                name : "Pearl Flower 1",
+                type : 0,
+            }, {
+                id: 2,
+                name : "Pearl Flower 2",
+                type : 1,
+            }, {
+                id: 3,
+                name : "Pearl Flower 3",
+                type : 3,
+            }, {
+                id: 4,
+                name : "Pearl Flower 4 ",
+                type : 2,
+            }, {
+                id: 5,
+                name : "Pearl Flower 5",
+                type : 2,
+            }
+        ]}))
+
     }, [])
 
     const checkScroll = function () {
