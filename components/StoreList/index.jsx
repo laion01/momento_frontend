@@ -48,7 +48,7 @@ export default function StoreList() {
                                 <ProductItem key={index} index={index} onClick={() => { openProductModal(2), selectProduct(products[index])}} data={product} typeName={getTypeName(product.type)}/>
                             )}
                         </div>
-                        <div className="w-auto max-h-[calc(100vh-6rem)] overflow-y-auto mx-[0.5rem] mb-[2rem] bg-white p-[1rem] rounded-[0.5rem] text-[0.75rem] flex flex-col min-h-[50vh] w-fit">
+                        <div className="w-auto max-h-[calc(100vh-6rem)] overflow-y-auto mx-[0.5rem] mb-[2rem] bg-white p-[1rem] rounded-[0.5rem] text-[0.75rem] flex flex-col min-h-[50vh]">
                             <div className="h-[2.5rem] items-center flex justify-between w-fit font-bold text-[0.875rem] w-full">
                                 <p className="text-[1.25rem] text-primary font-bold"> Metal </p>
                                 <button className=""  onClick={() => {openMetalModal(true)}}> + Add </button>
@@ -61,7 +61,7 @@ export default function StoreList() {
                                 <MetalItem key={index} index={index} data={metal} onClick={() => {openMetalModal(2), selectMetal(metal)}}/>
                             )}
                         </div>
-                        <div className="max-h-[calc(100vh-6rem)] overflow-y-auto mx-[0.5rem] mb-[2rem] bg-white p-[1rem] rounded-[0.5rem] text-[0.75rem] flex flex-col min-h-[50vh] w-fit">
+                        <div className="max-h-[calc(100vh-6rem)] overflow-y-auto mx-[0.5rem] mb-[2rem] bg-white p-[1rem] rounded-[0.5rem] text-[0.75rem] flex flex-col min-h-[50vh]">
                             <div className="h-[2.5rem] items-center flex justify-between w-fit font-bold text-[0.875rem] w-full">
                                 <p className="text-[1.25rem] text-primary font-bold"> Colors </p>
                                 <button className="" onClick={() => {openColorModal(1)}}> + Add </button>
@@ -77,19 +77,12 @@ export default function StoreList() {
                             </div>
                     </div>
                     
-                    <div className="h-fit min-h-[calc(100vh-5.5rem)] mx-[0.5rem] mb-[120px] bg-white p-[1rem] rounded-[0.5rem] text-[0.75rem] flex flex-col overflow-x-auto min-h-[50vh] w-full overflow-x-auto">
-                        <div className="border-b-[2px] flex w-fit font-bold text-[0.875rem] w-fit">
-                            <div className="h-[2.5rem] w-[2.5rem] text-center"> No </div>
-                            <div className="h-[2.5rem] w-[80px] text-left"> Order ID </div>
-                            <div className="h-[2.5rem] w-[160px] text-left"> Buyer </div>
-                            <div className="h-[2.5rem] w-[200px] text-left"> Products </div>
-                            <div className="h-[2.5rem] w-[100px] text-center"> Sub Total </div>
-                            <div className="h-[2.5rem] w-[80px] text-center"> Promotion </div>
-                            <div className="h-[2.5rem] w-[100px] text-center"> Tax </div>
-                            <div className="h-[2.5rem] w-[120px] text-center"> Total Price</div>
-                            <div className="h-[2.5rem] w-[120px] text-center"> UPS ID </div>
-                            <div className="h-[2.5rem] w-[400px] text-left"> Shipping Address </div>
-                            <div className="h-[2.5rem] w-[100px] text-center"> Status </div>
+                    <div className="h-fit min-h-[calc(100vh-5.5rem)] mx-[0.5rem] mb-[120px] bg-white p-[1rem] rounded-[0.5rem] text-[0.75rem] flex flex-col min-h-[50vh] w-full">
+                        <div className="border-b-[2px] flex w-fit font-bold text-[0.875rem] w-full">
+                            <p className="h-[2.5rem] min-w-[2.5rem] text-center"> No </p>
+                            <p className="h-[2.5rem] min-w-[60px] text-center"> PID </p>
+                            <p className="h-[2.5rem] grow text-left"> Product Name </p>
+                            <p className="h-[2.5rem] min-w-[100px] text-center"> Amount </p>
                         </div>
                         { orderList.map((item, index) => 
                             <Item key={index} data={item} index={index}/>
@@ -115,129 +108,90 @@ const orders = [
         id: 79383,
         products: [
             {
-                id: 124,
-                name: "Pearl Flower",
-                image: '/images/jewelry.png',
-                metal: "Silver",
-                color: "Red",
-                price: 125.0,
-                quantity: 3,
-                totalPrice: 350,
+                metal_id: 1,
+                color_id: 1,
+                price: 120,
+                amount: 3,
+            }, {
+                metal_id: 1,
+                color_id: 3,
+                price: 120,
+                amount: 3,
+            }, {
+                metal_id: 1,
+                color_id: 4,
+                price: 120,
+                amount: 3,
             }, 
-            {
-                id: 125,
-                name: "Pearl Flower",
-                image: '/images/jewelry.png',
-                metal: "Silver",
-                color: "Red",
-                price: 125.0,
-                quantity: 3,
-                totalPrice: 350,
-            }, 
-            {
-                id: 126,
-                name: "Pearl Flower",
-                image: '/images/jewelry.png',
-                metal: "Silver",
-                color: "Red",
-                price: 125.0,
-                quantity: 3,
-                totalPrice: 350,
-            }
+            
         ],
-        username: "Mark Newman",
-        subTotal: 122.50,
-        promotion: 10.00,
-        tax: 35.00,
-        total: 142.5,
-        upsId: 213654641,
-        address: "351 Markham street, Toronto On Canada",
-        status: 1,
+        name: "Pearl Flower",
+        amount: 5
     }, 
     {
         id: 79384,
         products: [
             {
-                id: 124,
-                name: "Pearl Flower",
-                image: '/images/jewelry.png',
-                metal: "Silver",
-                color: "Red",
-                price: 125.0,
-                quantity: 3,
-                totalPrice: 350,
+                metal_id: 1,
+                color_id: 2,
+                price: 120,
+                amount: 3,
+            }, {
+                metal_id: 1,
+                color_id: 2,
+                price: 120,
+                amount: 3,
+            }, {
+                metal_id: 1,
+                color_id: 2,
+                price: 120,
+                amount: 3,
+            }, {
+                metal_id: 1,
+                color_id: 2,
+                price: 120,
+                amount: 3,
+            }, {
+                metal_id: 1,
+                color_id: 2,
+                price: 120,
+                amount: 3,
             }, 
-            {
-                id: 125,
-                name: "Pearl Flower",
-                image: '/images/jewelry.png',
-                metal: "Silver",
-                color: "Red",
-                price: 125.0,
-                quantity: 3,
-                totalPrice: 350,
-            }, 
-            {
-                id: 126,
-                name: "Pearl Flower",
-                image: '/images/jewelry.png',
-                metal: "Silver",
-                color: "Red",
-                price: 125.0,
-                quantity: 3,
-                totalPrice: 350,
-            }
         ],
-        username: "Mark Newman",
-        subTotal: 122.50,
-        promotion: 10.00,
-        tax: 35.00,
-        total: 142.5,
-        upsId: 213654641,
-        address: "351 Markham street, Toronto On Canada",
-        status: 1,
+        name: "Pearl Flower",
+        amount: 5
     }, 
     {
         id: 79385,
         products: [
             {
-                id: 124,
-                name: "Pearl Flower",
-                image: '/images/jewelry.png',
-                metal: "Silver",
-                color: "Red",
-                price: 125.0,
-                quantity: 3,
-                totalPrice: 350,
+                metal_id: 1,
+                color_id: 2,
+                price: 120,
+                amount: 3,
+            }, {
+                metal_id: 1,
+                color_id: 2,
+                price: 120,
+                amount: 3,
+            }, {
+                metal_id: 1,
+                color_id: 2,
+                price: 120,
+                amount: 3,
+            }, {
+                metal_id: 1,
+                color_id: 3,
+                price: 120,
+                amount: 3,
+            }, {
+                metal_id: 1,
+                color_id: 4,
+                price: 120,
+                amount: 3,
             }, 
-            {
-                id: 125,
-                name: "Pearl Flower",
-                image: '/images/jewelry.png',
-                metal: "Silver",
-                color: "Red",
-                price: 125.0,
-                quantity: 3,
-                totalPrice: 350,
-            }, 
-            {
-                id: 126,
-                name: "Pearl Flower",
-                image: '/images/jewelry.png',
-                metal: "Silver",
-                color: "Red",
-                price: 125.0,
-                quantity: 3,
-                totalPrice: 350,
-            }
         ],
-        username: "Mark Newman",
-        subTotal: 122.50,
-        promotion: 10.00,
-        tax: 35.00,
-        total: 142.5,
-        upsId: 213654641,
-        address: "351 Markham street, Toronto On Canada",
-        status: 1,
+        name: "Pearl Flower",
+        amount: 5
     }
 ]
