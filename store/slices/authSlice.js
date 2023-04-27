@@ -10,8 +10,9 @@ import {
     lastName: "",
     email: "",
     address: "",
-    is_verify: 0,
+    status: 0,
     phone: "",
+    avatar: '',
     userId: null,
     billingAddress: {}
   };
@@ -31,9 +32,10 @@ import {
         state.firstName = action.payload['firstName'];
         state.lastName = action.payload['lastName'];
         state.email = action.payload['email'];
-        state.is_verify = action.payload['is_verify'];
+        state.status = action.payload['status'];
         state.address = action.payload['address'];
         state.phone = action.payload['phone'];
+        state.avatar = action.payload['avatar'];
         state.billingAddress = action.payload['billingAddress'];
 
         localStorage.setItem('auth', JSON.stringify(state));
@@ -50,6 +52,7 @@ import {
         state.address = "",
         state.is_verify = 0,
         state.phone = "",
+        state.avatar = "",
         state.billingAddress = {}
         localStorage.removeItem('auth');
         localStorage.removeItem('token');

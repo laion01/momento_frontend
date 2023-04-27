@@ -15,6 +15,7 @@ export default function Header() {
     const router = useRouter();
     const dispatch = useDispatch();
     const { myBag } = useUtil();
+    const { avatar } = useAuth();
     const [isUserDropDown, openUserDropdown] = useState(false);
     const [isNotificationDropDown, openNotificationDropdown] = useState(false);
     const [isBagDropDown, openBagDropdown] = useState(false);
@@ -155,6 +156,8 @@ export default function Header() {
                         width={156}
                         height={40}
                     />
+
+                    <p className='text-black'> {avatar} </p>
                 </a>
             </Link>
             <div className='flex justify-center items-center'>
@@ -172,7 +175,7 @@ export default function Header() {
                 </div>
                 <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
                     <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { myBag.length && openBagDropdown(true) }}>
-                        <Image alt='' src='/images/bag.png' width={40} height={40} />
+                        <Image alt='' src='/images/bag.svg' width={40} height={40} />
                         { myBag?.length > 0 &&
                             <p className='absolute text-white min-w-[1.625rem] min-h-[1.625rem] px-[0.25rem] -top-[0.25rem] -right-[0.75rem] bg-primary rounded-[10px] rounded-bl-[0px] border-[0.125rem] border-white'>
                                 { myBag?.length }
@@ -184,9 +187,9 @@ export default function Header() {
                 
                 <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
                     <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { openUserDropdown(true) }}>
-                        <Image alt='' src='/images/avatar.png' width={40} height={40} />
+                        {avatar && <div className='w-[2.5rem] h-[2.5rem] rounded-full overflow-hidden'> <Image alt='' src={avatar} width={40} height={40} /> </div>}
+                        {!avatar && <Image alt='' src='/images/avatar.png' width={40} height={40} /> }
                     </button>
-                    
                     {isUserDropDown &&
                         <UserDropdown onCloseMenu={() => {openUserDropdown(false)}}/>
                     }

@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { useRouter } from 'next/router';
 import { login } from "store/slices/authSlice";
+import AUTH_API from "api/Auth";
 
 export default function Signin() {
     const dispatch = useDispatch();
@@ -16,24 +17,61 @@ export default function Signin() {
     const [password, setPassword] = useState("");
 
     const onLoginClicked = async () => {
-        if (email == "davidleiva4999@gmail.com" && password == "admin") {
-            toast.success("Login success!");
+        try {
+            const res = await AUTH_API.login({email, password});
+            const user = res.data;
 
+            toast.success('Login Success', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+    
             dispatch(login({
-                token: 'asdfasdf',
-                firstName: 'David',
-                lastName: 'Leiva',
-                email: 'davidleiva4999@gmail.com',
-                is_verify: 1,
-                address: '351 Markham Streen, Toronto',
-                phone: '+12055885568'
-            }));
+                logined: true,
+                fullname: `${user.first_name} ${user.last_name}`,
+                firstName: user.first_name,
+                lastName: user.last_name,
+                phone: user.phone,
+                email: `${user.email}`,
+                avatar: user.avatar,
+                user_id: user.id,
+                token: user.token,
+                address: '',
+                billingAddress: '',
+            }))
 
-            router.push({
-                pathname: '/'
-            })
-        } else {
-            toast.error("Login Failed!");
+            router.push({pathname: '/'})
+            return ;
+        } catch (e) {
+            if(e.response) {
+                toast.error(e.response.data.message, {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            } else {
+                toast.error('Connection Error', {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
         }
     }
 

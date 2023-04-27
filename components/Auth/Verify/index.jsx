@@ -18,7 +18,6 @@ export default function Verify() {
                     <input type="text" className="mx-[0.5rem] w-[4rem] h-[4rem] text-[1.5rem] font-bold text-center outline-none border-[1px] border-[#D4D4D4] rounded-[0.5rem]" maxLength={1}/>
                     <input type="text" className="mx-[0.5rem] w-[4rem] h-[4rem] text-[1.5rem] font-bold text-center outline-none border-[1px] border-[#D4D4D4] rounded-[0.5rem]" maxLength={1}/>
                     <input type="text" className="mx-[0.5rem] w-[4rem] h-[4rem] text-[1.5rem] font-bold text-center outline-none border-[1px] border-[#D4D4D4] rounded-[0.5rem]" maxLength={1}/>
-
                 </div>
                 <button className="h-[3rem] rounded-full bg-[#996D01] px-[1.5rem] text-white text-[1rem] mb-[1.5rem] w-fit"> Verify </button>
                 
