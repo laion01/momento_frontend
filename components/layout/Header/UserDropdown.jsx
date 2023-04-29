@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 export default function UserDropdown({onCloseMenu}) {
     const dispatch = useDispatch();
-    const { logined } = useAuth();
+    const { logined, role } = useAuth();
     const router = useRouter();
 
     return (
@@ -35,6 +35,19 @@ export default function UserDropdown({onCloseMenu}) {
                         <p className='text-[#747067] text-[1rem] leading-[1.6875rem]'> Contact </p>
                     </button>
                     <div className='w-full my-[0.75rem] h-[1px] border-[#C6C6C8]'></div>
+                    {role == 3 &&
+                    <div className="w-full border-[#C6C6C8] border-t-[1px] border-b-[1px] py-[0.875rem] mb-[0.875rem]">
+                        <button className='flex flex items-center' onClick={() => {
+                            onCloseMenu()
+                            router.push({ pathname: "/admin/store" })
+                        }}>
+                            <div className='w-[24px] h-[24px] flex items-center mr-[0.5rem]'>
+                                <Image alt="" src="/images/momento.png" width={24} height={24} />
+                            </div>
+                            <p className='text-[#747067] text-[1rem] leading-[1.6875rem]'> Manage Lockets </p>
+                        </button>
+                    </div>
+                    }
                     <button className='flex flex items-center' onClick={() => {
                         onCloseMenu()
                         router.push({ pathname: "/auth/signup" })

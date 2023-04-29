@@ -10,6 +10,7 @@ import {
     lastName: "",
     email: "",
     address: "",
+    role: 4,
     status: 0,
     phone: "",
     avatar: '',
@@ -33,6 +34,7 @@ import {
         state.lastName = action.payload['lastName'];
         state.email = action.payload['email'];
         state.status = action.payload['status'];
+        state.role = action.payload['role'];
         state.address = action.payload['address'];
         state.phone = action.payload['phone'];
         state.avatar = action.payload['avatar'];

@@ -8,6 +8,7 @@ import {
     isSpinner: false,
     myBag: [],
     notifications: [],
+    lockets: [],
     products: [],
     colors: [],
     metals: [],
@@ -45,6 +46,10 @@ import {
         state.myBag = action.payload['myBag'];
       },
 
+      setLockets: (state, action) => {
+        state.lockets = [...action.payload['lockets']];
+      },
+
       setProducts: (state, action) => {
         state.products = [...action.payload['products']];
       },
@@ -70,6 +75,7 @@ import {
     hideOverlay,
     setNotificatioins,
     setMyBag,
+    setLockets,
     setProducts,
     setMetals,
     setColors,

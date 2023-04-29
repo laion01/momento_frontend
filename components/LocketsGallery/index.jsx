@@ -3,7 +3,8 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import LocketItem from "components/utils/LocketItem/Item";
 import LocketViewer from "./LocketViewer"
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import UTILS_API from "api/Util";
 
 const categories=['Silver', 'Yellow Gold'];
 const selectedCat=1;
@@ -57,6 +58,15 @@ export default function LocketsGallery() {
     const [selectedColor, selectColor] = useState(1);
     const [selectedMetal, selectMetal] = useState(1);
     const [quantity, setQuantity] = useState(1);
+
+    useEffect(() => {
+        load();
+    }, [])
+
+    const load = async () => {
+        const lockets = await UTILS_API.getLocketsGallery();
+        console.log(lockets)
+    }
 
     return (
         <div className="mx-[20px] md:mx-[40px] bg-[#F5F5F5] flex justify-center pt-[20px]">

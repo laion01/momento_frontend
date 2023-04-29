@@ -5,34 +5,123 @@ class UtilsApi {
     this.URI = "/api/utils"
   }
 
-  async getChains() {
+  async getMetals() {
     try {
-      const res = await axios.post(`${this.URI}/chains`)
-      return res.data.chains
+      const res = await axios.post(`${this.URI}/metals`)
+      return res.data.metals
     } catch (e) {
       return { count: 0, rows: []}
     }
   }
 
-  async addChain(chain) {
+  async addMetal(name) {
     try {
-      const res = await axios.post(`${this.URI}/chain`, {chain})
-      return { new: res.data.new, chains: res.data.chains.rows}
+      const res = await axios.post(`${this.URI}/metal`, {name})
+      return { new: res.data.new, metals: res.data.metals.rows}
     } catch (e) {
-      return { new: -1, chains: []}
+      return { new: -1, metals: []}
     }
   }
 
-  async updateChain(chain) {
+  async updateMetal(metal) {
     try {
-      const res = await axios.put(`${this.URI}/chain`, {chain})
-      console.log("+++++++++++++++++++", res.data)
-      return res.data.chains.rows
+      const res = await axios.put(`${this.URI}/metal`, {metal})
+      return res.data.metals.rows
     } catch (e) {
       return []
     }
   }
 
+
+  async getColors() {
+    try {
+      const res = await axios.post(`${this.URI}/colors`)
+      return res.data.colors
+    } catch (e) {
+      return { count: 0, rows: []}
+    }
+  }
+
+  async addColor(color) {
+    try {
+      const res = await axios.post(`${this.URI}/color`, {color})
+      return { new: res.data.new, colors: res.data.colors.rows}
+    } catch (e) {
+      return { new: -1, colors: []}
+    }
+  }
+
+  async updateColor(color) {
+    try {
+      const res = await axios.put(`${this.URI}/color`, {color})
+      return res.data.colors.rows
+    } catch (e) {
+      return []
+    }
+  }
+
+  async getLockets() {
+    try {
+      const res = await axios.post(`${this.URI}/lockets`)
+      return res.data.lockets
+    } catch (e) {
+      return { count: 0, rows: []}
+    }
+  }
+
+  async addLocket(locket) {
+    try {
+      const res = await axios.post(`${this.URI}/locket`, {locket})
+      return { new: res.data.new, lockets: res.data.lockets.rows}
+    } catch (e) {
+      return { new: -1, lockets: []}
+    }
+  }
+
+  async updateLocket(locket) {
+    try {
+      const res = await axios.put(`${this.URI}/locket`, {locket})
+      return res.data.lockets.rows
+    } catch (e) {
+      return []
+    }
+  }
+
+  async getProducts() {
+    try {
+      const res = await axios.post(`${this.URI}/products`)
+      return res.data.products
+    } catch (e) {
+      return { count: 0, rows: []}
+    }
+  }
+
+  async addProduct(product) {
+    try {
+      const res = await axios.post(`${this.URI}/product`, {product})
+      return { new: res.data.new, products: res.data.products.rows}
+    } catch (e) {
+      return { new: -1, products: []}
+    }
+  }
+
+  async updateProduct(product) {
+    try {
+      const res = await axios.put(`${this.URI}/product`, {product})
+      return res.data.products.rows
+    } catch (e) {
+      return []
+    }
+  }
+
+  async getLocketsGallery() {
+    try {
+      const res = await axios.post(`${this.URI}/locketGallery`)
+      return res.data.lockets.rows
+    } catch (e) {
+      return { count: 0, rows: []}
+    }
+  }
 
   async getTokens() {
     try {

@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { useRouter } from 'next/router';
 import { login } from "store/slices/authSlice";
 import { useUtil } from "store/hook";
+import { setColors } from "store/slices/utilSlice";
+import UTILS_API from "api/Util";
 
 export default function ColorModal({ type, onClose, data }) {
     const dispatch = useDispatch();
@@ -27,21 +29,24 @@ export default function ColorModal({ type, onClose, data }) {
 
     const uploadToClient = (event) => {
         if (event.target.files && event.target.files[0]) {
-            const i = event.target.files[0];
-
-            setImage(i);
-            setUploadedURL(URL.createObjectURL(i));
+          const i = event.target.files[0];
+    
+          setImage(i);
+        //   setCreateObjectURL(URL.createObjectURL(i));
+          setUploadedURL(URL.createObjectURL(i));
         }
-    };
-
-    const uploadToServer = async (event) => {
+      };
+    
+      const uploadToServer = async (event) => {
         const body = new FormData();
         body.append("file", image);
-        const response = await fetch("/api/file", {
-            method: "POST",
-            body
+        let response = await fetch("/api/file/color", {
+          method: "POST",
+          body
         });
-    };
+        const res = await response.text();
+        return JSON.parse(res).filename;
+      };
 
     useEffect(() => {
         if(type == 2) {
@@ -50,27 +55,86 @@ export default function ColorModal({ type, onClose, data }) {
         }
     }, [])
 
-    const onLoginClicked = async () => {
-        if (colorName == "davidleiva4999@gmail.com" && productType == "admin") {
-            toast.success("Login success!");
 
-            dispatch(login({
-                token: 'asdfasdf',
-                firstName: 'David',
-                lastName: 'Leiva',
-                colorName: 'davidleiva4999@gmail.com',
-                is_verify: 1,
-                address: '351 Markham Streen, Toronto',
-                phone: '+12055885568'
-            }));
+    const onAddColor = async () => {
+        try {
+            let fn = uploadedImageURL;
+            if(!fn) {
+                fn ='/images/colors/empty.svg';
+            } else {
+                const filename = await uploadToServer();
+                fn = filename;
+            }
 
-            router.push({
-                pathname: '/'
-            })
-        } else {
-            toast.error("Login Failed!");
+            const {colors} = await UTILS_API.addColor({name: colorName, image: fn});
+            dispatch(setColors({colors}))
+
+            toast.success('Color added!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            onClose()
+
+        } catch (e) {
+            console.error(e)
+            toast.error("Failed", {
+                position: "bottom-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
+    
+    const onUpdateColor = async ( locket ) => {
+        try {
+            let fn = uploadedImageURL;
+            if(uploadedImageURL != data.image) {
+                const filename = await uploadToServer();
+                console.log("fileUpdated: ", filename)
+                fn = filename;
+            }
+            const colors = await UTILS_API.updateColor({name: colorName, image: fn, id: data.id});
+            
+            dispatch(setColors({colors}))
+
+            toast.success('Color updated!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+            onClose()
+        } catch (e) {
+            console.error(e)
+            toast.error("Failed", {
+                position: "bottom-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+    }
+
 
     return (
         <div className="fixed w-[100vw] h-[100vh] top-0 left-0 flex justify-center items-center bg-[#00000020] backdrop-blur-sm">
@@ -81,7 +145,7 @@ export default function ColorModal({ type, onClose, data }) {
                         setColorName(e.target.value)
                     }} className="w-full text-[1rem] outline-none grow" placeholder="Locket name" />
                     <button className="flex justify-center items-center" onClick={() => { onImageClicked() }}>
-                        <input ref={imageInput} type="file" name="myImage" onChange={uploadToClient} hidden />
+                        <input ref={imageInput} type="file" onChange={uploadToClient} hidden />
 
                         { !uploadedImageURL &&
                             <FontAwesomeSvgIcon width={24} height={24} icon={faImage} />
@@ -92,14 +156,6 @@ export default function ColorModal({ type, onClose, data }) {
                     </button>
                 </div>
                 
-                {/* <input type="text" value={productType} onChange={(e) => {
-                        setProductType(e.target.value)
-                    }} className="grow text-[1rem] outline-none" placeholder="Locket Type" /> */}
-                {/* <select value={productType} onChange={(e) => { setProductType(e) }} className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px] mb-[1rem]">
-                    { typeList.map((type, index) => {
-                        <option key={index} value={index}> {type} </option>
-                    })}
-                </select> */}
                 <div className="flex justify-end items-end w-full">
                     <button className="h-[3rem] rounded-full bg-[#d5d5d5] px-[24px] text-white text-[1rem] mb-[1rem] w-fit mr-[1rem]"
                         onClick={() => {
@@ -108,7 +164,7 @@ export default function ColorModal({ type, onClose, data }) {
                     > Cancel </button>
                     <button className="h-[3rem] rounded-full bg-[#996D01] px-[24px] text-white text-[1rem] mb-[1rem] w-fit"
                         onClick={() => {
-                            onLoginClicked()
+                            type == 1 ? onAddColor() : onUpdateColor()
                         }}
                     > {type == 1 ? "Add" : "Save"} </button>
                 </div>

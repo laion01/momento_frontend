@@ -8,8 +8,11 @@ import { useDispatch } from 'react-redux';
 import UserDropdown from './UserDropdown';
 import NotificationMenu from './NotificationMenu';
 import BagMenu from './BagMenu';
-import { setColors, setMetals, setMyBag, setProducts, setProductTypes } from 'store/slices/utilSlice';
+import { setColors, setMetals, setMyBag, setProducts, setLockets, setProductTypes } from 'store/slices/utilSlice';
 import Button from 'components/utils/Buttons/Button';
+import AUTH_API from 'api/Auth';
+import { login } from 'store/slices/authSlice';
+import UTILS_API from 'api/Util';
 
 export default function Header() {
     const router = useRouter();
@@ -41,101 +44,56 @@ export default function Header() {
 
         dispatch(setProductTypes({ productTypes : [
             { 
-                id: 0, 
-                name: "type 1", 
-            }, 
-            { 
                 id: 1, 
-                name: "type 2", 
+                name: "Necklace", 
             }, 
             { 
                 id: 2, 
-                name: "type 3", 
-            }, 
-            { 
-                id: 3, 
-                name: "type 4", 
-            }, 
+                name: "Ring", 
+            },
         ]}))
 
-        dispatch(setMetals({ metals : [
-            { 
-                id: 0,
-                name: "metal 0", 
-            }, 
-            { 
-                id: 1,
-                name: "metal 1", 
-            }, 
-            { 
-                id: 2,
-                name: "metal 2", 
-            }, 
-            { 
-                id: 3,
-                name: "metal 3", 
-            }, 
-        ]}))
-
-        dispatch(setColors({ colors : [
-            {
-                id: 1, 
-                name: "Red",
-                image: "/images/colors/color_1.svg"
-            }, {
-                id: 2, 
-                name: "green",
-                image: "/images/colors/color_2.svg"
-            }, {
-                id: 3, 
-                name: "blue",
-                image: "/images/colors/color_3.svg"
-            }, {
-                id: 4, 
-                name: "yellow",
-                image: "/images/colors/color_4.svg"
-            }, {
-                id: 5, 
-                name: "pink",
-                image: "/images/colors/color_5.svg"
-            }, {
-                id: 6, 
-                name: "purple",
-                image: "/images/colors/color_6.svg"
-            }, 
-        ]}))
-
-        dispatch(setProducts({ products : [
-            {
-                id: 1,
-                name : "Pearl Flower 1",
-                type : 0,
-            }, {
-                id: 2,
-                name : "Pearl Flower 2",
-                type : 1,
-            }, {
-                id: 3,
-                name : "Pearl Flower 3",
-                type : 3,
-            }, {
-                id: 4,
-                name : "Pearl Flower 4 ",
-                type : 2,
-            }, {
-                id: 5,
-                name : "Pearl Flower 5",
-                type : 2,
-            }
-        ]}))
-
+        load();
     }, [])
 
-    const checkScroll = function () {
-        if (window.pageYOffset > window.innerHeight * 0.75) {
-            showShadow(true);
-        } else {
-            showShadow(false);
+    const load = async () => {
+        const metals = await UTILS_API.getMetals();
+        dispatch(setMetals({ metals: metals.rows }))
+
+        const colors = await UTILS_API.getColors();
+        dispatch(setColors({ colors: colors.rows }))
+
+        const lockets = await UTILS_API.getLockets();
+        dispatch(setLockets({ lockets: lockets.rows }))
+    }
+
+    useEffect(() => {
+        tryAuthToken()
+    }, [])
+
+    const tryAuthToken = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            if(token) {
+                const { data } = await AUTH_API.me(token);
+
+                dispatch(login({
+                    logined: true,
+                    fullname: `${data.first_name} ${data.last_name}`,
+                    firstName: data.first_name,
+                    lastName: data.last_name,
+                    phone: data.phone,
+                    email: `${data.email}`,
+                    avatar: data.avatar,
+                    user_id: data.id,
+                    token: data.token,
+                    address: '',
+                    billingAddress: '',
+                    role: data.role,
+                }))
+
+            }
+        } catch (e) {
         }
     }
 
@@ -156,8 +114,6 @@ export default function Header() {
                         width={156}
                         height={40}
                     />
-
-                    <p className='text-black'> {avatar} </p>
                 </a>
             </Link>
             <div className='flex justify-center items-center'>
@@ -175,7 +131,7 @@ export default function Header() {
                 </div>
                 <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
                     <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { myBag.length && openBagDropdown(true) }}>
-                        <Image alt='' src='/images/bag.svg' width={40} height={40} />
+                        <Image alt='' src='/images/bag.png' width={40} height={40} />
                         { myBag?.length > 0 &&
                             <p className='absolute text-white min-w-[1.625rem] min-h-[1.625rem] px-[0.25rem] -top-[0.25rem] -right-[0.75rem] bg-primary rounded-[10px] rounded-bl-[0px] border-[0.125rem] border-white'>
                                 { myBag?.length }

@@ -6,7 +6,7 @@ export default function Orders({}) {
             <h6 className="text-[1.5rem] leading-[2.25rem] font-bold text-primary mb-[1rem]"> Orders </h6>
 
             <div className="flex flex-col px-[0.5625rem] w-full overflow-x-auto">
-                <table className="">
+                <table>
                     <thead>
                         <tr className="px-[30px] text-[1rem] leading-[1.6875rem] h-[5rem] my-[0.5rem] border-b-[1px] border-[#D4D4D4] flex items-center">
                             <th className="text-left text-[#9E785D] text-[1rem] leading-[1.375] w-[241px] font-medium"> Order name </th>

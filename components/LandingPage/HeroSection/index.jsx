@@ -23,7 +23,7 @@ export default function HeroSection() {
                     </div>
                 </div>
             </div>
-            <div className="lg:absolute lg:right-0 flex flex-col lg:h-[100vh] justify-center md:mt-[350px] w-full lg:w-[calc(50vw-220px)] h-full  px-[1.5rem] pl-[20px] 2xl:pr-[156px] 2xl:pl-[40px] xl:pr-[120px] lg:pr-[50px]">
+            <div className="lg:absolute lg:right-0 flex flex-col lg:h-[100vh] justify-center mt-[400px] md:mt-[250px] xl:mt-[150px] w-full lg:w-[calc(50vw-220px)] h-full  px-[1.5rem] pl-[20px] 2xl:pr-[156px] 2xl:pl-[40px] xl:pr-[120px] lg:pr-[50px]">
                 <h1 className="text-[3rem] font-bold text-[#AC8118] leading-[56px] mb-[24px]">
                     The Jewelry That Holds Your Family Photo Album
                 </h1>

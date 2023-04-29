@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import UTILS_API from "api/Util";
 
 import { toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
@@ -9,6 +10,7 @@ import { useRouter } from 'next/router';
 import { login } from "store/slices/authSlice";
 import { useUtil } from "store/hook";
 import { useEffect } from "react";
+import { setMetals } from "store/slices/utilSlice";
 
 export default function MetalModal({ type, onClose, data }) {
     const dispatch = useDispatch();
@@ -16,7 +18,6 @@ export default function MetalModal({ type, onClose, data }) {
     const { metals } = useUtil();
     const router = useRouter();
     const [metalName, setMetalName] = useState("");
-    const [typeList, setTypeList] = useState([]);
 
     useEffect(() => {
         if(type == 2) {
@@ -24,25 +25,68 @@ export default function MetalModal({ type, onClose, data }) {
         }
     }, [])
 
-    const onAddClicked = async () => {
-        if (metalName == "davidleiva4999@gmail.com" && productType == "admin") {
-            toast.success("Login success!");
 
-            dispatch(login({
-                token: 'asdfasdf',
-                firstName: 'David',
-                lastName: 'Leiva',
-                metalName: 'davidleiva4999@gmail.com',
-                is_verify: 1,
-                address: '351 Markham Streen, Toronto',
-                phone: '+12055885568'
-            }));
+    const onAddMetal = async () => {
+        try {
+            const {metals} = await UTILS_API.addMetal(metalName);
+            dispatch(setMetals({metals}))
 
-            router.push({
-                pathname: '/'
-            })
-        } else {
-            toast.error("Login Failed!");
+            toast.success('Metal added!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+            onClose()
+        } catch (e) {
+            toast.error("Failed", {
+                position: "bottom-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+        }
+    }
+    
+    const onUpdateMetal = async ( locket ) => {
+        try {
+            const metals = await UTILS_API.updateMetal({name: metalName, id: data.id});
+            dispatch(setMetals({metals}))
+
+            toast.success('Metal updated!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+            onClose()
+        } catch (e) {
+            toast.error("Failed", {
+                position: "bottom-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
         }
     }
 
@@ -62,7 +106,7 @@ export default function MetalModal({ type, onClose, data }) {
                     > Cancel </button>
                     <button className="h-[3rem] rounded-full bg-[#996D01] px-[24px] text-white text-[1rem] mb-[1rem] w-fit"
                         onClick={() => {
-                            onAddClicked()
+                            type == 1 ? onAddMetal() : onUpdateMetal()
                         }}
                     > {type == 1 ? "Add" : "Save"} </button>
                 </div>
