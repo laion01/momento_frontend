@@ -22,6 +22,9 @@ export default async function handler(req, res) {
                 order: [
                   ['id', 'ASC'],
                 ],
+                include: [{
+                  model: db.File
+                }]
               });
             res.statusCode = 200;
             res.json({ products, new: product.id })
@@ -44,6 +47,9 @@ export default async function handler(req, res) {
                 order: [
                   ['id', 'ASC'],
                 ],
+                include: [{
+                  model: db.File
+                }]
               });
             res.statusCode = 200;
             res.json({ products })
@@ -64,6 +70,9 @@ export default async function handler(req, res) {
                 order: [
                   ['id', 'ASC'],
                 ],
+                include: [{
+                  model: db.File
+                }]
               });
             res.statusCode = 200;
             res.json({ products })

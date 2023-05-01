@@ -114,6 +114,24 @@ class UtilsApi {
     }
   }
 
+  async addProductImage(file) {
+    try {
+      const res = await axios.post(`${this.URI}/productImage`, {file})
+      return { products: res.data.products.rows, fileId: res.data.fileId}
+    } catch (e) {
+      return { new: -1, products: []}
+    }
+  }
+
+  async removeProductImage(file) {
+    try {
+      const res = await axios.delete(`${this.URI}/productImage`, {file})
+      return { products: res.data.products.rows}
+    } catch (e) {
+      return { new: -1, products: []}
+    }
+  }
+
   async getLocketsGallery() {
     try {
       const res = await axios.post(`${this.URI}/locketGallery`)

@@ -117,7 +117,7 @@ export default function Item({ index, data, onClick, onClickImages}) {
                     <div className="w-[2rem] h-[2rem] rounded-full flex items-center">
                         <Image alt="" width={32} height={32} src="/images/image.svg"/>
                     </div>
-                    <p className="ml-[0.5rem]"> 5 Photos </p>
+                    <p className="ml-[0.5rem]"> {data.Files.length ? data.Files.length : "No "} Photos </p>
                 </button>
                 <div className="grow"></div>
                 <div className="flex items-center">

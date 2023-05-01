@@ -11,16 +11,16 @@ const post = async (req, res) => {
   // console.log(req, res);
   const form = new formidable.IncomingForm();
   form.parse(req, async function (err, fields, files) {
-    console.log("files", files.file.originalFilename, files.file.filepath);
+    console.log("files", files);
     const filename = await saveFile(files.file);
     return res.status(201).send({ filename });
   });
 };
 
 const saveFile = async (file) => {
-  console.log("uploading file ", `/images/products/${file.originalFilename}_{timestamp}`);
-  const data = fs.readFileSync(file.filepath);
   const timestamp = (new Date()).getTime();
+  console.log("uploading file ", `/images/products/${file.originalFilename}_${timestamp}`);
+  const data = fs.readFileSync(file.filepath);
   fs.writeFileSync(`./public/images/products/${timestamp}_${file.originalFilename}`, data);
   const filename = `/images/products/${timestamp}_${file.originalFilename}`;
   await fs.unlinkSync(file.filepath);

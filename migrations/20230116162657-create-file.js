@@ -17,8 +17,13 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: 'IMAGE',
       },
-      product_id: {
+      productId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: 'Products',
+          key: 'id',
+          as: 'productId',
+        }
       },
       width: {
         type: Sequelize.INTEGER,

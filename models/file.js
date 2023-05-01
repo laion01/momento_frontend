@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Product, {
+      File.belongsTo(models.Product, {
         foreignKey: {
-          name: 'product_id'
+          name: 'productId',
         }
       })
     }
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   File.init({
     pathname: DataTypes.STRING,
     type: DataTypes.INTEGER,
-    product_id: DataTypes.INTEGER,
+    productId: DataTypes.INTEGER,
     width: DataTypes.INTEGER,
     height: DataTypes.INTEGER,
   }, {
@@ -34,6 +34,6 @@ module.exports = (sequelize, DataTypes) => {
 
 // pathname: {
 // type: {
-// product_id: {
+// productId: {
 // width: {
 // height: {
