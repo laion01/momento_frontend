@@ -19,6 +19,14 @@ export default function GalleryPopup({ onClose, productImages, productId, data }
     const imageInput = useRef(null);
     const [images, setImageList] = useState([]);
 
+    const [imageWidth, setWidth] = useState(null);
+    const [imageHeight, setHeight] = useState(null);
+
+    const handleImageLoad = (event) => {
+        setWidth(event.target.naturalWidth);
+        setHeight(event.target.naturalHeight);
+    };
+
     const getTypeName = (t) => {
         for (let i = 0; i < productTypes.length; i++) {
             if (productTypes[i].id == t)
@@ -70,9 +78,9 @@ export default function GalleryPopup({ onClose, productImages, productId, data }
         });
 
         const res = await response.text();
-        const p = await UTILS_API.addProductImage({productId: data.id, filename: JSON.parse(res).filename});
-        dispatch(setProducts({products: p.products}));
-        setImageList([...images, { pathname: JSON.parse(res).filename, type: "png", width: 120, height:120, id:p?.fileId}])
+        const p = await UTILS_API.addProductImage({ productId: data.id, filename: JSON.parse(res).filename, });
+        dispatch(setProducts({ products: p.products }));
+        setImageList([...images, { pathname: JSON.parse(res).filename, type: "png", width: 120, height: 120, id: p?.fileId }])
 
         setUploadedURL('');
         return JSON.parse(res).filename;
@@ -80,12 +88,12 @@ export default function GalleryPopup({ onClose, productImages, productId, data }
 
     const onDeleteImage = async (item) => {
 
-        const p = await UTILS_API.removeProductImage({id: item.id});
-        dispatch(setProducts({products: p.products}));
+        const p = await UTILS_API.removeProductImage({ id: item.id });
+        dispatch(setProducts({ products: p.products }));
 
         const newArray = [];
         images.map((image) => {
-            if(image.id != item.id)
+            if (image.id != item.id)
                 newArray.push(image)
         })
 
@@ -121,18 +129,21 @@ export default function GalleryPopup({ onClose, productImages, productId, data }
 
                     <div className="flex flex-wrap justify-center items-center overflow-y-auto h-full grow">
                         {images.map((item, index) =>
-                            <ImageItem key={index} image={item.pathname} type={item.type} removable onDelete={() => {onDeleteImage(item)}} />
+                            <ImageItem key={index} image={item.pathname} type={item.type} removable onDelete={() => { onDeleteImage(item) }} />
                         )}
                         {uploadedImageURL &&
                             <div className="aspect-square w-[7.75rem] relative rounded-[0.5rem] p-[0.5rem] overflow-hidden relative" >
                                 <div className="w-full h-full flex justify-center items-center">
-                                    <Image alt="" src={uploadedImageURL} width={120} height={120} />
+                                    <Image alt="" src={uploadedImageURL}
+                                        layout="fill" 
+                                        objectFit="cover"
+                                        onLoad={handleImageLoad} />
                                 </div>
 
                                 <div className="absolute w-[6.75rem] h-[6.75rem] rounded-[0.5rem] p-[0.5rem] m-[0.5rem] top-0 left-0 bg-[#00000040] flex justify-end items-start absolute opacity-[0.8] hover:opacity-[1] transition-all duration-300">
                                     <div className="w-full h-full top-0 left-0 flex justify-center items-center absolute">
                                         <button onClick={() => { uploadToServer() }}>
-                                            <FontAwesomeSvgIcon icon={ faSave } width={32} height={32} color="white" />
+                                            <FontAwesomeSvgIcon icon={faSave} width={32} height={32} color="white" />
                                         </button>
                                     </div>
                                     <button onClick={() => { setUploadedURL('') }} className="z-10">
@@ -141,7 +152,7 @@ export default function GalleryPopup({ onClose, productImages, productId, data }
                                 </div>
                             </div>
                         }
-                        
+
                         <div className="w-[7.75rem]"></div>
                         <div className="w-[7.75rem]"></div>
                         <div className="w-[7.75rem]"></div>
@@ -152,13 +163,13 @@ export default function GalleryPopup({ onClose, productImages, productId, data }
                         <div className="w-[7.75rem]"></div>
                         <div className="w-[7.75rem]"></div>
                     </div>
-                    
-                    { !uploadedImageURL && !images.length && 
-                            <div className="flex justify-center items-center w-full"> 
-                                <FontAwesomeSvgIcon icon={faImage} width={32} height={32} />
-                                <p className="ml-[1rem] text-[1rem]"> No images exist </p>
-                            </div>
-                        }
+
+                    {!uploadedImageURL && !images.length &&
+                        <div className="flex justify-center items-center w-full">
+                            <FontAwesomeSvgIcon icon={faImage} width={32} height={32} />
+                            <p className="ml-[1rem] text-[1rem]"> No images exist </p>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
