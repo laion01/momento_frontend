@@ -54,12 +54,10 @@ export default function ImageItem({ image, type, onClick, onDelete, removable })
                     </button>
                     <div className="w-[calc(100%-6rem)] h-[calc(100%-6rem)] m-[3rem] overflow-hidden relative flex justify-center items-center">
                         <Image alt="" src={image} 
-                            objectFit="cover" width={imageWidth} height={imageHeight} />
+                            objectFit="scale-down" width={imageWidth} height={imageHeight} />
                     </div>
                 </div>
             }
-
         </>
-
     )
 }

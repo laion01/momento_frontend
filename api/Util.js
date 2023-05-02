@@ -89,7 +89,7 @@ class UtilsApi {
 
   async getProducts() {
     try {
-      const res = await axios.post(`${this.URI}/products`)
+      const res = await axios.post(`${this.URI}/product/products`)
       return res.data.products
     } catch (e) {
       return { count: 0, rows: []}
@@ -98,16 +98,18 @@ class UtilsApi {
 
   async addProduct(product) {
     try {
-      const res = await axios.post(`${this.URI}/product`, {product})
-      return { new: res.data.new, products: res.data.products.rows}
+      const res = await axios.post(`${this.URI}/product/product`, {product})
+      return { new: res.data.new, products: res.data.products.rows, error: ''}
     } catch (e) {
-      return { new: -1, products: []}
+      let message = "Failed";
+      if(e.response) message = e.response.data.error;
+      return { new: -1, products: [], error: message}
     }
   }
 
   async updateProduct(product) {
     try {
-      const res = await axios.put(`${this.URI}/product`, {product})
+      const res = await axios.put(`${this.URI}/product/product`, {product})
       return res.data.products.rows
     } catch (e) {
       return []
@@ -116,16 +118,25 @@ class UtilsApi {
 
   async addProductImage(file) {
     try {
-      const res = await axios.post(`${this.URI}/productImage`, {file})
+      const res = await axios.post(`${this.URI}/product/productImage`, {file})
       return { products: res.data.products.rows, fileId: res.data.fileId}
     } catch (e) {
       return { new: -1, products: []}
     }
   }
 
+  async getValidLockets(id) {
+    try {
+      const res = await axios.get(`${this.URI}/product/types?locketId=${id}`)
+      return { products: res.data.products }
+    } catch (e) {
+      return { products: []}
+    }
+  }
+
   async removeProductImage(file) {
     try {
-      const res = await axios.delete(`${this.URI}/productImage`, {file})
+      const res = await axios.delete(`${this.URI}/product/productImage`, {file})
       return { products: res.data.products.rows}
     } catch (e) {
       return { new: -1, products: []}

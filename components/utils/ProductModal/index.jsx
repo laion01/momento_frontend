@@ -71,24 +71,10 @@ export default function ProductModal({ type, onClose, data }) {
     }
 
     const onAddProduct = async () => {
-        try {
-            const { products } = await UTILS_API.addProduct({ locketId: locketId, metalId: c_metalId, colorId: c_colorId, amount, price});
-            dispatch(setProducts({ products }))
+        const { products, error } = await UTILS_API.addProduct({ locketId: locketId, metalId: c_metalId, colorId: c_colorId, amount, price});
 
-            toast.success('Product added!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-
-            onClose()
-        } catch (e) {
-            toast.error("Failed", {
+        if(error) {
+            toast.error(error, {
                 position: "bottom-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -98,8 +84,22 @@ export default function ProductModal({ type, onClose, data }) {
                 progress: undefined,
                 theme: "light",
             });
-
+            return ;
         }
+
+        dispatch(setProducts({ products }))
+        toast.success('Product added!', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+
+        onClose()
     }
 
     const onUpdateProduct = async (locket) => {

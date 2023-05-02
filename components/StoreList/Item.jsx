@@ -1,5 +1,5 @@
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon"
-import { faAngleDown, faAngleUp, faPlus, faMinus, faEdit, faSave, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faAngleDown, faAngleUp, faPlus, faMinus, faEdit, faSave, faTrash, faBoxOpen, faEye } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import UTILS_API from "api/Util"
@@ -7,9 +7,12 @@ import { useUtil } from "store/hook"
 import { useDispatch } from "react-redux"
 import { setProducts } from "store/slices/utilSlice"
 import { toast } from 'react-toastify';
+import { faOpencart, faOpenid } from "@fortawesome/free-brands-svg-icons"
+import { useRouter } from "next/router"
 
 export default function Item({ index, data, onClick, onClickImages}) {
     const dispatch = useDispatch()
+    const router = useRouter()
     const { metals, colors, lockets, productTypes } = useUtil()
     const [isVisible, showDetails] = useState(false)
     const [amount, setAmount] = useState(0);
@@ -29,16 +32,6 @@ export default function Item({ index, data, onClick, onClickImages}) {
         }
         return {name : '', image: ''}
     }
-
-    const getColor = (id) => {
-        for(let i = 0 ;i < colors.length; i++) {
-            if(colors[i].id == id) {
-                return colors[i];
-            }
-        }
-        return {name : '', image: ''}
-    }
-
     const getLocket = (id) => {
         for(let i = 0 ;i < lockets.length; i++) {
             if(lockets[i].id == id)
@@ -85,16 +78,16 @@ export default function Item({ index, data, onClick, onClickImages}) {
                 onClick={() => {showDetails(!isVisible)}} style={{ color : amount > 0 ? 'black' : '#00000050'}}>
                 <p className="min-w-[2.5rem] text-center"> { index } </p>
                 {/* <p className="min-w-[60px] font-bold text-center"> { data.id } </p> */}
-                <p className="min-w-[8rem]"> { getLocket(data.locketId).name } </p>
-                <p className="min-w-[6rem] text-center"> { getTypeName(getLocket(data.locketId).type) } </p>
+                <p className="min-w-[8rem]"> { data.Locket.name } </p>
+                <p className="min-w-[6rem] text-center"> { getTypeName(data.Locket.type) } </p>
                 <div className="min-w-[6rem] flex items-center justify-center"> 
-                    <p className="text-center bg-[#F5F5F5] px-[0.75rem] py-[0.25rem] rounded-full"> { getMetal(data.metalId).name } </p>
+                    <p className="text-center bg-[#F5F5F5] px-[0.75rem] py-[0.25rem] rounded-full"> { data.Metal.name } </p>
                 </div>
                 <div className="min-w-[6rem] flex items-center"> 
                     <div className="w-[2rem] h-[2rem] rounded-full overflow-hidden">
-                        <Image alt="" width={32} height={32} src={getColor(data.colorId).image ? getColor(data.colorId)?.image : "/images/colors/empty.svg"}/>
+                        <Image alt="" width={32} height={32} src={data.Color.image}/>
                     </div>
-                    <p> { getColor(data.colorId).name } </p>
+                    <p> { data.Color.name } </p>
                 </div>
                 <p className="min-w-[6rem] text-center"> <span className="font-bold">$</span>{ data.price } </p>
                 
@@ -135,6 +128,11 @@ export default function Item({ index, data, onClick, onClickImages}) {
                         onClick={() => {onSaveClicked(0)}}
                     >
                         <FontAwesomeSvgIcon width={16} height={16} icon={faTrash} color="white"/>
+                    </button>
+                    <button className="w-[2rem] h-[2rem] mr-[0.5rem] bg-primary disabled:bg-[#D5D5D5] rounded-full overflow-hidden flex justify-center items-center" disabled={amount == 0}
+                        onClick={() => { router.push(`/locket?locketId=${data.locketId}&metalId=${data.metalId}&colorId=${data.colorId}`)}}
+                    >
+                        <FontAwesomeSvgIcon width={20} height={20} icon={faEye} color="white"/>
                     </button>
                 </div>  
             </div>

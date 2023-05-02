@@ -2,9 +2,38 @@ import db from "models";
 import Backend from "backend"
 
 export default async function handler(req, res) {
-    if (req.method === "POST") {
+    if (req.method === "GET") {
+      const { locketId, colorId, metalId } = req.query;
+      console.log({locketId, colorId, metalId});
+
+      
+      const product = await db.Product.findOne({
+        where: {
+          locketId, colorId, metalId
+        },
+        order: [
+          ['id', 'ASC'],
+        ],
+        include: [{
+          model: db.File
+        }, db.Color, db.Metal, db.Locket]})
+      res.status(200).json({ product });
+    } else if (req.method === "POST") {
         try {
-            console.log("------------------ 1", req.body.color)
+            const p = await db.Product.findAndCountAll({
+              where: {
+                  locketId: req.body.product.locketId,
+                  metalId: req.body.product.metalId,
+                  colorId: req.body.product.colorId
+              },
+            });
+
+            if(p.count > 0) {
+              res.statusCode = 409;
+              res.json({ error: 'Product already exists' })
+              return ;
+            }
+            
             const product = await db.Product.build({
                 locketId: req.body.product.locketId,
                 metalId: req.body.product.metalId,
@@ -16,15 +45,17 @@ export default async function handler(req, res) {
             })
         
             await product.save()
-            console.log("------------------ 2")
-
             const products = await db.Product.findAndCountAll({
+                order: [
+                  ['id', 'ASC'],
+                ],
+                
                 order: [
                   ['id', 'ASC'],
                 ],
                 include: [{
                   model: db.File
-                }]
+                }, db.Color, db.Metal, db.Locket]
               });
             res.statusCode = 200;
             res.json({ products, new: product.id })
@@ -49,7 +80,7 @@ export default async function handler(req, res) {
                 ],
                 include: [{
                   model: db.File
-                }]
+                }, db.Color, db.Metal, db.Locket]
               });
             res.statusCode = 200;
             res.json({ products })
@@ -72,7 +103,7 @@ export default async function handler(req, res) {
                 ],
                 include: [{
                   model: db.File
-                }]
+                }, db.Color, db.Metal, db.Locket]
               });
             res.statusCode = 200;
             res.json({ products })
