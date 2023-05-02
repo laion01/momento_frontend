@@ -9,14 +9,29 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      locket_id: {
+      locketId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: 'Lockets',
+          key: 'id',
+          as: 'locketId',
+        }
       },
-      metal_id: {
+      metalId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: 'Metals',
+          key: 'id',
+          as: 'metalId',
+        }
       },
-      color_id: {
+      colorId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: 'Colors',
+          key: 'id',
+          as: 'colorId',
+        }
       },
       price: {
         type: Sequelize.FLOAT,

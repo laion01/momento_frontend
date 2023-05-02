@@ -85,16 +85,16 @@ export default function Item({ index, data, onClick, onClickImages}) {
                 onClick={() => {showDetails(!isVisible)}} style={{ color : amount > 0 ? 'black' : '#00000050'}}>
                 <p className="min-w-[2.5rem] text-center"> { index } </p>
                 {/* <p className="min-w-[60px] font-bold text-center"> { data.id } </p> */}
-                <p className="min-w-[8rem]"> { getLocket(data.locket_id).name } </p>
-                <p className="min-w-[6rem] text-center"> { getTypeName(getLocket(data.locket_id).type) } </p>
+                <p className="min-w-[8rem]"> { getLocket(data.locketId).name } </p>
+                <p className="min-w-[6rem] text-center"> { getTypeName(getLocket(data.locketId).type) } </p>
                 <div className="min-w-[6rem] flex items-center justify-center"> 
-                    <p className="text-center bg-[#F5F5F5] px-[0.75rem] py-[0.25rem] rounded-full"> { getMetal(data.metal_id).name } </p>
+                    <p className="text-center bg-[#F5F5F5] px-[0.75rem] py-[0.25rem] rounded-full"> { getMetal(data.metalId).name } </p>
                 </div>
                 <div className="min-w-[6rem] flex items-center"> 
                     <div className="w-[2rem] h-[2rem] rounded-full overflow-hidden">
-                        <Image alt="" width={32} height={32} src={getColor(data.color_id).image ? getColor(data.color_id)?.image : "/images/colors/empty.svg"}/>
+                        <Image alt="" width={32} height={32} src={getColor(data.colorId).image ? getColor(data.colorId)?.image : "/images/colors/empty.svg"}/>
                     </div>
-                    <p> { getColor(data.color_id).name } </p>
+                    <p> { getColor(data.colorId).name } </p>
                 </div>
                 <p className="min-w-[6rem] text-center"> <span className="font-bold">$</span>{ data.price } </p>
                 

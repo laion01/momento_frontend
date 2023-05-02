@@ -6,9 +6,9 @@ export default async function handler(req, res) {
         try {
             console.log("------------------ 1", req.body.color)
             const product = await db.Product.build({
-                locket_id: req.body.product.locket_id,
-                metal_id: req.body.product.metal_id,
-                color_id: req.body.product.color_id,
+                locketId: req.body.product.locketId,
+                metalId: req.body.product.metalId,
+                colorId: req.body.product.colorId,
                 amount: req.body.product.amount,
                 price: req.body.product.price,
                 createdAt: new Date(),

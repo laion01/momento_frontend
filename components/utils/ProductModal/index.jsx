@@ -19,8 +19,8 @@ export default function ProductModal({ type, onClose, data }) {
     const router = useRouter();
     const [locketId, setLocketId] = useState("");
     const [locketType, setLocketType] = useState(1);
-    const [metalId, setMetalId] = useState(1);
-    const [colorId, setColorId] = useState(2);
+    const [c_metalId, setMetalId] = useState(1);
+    const [c_colorId, setColorId] = useState(2);
     const [locketNames, setLocketNames] = useState([]);
     const [locketIds, setLocketIds] = useState([]);
     const [price, setPrice] = useState(100.0);
@@ -44,7 +44,7 @@ export default function ProductModal({ type, onClose, data }) {
         if (type == 1) {
             setLocketId(1)
         } else {
-            setLocketId(data.locket_id)
+            setLocketId(data.locketId)
             setPrice(data.price)
             setAmount(data.amount)
         }
@@ -72,7 +72,7 @@ export default function ProductModal({ type, onClose, data }) {
 
     const onAddProduct = async () => {
         try {
-            const { products } = await UTILS_API.addProduct({ locket_id: locketId, metal_id: metalId, color_id: colorId, amount, price});
+            const { products } = await UTILS_API.addProduct({ locketId: locketId, metalId: c_metalId, colorId: c_colorId, amount, price});
             dispatch(setProducts({ products }))
 
             toast.success('Product added!', {
@@ -148,14 +148,14 @@ export default function ProductModal({ type, onClose, data }) {
                 </div>
                 <div className="flex items-center w-full mb-[1rem]">
                     <p className="mr-[10px] min-w-[3rem]"> Metal: </p>
-                    <select value={metalId} onChange={(e) => { setMetalId(e.target.value) }} className="appearance-none w-fit h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" disabled={type == 2}>
+                    <select value={c_metalId} onChange={(e) => { setMetalId(e.target.value) }} className="appearance-none w-fit h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" disabled={type == 2}>
                         {metals.map((t, index) =>
                             <option key={index} value={t.id}> {t.name} </option>
                         )}
                     </select>
                     <div className="grow"></div>
                     <p className="mr-[10px] ml-[2rem]"> Color: </p>
-                    <select value={colorId} onChange={(e) => { setColorId(e.target.value) }} className="appearance-none w-fit h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" disabled={type == 2}>
+                    <select value={c_colorId} onChange={(e) => { setColorId(e.target.value) }} className="appearance-none w-fit h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" disabled={type == 2}>
                         {colors.map((t, index) =>
                             <option key={index} value={t.id}> {t.name} </option>
                         )}

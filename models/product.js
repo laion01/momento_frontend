@@ -14,12 +14,27 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.File, {
         foreignKey: 'productId',
       })
+      Product.belongsTo(models.Metal, {
+        foreignKey: {
+          name: 'metalId',
+        }
+      })
+      Product.belongsTo(models.Color, {
+        foreignKey: {
+          name: 'colorId',
+        }
+      })
+      Product.belongsTo(models.Locket, {
+        foreignKey: {
+          name: 'locketId',
+        }
+      })
     }
   }
   Product.init({
-    locket_id: DataTypes.INTEGER,
-    metal_id: DataTypes.INTEGER,
-    color_id: DataTypes.INTEGER,
+    locketId: DataTypes.INTEGER,
+    metalId: DataTypes.INTEGER,
+    colorId: DataTypes.INTEGER,
     price: DataTypes.FLOAT,
     amount: DataTypes.INTEGER,
   }, {

@@ -145,7 +145,7 @@ export default function ColorModal({ type, onClose, data }) {
                         setColorName(e.target.value)
                     }} className="w-full text-[1rem] outline-none grow" placeholder="Locket name" />
                     <button className="flex justify-center items-center" onClick={() => { onImageClicked() }}>
-                        <input ref={imageInput} type="file" onChange={uploadToClient} hidden />
+                        <input ref={imageInput} type="file" onChange={uploadToClient} hidden accept=".jpg,.jpeg,.png,.svg,.webp"/>
 
                         { !uploadedImageURL &&
                             <FontAwesomeSvgIcon width={24} height={24} icon={faImage} />

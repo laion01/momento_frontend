@@ -133,7 +133,7 @@ export default function UploadFileDlg({ onClose }) {
                         }
                     </button>
                     <div className="flex flex-col">
-                        <input ref={imageInput} type="file" name="myImage" onChange={uploadToClient} hidden />
+                        <input ref={imageInput} type="file" name="myImage" onChange={uploadToClient} hidden  accept=".jpg,.jpeg,.png,.svg,.webp,.mp4,.mp3,.avi,.mpg"/>
 
                         <button onMouseEnter={() => { setHover(1) }} onMouseLeave={() => { setHover(0) }} className="flex items-center bg-white px-[2rem] py-[0.75rem] hover:bg-[#996D01] border-[#BDBDBD] border-[2px] hover:border-[#996D01] text-black hover:text-white mb-[10px]"
                             onClick={() => { onComputerClicked() }}

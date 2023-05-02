@@ -108,14 +108,14 @@ export default function GalleryPopup({ onClose, productImages, productId, data }
         <div className="fixed top-0 left-0 w-[100vw] h-[100vh] backdrop-blur-md justify-center flex">
             <div className="container mt-[100px]  max-h-[calc(100vh-9rem)] md:max-h-[calc(100vh-7.5rem)] overflow-y-hidden flex flex-col bg-white p-[1.875rem] pt-[0.5rem] h-fit shadow">
                 <div className="flex justify-between items-center mb-[10px]">
-                    <p className="text-primary text-[2.5rem] ml-[10px]"> {getLocket(data.locket_id).name}-{getTypeName(getLocket(data.locket_id).type)} </p>
+                    <p className="text-primary text-[2.5rem] ml-[10px]"> {getLocket(data.locketId).name}-{getTypeName(getLocket(data.locketId).type)} </p>
                     <button className="text-[#747067] flex justify-center items-center" onClick={() => { onClose(false) }}>
                         <FontAwesomeSvgIcon icon={faClose} width={20} height={20} className="text-[#747067]" />
                     </button>
                 </div>
                 <div className="border-[1px] border-[#BDBDBD] text-primary px-[20px] py-[10px] flex justify-between">
                     <p> My Photos </p>
-                    <input ref={imageInput} type="file" onChange={uploadToClient} hidden />
+                    <input ref={imageInput} type="file" onChange={uploadToClient} hidden accept=".jpg,.jpeg,.png,.svg,.webp,.mp4,.mp3,.avi,.mpg"/>
                     <button className="bg-primary px-[1rem] py-[0.5rem] text-white rounded-[0.25rem]"
                         onClick={() => { imageInput.current.click() }} disabled={uploadedImageURL}
                     > + Upload Image </button>
@@ -132,7 +132,7 @@ export default function GalleryPopup({ onClose, productImages, productId, data }
                             <ImageItem key={index} image={item.pathname} type={item.type} removable onDelete={() => { onDeleteImage(item) }} />
                         )}
                         {uploadedImageURL &&
-                            <div className="aspect-square w-[7.75rem] relative rounded-[0.5rem] p-[0.5rem] overflow-hidden relative" >
+                            <div className="aspect-square w-[7.75rem] relative rounded-[0.5rem] m-[0.5rem] overflow-hidden relative" >
                                 <div className="w-full h-full flex justify-center items-center">
                                     <Image alt="" src={uploadedImageURL}
                                         layout="fill" 
@@ -153,15 +153,15 @@ export default function GalleryPopup({ onClose, productImages, productId, data }
                             </div>
                         }
 
-                        <div className="w-[7.75rem]"></div>
-                        <div className="w-[7.75rem]"></div>
-                        <div className="w-[7.75rem]"></div>
-                        <div className="w-[7.75rem]"></div>
-                        <div className="w-[7.75rem]"></div>
-                        <div className="w-[7.75rem]"></div>
-                        <div className="w-[7.75rem]"></div>
-                        <div className="w-[7.75rem]"></div>
-                        <div className="w-[7.75rem]"></div>
+                        <div className="w-[7.75rem] m-[0.5rem]"></div>
+                        <div className="w-[7.75rem] m-[0.5rem]"></div>
+                        <div className="w-[7.75rem] m-[0.5rem]"></div>
+                        <div className="w-[7.75rem] m-[0.5rem]"></div>
+                        <div className="w-[7.75rem] m-[0.5rem]"></div>
+                        <div className="w-[7.75rem] m-[0.5rem]"></div>
+                        <div className="w-[7.75rem] m-[0.5rem]"></div>
+                        <div className="w-[7.75rem] m-[0.5rem]"></div>
+                        <div className="w-[7.75rem] m-[0.5rem]"></div>
                     </div>
 
                     {!uploadedImageURL && !images.length &&
