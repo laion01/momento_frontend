@@ -145,10 +145,10 @@ class UtilsApi {
 
   async getLocketsGallery() {
     try {
-      const res = await axios.post(`${this.URI}/locketGallery`)
-      return res.data.lockets.rows
+      const res = await axios.post(`${this.URI}/product/lockets`)
+      return res.data.products
     } catch (e) {
-      return { count: 0, rows: []}
+      return []
     }
   }
 

@@ -27,9 +27,13 @@ export default function Locket() {
     const [images, setImageList] = useState([]);
 
     const { colors, metals } = useUtil()
+    const [ validTypes, setValidTypes ] = useState([]);
+    const [ validMetals, setValidMetals] = useState([]);
+    const [ validColors, setValidColors] = useState([]);
+
 
     const onQuantityPlusClicked = () => {
-        setQuantity(quantity < amount ? quantity + 1 : amount);
+        setQuantity(quantity < total_amount ? quantity + 1 : total_amount);
     }
 
     const onQuantityMinusClicked = () => {
@@ -38,26 +42,23 @@ export default function Locket() {
 
     useEffect(() => {
         load()
-
-    }, [router.asPath])
+    }, [])
 
     const load = async () => {
+        console.log("_locketId______", query.locketId, query.metalId)
         setLocketId(query.locketId);
         setColorId(query.colorId);
         setMetalId(query.metalId);
 
         // console.log({locketId, colorId, metalId})
 
-        const { products } = await UTILS_API.getValidLockets(locketId);
+        const { products } = await UTILS_API.getValidLockets(query.locketId);
+        setValidTypes([...products])
 
         let mId=query.metalId, cId=query.colorId;
-        let isValidMetal = false;
-        let isValidColor = false;
-        let firstMetalId = 0;
-        let firstColorId = 0;
-        let files;
-        let price;
-        let amount;
+        let isValidMetal = false, isValidColor = false;
+        let firstMetalId = 0, firstColorId = 0;
+        let max_amount;
         for(let i = 0 ;i < products.length; i++ ) {
             if(firstMetalId == 0) {
                 firstMetalId = products[i].metalId
@@ -82,25 +83,59 @@ export default function Locket() {
                 }
             }
         }
-        for(let i = 0 ;i < products.length; i++ ) {
-            if(products[i].metalId == mId) {
-                if(products[i].colorId == cId) {
-                    price = products[i].price;
-                    amount = products[i].amount;
-                    files = products[i].Files;
-                }
-            }
-        }
 
-        console.log("lockets", products)
+        const ms = [];
+        const mids = [];
+        products.map((product)=> {
+            if(!mids.includes(product.metalId)) {
+                ms.push(product.Metal)
+                mids.push(product.metalId)
+            }
+        } )
+        setValidMetals([...ms]);
+        setMetalId(mId)
+        setColorId(cId)
+        setAmount(max_amount);
     }
+
+    useEffect(() => {
+        const color_list = [];
+        const cids = [];
+        validTypes.map((product)=> {
+            if(product.metalId == metalId && !cids.includes(product.colorId)) {
+                color_list.push(product.Color)
+                cids.push(product.colorId)
+            }
+        })
+
+        if(cids.length && !cids.includes(colorId)) {
+            setColorId(cids[0])
+        }
+        setValidColors([...color_list])
+    }, [metalId])
+
+    useEffect(() => {
+        validTypes.map((product)=> {
+            if(product.metalId == metalId && product.colorId == colorId) {
+                setAmount(product.amount)
+                setPrice(product.price);
+                setImageList([...product.Files]);
+                console.log("Files: ", product.FIles)
+            }
+        })
+    }, [colorId])
+
+    // useEffect(() => {
+    //     router.push(`locket?locketId=${locketId}&metalId=${metalId}&colorId=${colorId}`)
+    // }, [metalId, colorId])
+
 
     return (
         <div className="mx-[20px] md:mx-[40px] bg-[#F5F5F5] flex justify-center pt-[20px]">
             {!isOpenDlg ?
                 <div className="container grow flex flex-col justify-center items-center relative">
                     <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] leading-[6.75rem] text-[#AC8118] text-center mt-[100px]">
-                        Momento® Locket
+                        { validTypes.length ? validTypes[0].Locket.name : "Momento® Locket"}
                     </h2>
                     <p className="text-[1.5rem] leading-[2.25rem] text-center text-[#747067] leading-[2.25rem] mb-[3rem]">
                         By Galatea Jewelry by Artist
@@ -110,11 +145,11 @@ export default function Locket() {
 
                         <div className="flex flex-col ml-[0px] md:ml-[2rem]">
                             <div className="flex items-center mb-[1.5rem]">
-                                <p className="text-[#747067] mr-[16px] text-[1rem]"> Metal : </p>
+                                <p className="text-[#747067] mr-[16px] text-[1rem]"> Metal: </p>
                                 <div className="flex justify-center items-center">
-                                    {metals.map((cat, index) =>
+                                    {validMetals.map((cat, index) =>
                                         <button key={cat.id} className="rounded-full text-[#747067] text-center leading-[1.3125rem] mx-[4px] px-[12px] border-[#747067] h-[33px]" style={{ borderWidth: cat.id == metalId ? 2 : 0, backgroundColor: cat.id == metalId ? "transparent" : "#74706714" }}
-                                            onClick={() => { setMetalId(cat.id) }}
+                                            onClick={() => { setMetalId(cat.id), router.push(`locket?locketId=${locketId}&metalId=${cat.id}&colorId=${colorId}`) }}
                                         >
                                             {cat.name}
                                         </button>
@@ -122,11 +157,11 @@ export default function Locket() {
                                 </div>
                             </div>
                             <div className="flex items-center mb-[1.5rem]">
-                                <p className="text-[#747067] mr-[16px] text-[1rem]"> Color : </p>
+                                <p className="text-[#747067] mr-[16px] text-[1rem]"> Color: </p>
                                 <div className="flex justify-center items-center">
-                                    {colors.map((color, index) =>
+                                    {validColors.map((color, index) =>
                                         <button key={color.id} className="rounded-full pt-[3px] w-[2.5rem] h-[2.5rem] flex justify-center items-center border-[#747067]" style={{ borderWidth: color.id == colorId ? 2 : 0 }}
-                                            onClick={() => { setColorId(color.id) }}
+                                            onClick={() => { setColorId(color.id), router.push(`locket?locketId=${locketId}&metalId=${metalId}&colorId=${color.id}`) }}
                                         >
                                             <Image alt={color.name} src={color.image} width={32} height={32} />
                                         </button>
@@ -135,23 +170,23 @@ export default function Locket() {
                             </div>
                             <div className="flex items-center">
                                 <p className="text-[#747067] mr-[16px] text-[1rem]"> Price: </p>
-                                <p className="text-[#747067] mr-[16px] text-[1.25rem] font-bold"> $300 </p>
+                                <p className="text-[#747067] mr-[16px] text-[1.25rem] font-bold"> ${price} </p>
                             </div>
                             <div className="bg-[#D4D4D4] h-[2px] my-[24px]" />
                             <div className="flex items-center">
                                 <p className="text-[#747067] mr-[16px] text-[1rem]"> Quantity: </p>
-                                <button className="w-[2rem] h-[2rem] rounded-full disabled:bg-[#BCB9B3] bg-[#996D01] text-white text-[1.5rem] text-center leading-[2rem]"
-                                    onClick={() => {
-                                        onQuantityPlusClicked()
-                                    }}
-                                > + </button>
-                                <p className="text-[#747067] mx-[16px] text-[1.25rem] font-bold"> {quantity} </p>
                                 <button className="w-[2rem] h-[2rem] rounded-full disabled:bg-[#BCB9B3] bg-[#996D01] text-white text-[1.5rem] text-center leading-[2rem]" disabled={quantity == 0}
                                     onClick={() => {
                                         onQuantityMinusClicked()
                                     }}
                                 > - </button>
-                                <div className="grow" />
+                                <p className="text-[#747067] mx-[16px] text-[1.25rem] font-bold"> {quantity} </p>
+                                <button className="w-[2rem] h-[2rem] rounded-full disabled:bg-[#BCB9B3] bg-[#996D01] text-white text-[1.5rem] text-center leading-[2rem]"
+                                    onClick={() => {
+                                        onQuantityPlusClicked()
+                                    }}
+                                > + </button>
+                                <div className="grow min-w-[0.875rem]" />
                                 <Button disabled={quantity == 0} label="Add to Bag" />
                             </div>
                             <div className="bg-[#D4D4D4] h-[2px] my-[24px]" />

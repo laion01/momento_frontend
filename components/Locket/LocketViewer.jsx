@@ -1,5 +1,7 @@
 import { useState } from "react"
 import Image from "next/image"
+import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 
 export default function LocketViewer({ images }) {
     const [selectedItem, selectItem] = useState(0);
@@ -9,23 +11,34 @@ export default function LocketViewer({ images }) {
             <div className="flex flex-row md:flex-col mr-[0px] md:mr-[0.75rem] mt-[0.75rem] md:mt-[0px]">
                 { images.map((image, index) => 
                     <button key={index} className="w-[80px] h-[80px] m-[0.75rem] flex justify-center items-center bg-white border-[#996D01] overflow-hidden" onClick={() => { selectItem(index) }} style={{ borderWidth: index == selectedItem ? '2px' : '0', marginTop: index==0 ? "0px" : "0.75rem"}}>
-                        <Image alt="" src={image.url} width={image.width} height={image.height}/>
+                        <Image alt="" src={image.pathname} width={image.width} height={image.height}/>
                     </button>
                 )}
+                { images.length == 0 && 
+                    <button className="w-[80px] h-[80px] m-[0.75rem] flex justify-center items-center bg-white border-[#996D01] overflow-hidden border-[2px] mt-[0.75rem]" onClick={() => {  }} >
+                        <FontAwesomeSvgIcon icon={faImage} width={32} height={32} />
+                    </button>
+                }
             </div>
-            { images[selectedItem].type == 1 &&
+            { images.length &&
                 <div className="w-[500px] xl:w-[750px] aspect-square flex flex-wrap justify-center bg-white h-fit">
-                    <Image alt="" src={images[selectedItem].url} width={images[selectedItem].width} height={images[selectedItem].height}/>
+                    <Image alt="" src={images[selectedItem].pathname} width={images[selectedItem].width} height={images[selectedItem].height}/>
                 </div>
             }
-            { images[selectedItem].type == 2 &&
+            { images.length && images[selectedItem].type == 2 &&
                 <div className="w-[500px] w-[500px] xl:w-[750px] aspect-square flex items-center bg-white h-fit">
-                    <Image alt="" src={images[selectedItem].url} width={images[selectedItem].width} height={images[selectedItem].height}/>
+                    <Image alt="" src={images[selectedItem].pathname} width={images[selectedItem].width} height={images[selectedItem].height}/>
                 </div>
             }
-            { images[selectedItem].type == 3 &&
+            { images.length && images[selectedItem].type == 3 &&
                 <div className="relative w-[500px] xl:w-[750px] aspect-square flex items-center bg-white h-fit">
-                    <Image alt="" src={images[selectedItem].url} width={images[selectedItem].width} height={images[selectedItem].height}/>
+                    <Image alt="" src={images[selectedItem].pathname} width={images[selectedItem].width} height={images[selectedItem].height}/>
+                </div>
+            }
+
+            { images.length == 0 &&
+                <div className="relative w-[500px] xl:w-[750px] aspect-square flex items-center justify-center bg-white h-fit text-primary">
+                    <FontAwesomeSvgIcon icon={faImage} width={256} height={256} />
                 </div>
             }
         </div>

@@ -59,12 +59,16 @@ export default function LocketsGallery() {
     const [selectedMetal, selectMetal] = useState(1);
     const [quantity, setQuantity] = useState(1);
 
+    const [locketIds, setLocketIds] = useState([]);
+
     useEffect(() => {
         load();
     }, [])
 
     const load = async () => {
         const lockets = await UTILS_API.getLocketsGallery();
+        setLocketIds([...lockets]);
+
         console.log(lockets)
     }
 
@@ -78,13 +82,9 @@ export default function LocketsGallery() {
                     By Galatea Jewelry by Artist
                 </p>
                 <div className="flex flex-wrap justify-center items-center mt-[20px] mb-[5rem]">
-                    <LocketItem image="/images/lockets/locket5.png" title="Momento® Locket" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={11}/>
-                    <LocketItem image="/images/lockets/locket5.png" title="Momento® Locket" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={11}/>
-                    <LocketItem image="/images/lockets/locket5.png" title="Momento® Locket" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={11}/>
-                    <LocketItem image="/images/lockets/locket5.png" title="Momento® Locket" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={11}/>
-                    <LocketItem image="/images/lockets/locket5.png" title="Momento® Locket" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={11}/>
-                    <LocketItem image="/images/lockets/locket5.png" title="Momento® Locket" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={11}/>
-                    <LocketItem image="/images/lockets/locket2.png" title="Momento® Locket" price={300.00}  categories={['Silver', 'Yellow Gold']} selectedCat={1} colorItems={[11,12,13]} selectedColor={11}/>
+                    {locketIds.map((item, index) => 
+                        <LocketItem key={index} locketId={item.locketId}/>
+                    )}
                 </div>
             </div>
         </div>
