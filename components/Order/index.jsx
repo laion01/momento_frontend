@@ -1,15 +1,26 @@
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon"
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons"
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadFileDlg from "components/utils/UploadFileDlg";
 import Item from "./Item";
+import UTILS_API from "api/Util";
+import { useRouter } from "next/router";
 
 
 
 export default function Order() {
-
+    const router = useRouter();
     const [isOpenDlg, openDlg] = useState(false);
+
+    useEffect(() => {
+        load();
+    }, [])
+
+    const load = async () => {
+        const data = await UTILS_API.getOrder(router.query.id);
+        console.log(data);
+    }
 
     return (
         <div className="mx-[20px] md:mx-[40px] bg-[#F5F5F5] flex justify-center pt-[20px]">

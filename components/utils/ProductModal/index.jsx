@@ -20,7 +20,7 @@ export default function ProductModal({ type, onClose, data }) {
     const [locketId, setLocketId] = useState("");
     const [locketType, setLocketType] = useState(1);
     const [c_metalId, setMetalId] = useState(1);
-    const [c_colorId, setColorId] = useState(2);
+    const [c_colorId, setColorId] = useState(1);
     const [locketNames, setLocketNames] = useState([]);
     const [locketIds, setLocketIds] = useState([]);
     const [price, setPrice] = useState(100.0);

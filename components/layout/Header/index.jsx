@@ -11,7 +11,7 @@ import BagMenu from './BagMenu';
 import { setColors, setMetals, setMyBag, setProducts, setLockets, setProductTypes } from 'store/slices/utilSlice';
 import Button from 'components/utils/Buttons/Button';
 import AUTH_API from 'api/Auth';
-import { login } from 'store/slices/authSlice';
+import { login, setShippingAddress } from 'store/slices/authSlice';
 import UTILS_API from 'api/Util';
 
 export default function Header() {
@@ -26,32 +26,31 @@ export default function Header() {
     const [isShadow, showShadow] = useState(false);
 
     useEffect(() => {
-        dispatch(setMyBag({myBag: [
-            {
-                image: '/images/jewelry.png',
-                name: 'Momento® Locket Pearl Flower',
-                price: '300.0'
-            }, {
-                image: '/images/jewelry.png',
-                name: 'Momento® Locket Pearl Flower',
-                price: '300.0'
-            }, {
-                image: '/images/jewelry.png',
-                name: 'Momento® Locket Pearl Flower',
-                price: '300.0'
-            }
-        ]}));
+        tryAuthToken()
+        const b = JSON.parse(localStorage.getItem('myBag'))
+        dispatch(setMyBag({ myBag: b ? [...b] : [] }))
 
-        dispatch(setProductTypes({ productTypes : [
-            { 
-                id: 1, 
-                name: "Necklace", 
-            }, 
-            { 
-                id: 2, 
-                name: "Ring", 
-            },
-        ]}))
+        dispatch(setProductTypes({
+            productTypes: [
+                {
+                    id: 1,
+                    name: "Necklace",
+                },
+                {
+                    id: 2,
+                    name: "Ring",
+                },
+                {
+                    id: 3,
+                    name: "Pendant",
+                },
+            ]
+        }))
+
+        const ba = localStorage.getItem("shippingAddress");
+        if(ba) {
+            dispatch(setShippingAddress({shippingAddress: JSON.parse(ba)}));
+        }
 
         load();
     }, [])
@@ -67,16 +66,16 @@ export default function Header() {
         dispatch(setLockets({ lockets: lockets.rows }))
     }
 
-    useEffect(() => {
-        tryAuthToken()
-    }, [])
-
     const tryAuthToken = async () => {
         try {
-            const token = localStorage.getItem('token')
-            if(token) {
+            const token = localStorage.getItem('authToken')
+            console.log("_________ auth token", token)
+            console.log(!token, !!token, !!!token)
+
+            if (token) {
                 const { data } = await AUTH_API.me(token);
 
+                console.log("logedIn")
                 dispatch(login({
                     logined: true,
                     fullname: `${data.first_name} ${data.last_name}`,
@@ -85,13 +84,18 @@ export default function Header() {
                     phone: data.phone,
                     email: `${data.email}`,
                     avatar: data.avatar,
-                    user_id: data.id,
-                    token: data.token,
-                    address: '',
-                    billingAddress: '',
+                    userId: data.id,
+                    country: JSON.parse(data.country ? data.country : "{}"),
+                    state: JSON.parse(data.state ? data.state : "{}"),
+                    city: data.city,
+                    apartment: data.apartment,
+                    address: data.address,
+                    zipcode: data.zipcode,
                     role: data.role,
+                    authToken: data.authToken,
                 }))
-
+            } else {
+                console.log(!token, !!token, !!!token)
             }
         } catch (e) {
         }
@@ -121,33 +125,37 @@ export default function Header() {
                 <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
                     <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { openNotificationDropdown(true) }}>
                         <Image alt='' src='/images/bell.svg' width={40} height={40} />
-                        { ordersCount > 0 &&
+                        {ordersCount > 0 &&
                             <p className='absolute text-white min-w-[1.625rem] min-h-[1.625rem] px-[0.25rem] -top-[0.25rem] -right-[0.75rem] bg-primary rounded-[10px] rounded-bl-[0px] border-[0.125rem] border-white'>
-                                { ordersCount }
+                                {ordersCount}
                             </p>
                         }
                     </button>
-                    { isNotificationDropDown && <NotificationMenu onCloseMenu={() => {openNotificationDropdown(false)}}/>}
+                    {isNotificationDropDown && <NotificationMenu onCloseMenu={() => { openNotificationDropdown(false) }} />}
                 </div>
                 <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
                     <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { myBag.length && openBagDropdown(true) }}>
                         <Image alt='' src='/images/bag.png' width={40} height={40} />
-                        { myBag?.length > 0 &&
+                        {myBag?.length > 0 &&
                             <p className='absolute text-white min-w-[1.625rem] min-h-[1.625rem] px-[0.25rem] -top-[0.25rem] -right-[0.75rem] bg-primary rounded-[10px] rounded-bl-[0px] border-[0.125rem] border-white'>
-                                { myBag?.length }
+                                {myBag?.length}
                             </p>
                         }
                     </button>
-                    { isBagDropDown && <BagMenu onCloseMenu={() => {openBagDropdown(false)}}/>}
+                    {isBagDropDown && <BagMenu onCloseMenu={() => { openBagDropdown(false) }} />}
                 </div>
-                
+
                 <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
-                    <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { openUserDropdown(true) }}>
-                        {avatar && <div className='w-[2.5rem] h-[2.5rem] rounded-full overflow-hidden'> <Image alt='' src={avatar} width={40} height={40} /> </div>}
-                        {!avatar && <Image alt='' src='/images/avatar.png' width={40} height={40} /> }
+                    <button className='w-[2.5rem] h-[2.5rem] border-[#00000020] border-[1px] rounded-full overflow-hidden' onClick={() => { openUserDropdown(true) }}>
+                        { avatar && 
+                            <div className='w-[2.5rem] h-[2.5rem] rounded-full overflow-hidden relative'> 
+                                <Image alt='' src={avatar} width={40} height={40} layout='fill' objectFit='cover' /> 
+                            </div>
+                        }
+                        {!avatar && <Image alt='' src='/images/avatar.png' width={40} height={40} />}
                     </button>
                     {isUserDropDown &&
-                        <UserDropdown onCloseMenu={() => {openUserDropdown(false)}}/>
+                        <UserDropdown onCloseMenu={() => { openUserDropdown(false) }} />
                     }
                 </div>
 

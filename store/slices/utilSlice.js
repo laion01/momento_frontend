@@ -44,6 +44,41 @@ import {
 
       setMyBag: (state, action) => {
         state.myBag = action.payload['myBag'];
+        localStorage.setItem('myBag', JSON.stringify(state.myBag));
+      },
+
+      setQuantityInBag: (state, action) => {
+        let arr = JSON.parse(JSON.stringify(state.myBag))
+        for(let i = 0; i < arr.length; i++) {
+          if(arr[i].locketId == action.payload['locketId'] && arr[i].metalId == action.payload['metalId'] && arr[i].colorId == action.payload['colorId']) {
+            arr[i].quantity = action.payload['quantity'];
+          }
+        }
+        state.myBag = [...arr];
+        localStorage.setItem('myBag', JSON.stringify(state.myBag));
+      },
+
+      setPriceInBag: (state, action) => {
+        let arr = JSON.parse(JSON.stringify(state.myBag))
+        for(let i = 0; i < arr.length; i++) {
+          if(arr[i].locketId == action.payload['locketId'] && arr[i].metalId == action.payload['metalId'] && arr[i].colorId == action.payload['colorId']) {
+            arr[i].price = action.payload['price'];
+          }
+        }
+        state.myBag = [...arr];
+        localStorage.setItem('myBag', JSON.stringify(state.myBag));
+      },
+
+      removeItemFromBag: (state, action) => {
+        let arr = []
+        for(let i = 0; i < state.myBag.length; i++) {
+          if(state.myBag[i].locketId == action.payload['locketId'] && state.myBag[i].metalId == action.payload['metalId'] && state.myBag[i].colorId == action.payload['colorId']) {
+            continue;
+          }
+          arr.push(state.myBag[i])
+        }
+        state.myBag = [...arr];
+        localStorage.setItem('myBag', JSON.stringify(state.myBag));
       },
 
       setLockets: (state, action) => {
@@ -75,6 +110,9 @@ import {
     hideOverlay,
     setNotificatioins,
     setMyBag,
+    setQuantityInBag,
+    setPriceInBag,
+    removeItemFromBag,
     setLockets,
     setProducts,
     setMetals,

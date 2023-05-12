@@ -14,8 +14,8 @@ import {
     status: 0,
     phone: "",
     avatar: '',
-    userId: null,
-    billingAddress: {}
+    userId: 0,
+    shippingAddress: ""
   };
   
   export const loginSlice = createSlice({
@@ -28,26 +28,29 @@ import {
       
       login: (state, action) => {
         state.logined = true;
-        state.userId = action.payload['id'];
-        state.token = action.payload['token'];
+        state.userId = action.payload['userId'];
         state.firstName = action.payload['firstName'];
         state.lastName = action.payload['lastName'];
         state.email = action.payload['email'];
-        state.status = action.payload['status'];
         state.role = action.payload['role'];
-        state.address = action.payload['address'];
         state.phone = action.payload['phone'];
+        state.country = action.payload['country'];
+        state.state = action.payload['state'];
+        state.city = action.payload['city'];
+        state.apartment = action.payload['apartment'];
+        state.address = action.payload['address'];
+        state.zipcode = action.payload['zipcode'];
         state.avatar = action.payload['avatar'];
-        state.billingAddress = action.payload['billingAddress'];
+        state.status = action.payload['status'];
+        state.authToken = action.payload['authToken'];
 
         localStorage.setItem('auth', JSON.stringify(state));
-        localStorage.setItem('token', state.token);
       },
 
       logout: (state) => {
-        state.userId = null,
+        state.userId = 0,
         state.logined = false,
-        state.token = "",
+        state.authToken = "",
         state.firstName = "",
         state.lastName = "",
         state.email = "",
@@ -55,13 +58,19 @@ import {
         state.is_verify = 0,
         state.phone = "",
         state.avatar = "",
-        state.billingAddress = {}
-        localStorage.removeItem('auth');
-        localStorage.removeItem('token');
+
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('myBag');
+        localStorage.removeItem('shippingAddress');
       },
 
-      setBillingAddress: (state, action) => {
-        state.billingAddress = action.payload['billingAddress'];
+      setAvatar: (state, action) => {
+        state.avatar = action.payload['avatar'];
+      }, 
+
+      setShippingAddress: (state, action) => {
+        state.shippingAddress = JSON.stringify(action.payload['shippingAddress']);
+        localStorage.setItem('shippingAddress', JSON.stringify(action.payload['shippingAddress']));
       },
     },
   });
@@ -69,7 +78,8 @@ import {
   export const {
     login,
     logout,
-    setBillingAddress
+    setAvatar, 
+    setShippingAddress
   } = loginSlice.actions;
   
   // exporting the reducer here, as we need to add this to the store

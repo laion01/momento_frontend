@@ -12,7 +12,11 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      name: 'Silver',
+      name: 'White Gold',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      name: 'Diamond',
       createdAt: new Date(),
       updatedAt: new Date()
     },

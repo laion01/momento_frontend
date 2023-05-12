@@ -60,7 +60,8 @@ export default async function handler(req, res) {
             res.statusCode = 200;
             res.json({ products, new: product.id })
         } catch (e) {
-            res.statusCode = 400;
+          console.log(e);
+          res.statusCode = 400;
             res.json({error: 'unable to add this chain'})
         }
         

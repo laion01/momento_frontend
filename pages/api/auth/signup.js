@@ -53,7 +53,7 @@ export default async function handler(req, res) {
         first_name, last_name,
         email,
         password: '',
-        status: 0,
+        status: 1,
         createAt: new Date(),
         updatedAt: new Date(),
       })

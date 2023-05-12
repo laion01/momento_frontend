@@ -19,6 +19,12 @@ class AuthApi {
     )
   }
 
+  async setDetails(data) {
+    return (
+      data && (await axios.post(`${this.URI}/details`, data))
+    )
+  }
+
   async requireVerification(email, password) {
     return await axios.post(`${this.URI}/requireVerification`, {email, password})
   }

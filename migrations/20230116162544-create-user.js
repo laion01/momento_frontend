@@ -25,9 +25,33 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: '',
       },
+      country: {
+        type: Sequelize.STRING,
+        defaultValue: '{}',
+      },
+      state: {
+        type: Sequelize.STRING,
+        defaultValue: '{}',
+      },
+      city: {
+        type: Sequelize.STRING,
+        defaultValue: '',
+      },
+      apartment: {
+        type: Sequelize.STRING,
+        defaultValue: '',
+      },
+      address: {
+        type: Sequelize.STRING,
+        defaultValue: '',
+      },
+      zipcode: {
+        type: Sequelize.STRING,
+        defaultValue: '',
+      },
       avatar: {
         type: Sequelize.STRING,
-        defaultValue: "/images/avatars/avatar.jpg",
+        defaultValue: "/images/avatar.svg",
       },
       role: {
         type: Sequelize.INTEGER,

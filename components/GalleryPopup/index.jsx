@@ -78,7 +78,7 @@ export default function GalleryPopup({ onClose, productImages, productId, data }
         });
 
         const res = await response.text();
-        const p = await UTILS_API.addProductImage({ productId: data.id, filename: JSON.parse(res).filename, });
+        const p = await UTILS_API.addProductImage({ productId: data.id, filename: JSON.parse(res).filename, width: imageWidth, height: imageHeight});
         dispatch(setProducts({ products: p.products }));
         setImageList([...images, { pathname: JSON.parse(res).filename, type: "png", width: 120, height: 120, id: p?.fileId }])
 

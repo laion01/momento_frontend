@@ -62,7 +62,11 @@ export default async function handler(req, res) {
         })
         console.log("_____________ token ", token)
         // SMS.sendSms('+12055885568', "New account loggined!");
+      } else {
+        token = user.token
       }
+
+      user = await db.User.findByPk(user.id)
   
       res.statusCode = 200
       res.json({
@@ -73,6 +77,12 @@ export default async function handler(req, res) {
         last_name: user.last_name,
         avatar: user.avatar,
         phone: user.phone,
+        country: user.country,
+        state: user.state,
+        city: user.city,
+        apartment: user.apartment,
+        address: user.address,
+        zipcode: user.zipcode,
         role: user.role,
         status: user.status,
         authToken: token

@@ -7,6 +7,8 @@ export default async function handler(req, res) {
             const file = await db.File.build({
                 productId: req.body.file.productId,
                 pathname: req.body.file.filename,
+                width: req.body.file.width,
+                height: req.body.file.height,
                 createdAt: new Date(),
                 updatedAt: new Date()
             })
@@ -31,7 +33,7 @@ export default async function handler(req, res) {
     } else if (req.method === "DELETE") {
         try {
             console.log("Delete data", req.body)
-            const file = await db.File.findByPk(req.body.file.id)
+            const file = await db.File.findByPk(req.query.id)
             await file.destroy()
     
             const products = await db.Product.findAndCountAll({

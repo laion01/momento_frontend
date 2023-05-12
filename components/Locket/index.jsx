@@ -9,24 +9,28 @@ import UploadFileDlg from "components/utils/UploadFileDlg";
 import { useUtil } from "store/hook";
 import { useRouter } from "next/router";
 import UTILS_API from "api/Util";
+import { useDispatch } from "react-redux";
+import { setMyBag } from "store/slices/utilSlice";
+import { toast } from 'react-toastify';
 
 const colorItems = [1, 2, 3, 4,]
 
 export default function Locket() {
+    const dispatch = useDispatch()
     const router = useRouter();
     const { query } = router;
     const [isOpenDlg, openDlg] = useState(false);
 
-    const [locketId, setLocketId] = useState(1);
-    const [colorId, setColorId] = useState(1);
-    const [metalId, setMetalId] = useState(1);
+    const [locketId, setLocketId] = useState(0);
+    const [colorId, setColorId] = useState(0);
+    const [metalId, setMetalId] = useState(0);
 
     const [quantity, setQuantity] = useState(1);
-    const [total_amount, setAmount] = useState(1);
+    const [total_amount, setAmount] = useState(0);
     const [price, setPrice] = useState(100);
     const [images, setImageList] = useState([]);
 
-    const { colors, metals } = useUtil()
+    const { colors, metals, myBag, productTypes } = useUtil()
     const [ validTypes, setValidTypes ] = useState([]);
     const [ validMetals, setValidMetals] = useState([]);
     const [ validColors, setValidColors] = useState([]);
@@ -41,18 +45,21 @@ export default function Locket() {
     }
 
     useEffect(() => {
-        load()
-    }, [])
+        if(router.query)
+            load()
+    }, [router.query])
 
     const load = async () => {
-        console.log("_locketId______", query.locketId, query.metalId)
-        setLocketId(query.locketId);
-        setColorId(query.colorId);
-        setMetalId(query.metalId);
+        console.log("_locketId______", router.query.locketId, router.query.metalId)
+        if(router.query.locketId == undefined )
+            return;
+        // setLocketId(router.query.locketId);
+        // setMetalId(router.query.metalId);
+        // setColorId(router.query.colorId);
 
         // console.log({locketId, colorId, metalId})
 
-        const { products } = await UTILS_API.getValidLockets(query.locketId);
+        const { products } = await UTILS_API.getValidLockets(router.query.locketId);
         setValidTypes([...products])
 
         let mId=query.metalId, cId=query.colorId;
@@ -93,6 +100,7 @@ export default function Locket() {
             }
         } )
         setValidMetals([...ms]);
+        setLocketId(router.query.locketId);
         setMetalId(mId)
         setColorId(cId)
         setAmount(max_amount);
@@ -129,6 +137,78 @@ export default function Locket() {
     //     router.push(`locket?locketId=${locketId}&metalId=${metalId}&colorId=${colorId}`)
     // }, [metalId, colorId])
 
+
+    const getTypeName = (t) => {
+        for(let i = 0 ;i < productTypes.length; i++) {
+            if(productTypes[i].id == t)
+                return productTypes[i].name
+        }
+    }
+
+    const onAddToBag = () => {
+        if(quantity == 0) {
+            toast.error("Incorrect Quantity", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            return ;
+        }
+        let q  = 0;
+        for(let i= 0; i< myBag.length; i++) {
+            if(myBag[i].locketId == locketId && myBag[i].metalId == metalId && myBag[i].colorId == colorId)
+                q = myBag[i].quantity;
+        }
+        if(q > 0) {
+            const items = JSON.parse(JSON.stringify(myBag));
+            for(let i= 0; i< myBag.length; i++) {
+                if(items[i].locketId == locketId && items[i].metalId == metalId && items[i].colorId == colorId)
+                    items[i].quantity = items[i].quantity + quantity;
+            }
+            dispatch(setMyBag({myBag: items}))
+
+            toast.success(`+${quantity}  ` + (validTypes.length ? validTypes[0].Locket.name : "Momento Locket"), {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+            setQuantity(1);
+        } else {
+            const items = [...myBag, {
+                id: validTypes[0].id,
+                name: validTypes.length ? validTypes[0].Locket.name : "Momento Locket", 
+                type: validTypes.length ? getTypeName(validTypes[0].Locket.id) : "Necklace",
+                locketId, metalId, colorId, price,
+                image : images[0],
+                quantity,
+            }]
+    
+            dispatch(setMyBag({myBag: items}))
+
+            toast.success((validTypes.length ? validTypes[0].Locket.name : "Momento Locket") + " added!", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+        
+    }
 
     return (
         <div className="mx-[20px] md:mx-[40px] bg-[#F5F5F5] flex justify-center pt-[20px]">
@@ -187,7 +267,7 @@ export default function Locket() {
                                     }}
                                 > + </button>
                                 <div className="grow min-w-[0.875rem]" />
-                                <Button disabled={quantity == 0} label="Add to Bag" />
+                                <Button disabled={quantity == 0} label="Add to Bag" onClick={() => {onAddToBag()}} />
                             </div>
                             <div className="bg-[#D4D4D4] h-[2px] my-[24px]" />
                             <button className="w-fit h-[4rem] rounded-full bg-[#996D01] px-[32px] text-white text-[1rem] flex items-center justify-center"

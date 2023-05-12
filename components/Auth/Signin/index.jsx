@@ -19,7 +19,27 @@ export default function Signin() {
     const onLoginClicked = async () => {
         try {
             const res = await AUTH_API.login({email, password});
+            console.log(res);
             const user = res.data;
+
+            dispatch(login({
+                logined: true,
+                fullname: `${user.first_name} ${user.last_name}`,
+                firstName: user.first_name,
+                lastName: user.last_name,
+                phone: user.phone,
+                email: `${user.email}`,
+                avatar: user.avatar,
+                userId: user.id,
+                country: JSON.parse(user.country ? user.country : "{}"),
+                state: JSON.parse(user.state ? user.state : "{}"),
+                city: user.city,
+                apartment: user.apartment,
+                address: user.address,
+                zipcode: user.zipcode,
+                authToken: user.authToken,
+                role: user.role,
+            }))
 
             toast.success('Login Success', {
                 position: "bottom-right",
@@ -31,24 +51,15 @@ export default function Signin() {
                 progress: undefined,
                 theme: "light",
             });
-    
-            dispatch(login({
-                logined: true,
-                fullname: `${user.first_name} ${user.last_name}`,
-                firstName: user.first_name,
-                lastName: user.last_name,
-                phone: user.phone,
-                email: `${user.email}`,
-                avatar: user.avatar,
-                user_id: user.id,
-                token: user.token,
-                address: '',
-                billingAddress: '',
-            }))
-
-            router.push({pathname: '/'})
+            // set local storage
+            localStorage.setItem("authToken", user.authToken);
+            // get local storage
+            const t = localStorage.getItem("authToken");
+            console.log("authToken", t);
+            router.push("/")
             return ;
         } catch (e) {
+            console.log(e);
             if(e.response) {
                 toast.error(e.response.data.message, {
                     position: "bottom-right",

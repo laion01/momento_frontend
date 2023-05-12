@@ -4,13 +4,33 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('Lockets', [{
-      name: 'Pearl Flower',
+      name: 'With You Always Photo Album',
       type: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      name: 'Pearl Flower',
+      name: 'With You Always Photo Album',
       type: 2,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      name: 'Our Loving Memories Photo Album',
+      type: 1,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      name: 'Our Loving Memories Photo Album',
+      type: 2,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      name: 'Momento Diamond (MD-23W)',
+      type: 3,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      name: 'Momento Diamond (MD-28W)',
+      type: 3,
       createdAt: new Date(),
       updatedAt: new Date()
     },

@@ -75,19 +75,23 @@ export default function StoreList() {
                 </h2> */}
                 <div className="w-full flex mt-[100px]">
                     <div className="flex flex-col w-fit">
-                        <div className="max-h-[calc(100vh-6rem)] overflow-y-auto mx-[0.5rem] mb-[2rem] bg-white p-[1rem] rounded-[0.5rem] text-[0.75rem] flex flex-col min-h-[50vh] w-fit">
+                        <div className="max-h-[calc(100vh-6rem)] max-w-[400px] mx-[0.5rem] mb-[2rem] bg-white p-[1rem] rounded-[0.5rem] text-[0.75rem] flex flex-col min-h-[50vh] overflow-hidden">
                             <div className="h-[2.5rem] items-center flex justify-between font-bold text-[0.875rem] w-full">
                                 <p className="text-[1.25rem] text-primary font-bold"> Lockets </p>
                                 <button className="bg-primary px-[1rem] py-[0.25rem] text-white rounded-[0.25rem]" onClick={() => {openLocketModal(1)}}> + Add </button>
                             </div>
-                            <div className="h-[2.5rem] items-center border-b-[2px] flex w-fit font-bold text-[0.875rem]">
+                            <div className="h-[2.5rem] items-center border-b-[2px] flex w-full font-bold text-[0.875rem]">
                                 <div className="min-w-[2.5rem] text-center"> No </div>
-                                <div className="min-w-[200px] text-left"> Locket Name </div>
+                                <div className="min-w-[200px] grow text-left"> Locket Name </div>
                                 <div className="min-w-[80px] text-right"> Type </div>
                             </div>
-                            { lockets.map((locket, index) =>
-                                <LocketItem key={index+1} index={index} onClick={() => { openLocketModal(2), selectLocket(locket)}} data={locket} typeName={getTypeName(locket.type)}/>
-                            )}
+                            <div className="flex flex-col overflow-auto">
+                                { lockets.map((locket, index) =>
+                                    <LocketItem key={index+1} index={index} onClick={() => { openLocketModal(2), selectLocket(locket)}} data={locket} typeName={getTypeName(locket.type)}/>
+                                )}
+                            </div>
+
+
                         </div>
                         <div className="w-auto max-h-[calc(100vh-6rem)] overflow-y-auto mx-[0.5rem] mb-[2rem] bg-white p-[1rem] rounded-[0.5rem] text-[0.75rem] flex flex-col min-h-[50vh]">
                             <div className="h-[2.5rem] items-center flex justify-between font-bold text-[0.875rem] w-full">

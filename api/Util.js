@@ -125,6 +125,7 @@ class UtilsApi {
     }
   }
 
+
   async getValidLockets(id) {
     try {
       const res = await axios.get(`${this.URI}/product/types?locketId=${id}`)
@@ -136,7 +137,7 @@ class UtilsApi {
 
   async removeProductImage(file) {
     try {
-      const res = await axios.delete(`${this.URI}/product/productImage`, {file})
+      const res = await axios.delete(`${this.URI}/product/productImage?id=${file.id}`)
       return { products: res.data.products.rows}
     } catch (e) {
       return { new: -1, products: []}
@@ -149,6 +150,25 @@ class UtilsApi {
       return res.data.products
     } catch (e) {
       return []
+    }
+  }
+
+
+  async createOrder(data) {
+    try {
+      const res = await axios.post(`${this.URI}/order`, data)
+      return res;
+    } catch (e) {
+      return {}
+    }
+  }
+
+  async getOrder(id) {
+    try {
+      const res = await axios.get(`${this.URI}/order?id=${id}`)
+      return res.data.order;
+    } catch (e) {
+      return {}
     }
   }
 
