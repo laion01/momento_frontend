@@ -172,6 +172,21 @@ class UtilsApi {
     }
   }
 
+  async getOrders(userId) {
+    try {
+      if(userId) {
+        const res = await axios.get(`${this.URI}/orders`)
+        return res.data.orders;
+      } else {
+        const res = await axios.get(`${this.URI}/orders?userId=${userId}`)
+        return res.data.orders;
+      }
+    } catch (e) {
+      return []
+    }
+  }
+
+
   async getTokens() {
     try {
       const res = await axios.post(`${this.URI}/tokens`)

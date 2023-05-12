@@ -27,11 +27,11 @@ module.exports = {
       },
       productId: {
         type: Sequelize.INTEGER,
-        // references: {
-        //   model: 'Products',
-        //   key: 'id',
-        //   as: 'productId',
-        // }
+        references: {
+          model: 'Products',
+          key: 'id',
+          as: 'productId',
+        }
       },
       productCode: {
         type: Sequelize.STRING,

@@ -2,8 +2,17 @@ import db from "models";
 import Backend from "backend"
 
 export default async function handler(req, res) {
-    if (req.query.orderId) {
-        const orders = await db.Order.findAndCountAll({
+    let u = await Backend.getAuthenticatedUser({req, res});
+    if(!u) {
+        res.statusCode = 401
+        return res.json({ error: "Unauthorized User" })
+    }
+
+    if (req.query.userId == u.id || u.role == 3) {
+        const orders = await db.Order.findAll({
+            where: {
+                userId: u.id,
+            },
             order: [
                 ['id', 'ASC'],
             ],
@@ -12,24 +21,19 @@ export default async function handler(req, res) {
             ]
         });
         res.statusCode = 200;
-        res.json({ orders: orders })
-    } else {
-        const orders = await db.Order.findAndCountAll({
+        res.json({ orders })
+    } else if(u.role == 3){
+        const orders = await db.Order.findAll({
             order: [
                 ['id', 'ASC'],
             ],
             include: [
-                {model: db.SoldProduct, include: [db.Product]}
+                db.SoldProduct
             ]
         });
 
-        const sold = await db.SoldProduct.findAndCountAll({
-            order: [
-                ['id', 'ASC'],
-            ],
-        });
         res.statusCode = 200;
-        res.json({ orders, sold })
+        res.json({ orders })
     }
 
 }

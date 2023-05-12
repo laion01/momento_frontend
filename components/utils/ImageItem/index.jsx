@@ -25,7 +25,7 @@ export default function ImageItem({ image, type, onClick, onDelete, removable })
     
     return (
         <>
-            <div className="aspect-square w-[7.75rem] relative rounded-[0.5rem] m-[0.5rem] overflow-hidden relative" >
+            <div className="aspect-square w-[7.75rem] relative rounded-[0.5rem] m-[0.5rem] overflow-hidden bg-white border-[1px] border-[#00000030] relative" >
                 <div className="w-full h-full flex justify-center items-center p-[0.5rem]">
                     <Image alt="" src={image}
                         layout="fill"

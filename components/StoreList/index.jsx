@@ -126,7 +126,7 @@ export default function StoreList() {
                             <p className="text-[1.25rem] text-primary font-bold"> Products </p>
                             <button className="bg-primary px-[1rem] py-[0.5rem] text-white rounded-[0.25rem]" onClick={() => {openProductModal(true)}}> + Add </button>
                         </div>
-                        <div className="flex flex-col overflow-x-auto  min-h-[calc(100vh-5.5rem)]">
+                        <div className="flex flex-col overflow-x-auto  min-h-[calc(100vh-15rem)]">
                             <div className="border-b-[2px] flex w-fit font-bold text-[0.875rem] w-full">
                                 <p className="h-[2.5rem] min-w-[2.5rem] text-center"> No </p>
                                 {/* <p className="h-[2.5rem] min-w-[60px] text-center"> PID </p> */}

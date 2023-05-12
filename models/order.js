@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'billingAddressId',
         as: 'billingAddress'
       })
+
+      Order.belongsTo(models.User, {
+        foreignKey: 'userId',
+      })
     }
   }
   Order.init({
@@ -37,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     billingAddressId: DataTypes.INTEGER,
     shippingAddressId: DataTypes.INTEGER,
     shippingId: DataTypes.STRING,
+    totalPrice: DataTypes.FLOAT,
     status: DataTypes.INTEGER, 
   }, {
     sequelize,

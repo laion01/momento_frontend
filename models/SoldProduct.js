@@ -20,12 +20,12 @@ module.exports = (sequelize, DataTypes) => {
         }
       })
 
-      // SoldProduct.hasOne(models.Product, {
-      //   foreignKey: {
-      //     name: 'productId',
-      //     as: 'product'
-      //   }
-      // })
+      SoldProduct.belongsTo(models.Product, {
+        foreignKey: {
+          name: 'productId',
+          as: 'product'
+        }
+      })
     }
   }
   SoldProduct.init({

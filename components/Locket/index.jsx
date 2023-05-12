@@ -50,14 +50,8 @@ export default function Locket() {
     }, [router.query])
 
     const load = async () => {
-        console.log("_locketId______", router.query.locketId, router.query.metalId)
         if(router.query.locketId == undefined )
             return;
-        // setLocketId(router.query.locketId);
-        // setMetalId(router.query.metalId);
-        // setColorId(router.query.colorId);
-
-        // console.log({locketId, colorId, metalId})
 
         const { products } = await UTILS_API.getValidLockets(router.query.locketId);
         setValidTypes([...products])

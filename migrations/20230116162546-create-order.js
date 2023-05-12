@@ -37,6 +37,10 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: "",
       },
+      totalPrice: {
+        type: Sequelize.FLOAT,
+        default: 0.0,
+      },
       status: {
         type: Sequelize.INTEGER,
         defaultValue: 0,

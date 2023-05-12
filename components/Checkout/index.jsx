@@ -13,6 +13,7 @@ import { setShippingAddress } from "store/slices/authSlice";
 import UTILS_API from "api/Util";
 import { toast } from 'react-toastify';
 import { useRouter } from "next/router";
+import { setMyBag } from "store/slices/utilSlice";
 
 export default function Checkout() {
     const dispatch = useDispatch();
@@ -177,6 +178,7 @@ export default function Checkout() {
                 theme: "light",
             });
 
+            dispatch(setMyBag({myBag: []}));
             router.push(`/order?id=${res.data.order.id}`);
         } catch (e) {
         }

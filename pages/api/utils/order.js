@@ -10,15 +10,23 @@ export default async function handler(req, res) {
 
     if (req.method === "GET") {
         const id = req.query.id;
-        console.log("orderId", id);
+
         const order = await db.Order.findOne({
             where: {
                 id,
             },
             include: [
-                db.SoldProduct, 
+                { 
+                    model: db.SoldProduct, 
+                    include: [
+                        { model: db.Product, include: [
+                            db.Locket, db.Metal, db.Color, db.File
+                        ]},
+                    ] 
+                },
                 { model: db.Address, as: 'billingAddress' },
-                { model: db.Address, as: 'shippingAddress' }
+                { model: db.Address, as: 'shippingAddress' },
+                db.User
             ]
         })
 
