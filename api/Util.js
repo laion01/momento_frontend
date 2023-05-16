@@ -174,8 +174,9 @@ class UtilsApi {
 
   async getOrders(userId) {
     try {
-      if(userId) {
+      if(!userId) {
         const res = await axios.get(`${this.URI}/orders`)
+        console.log("All orders", res.data.orders)
         return res.data.orders;
       } else {
         const res = await axios.get(`${this.URI}/orders?userId=${userId}`)
@@ -186,41 +187,21 @@ class UtilsApi {
     }
   }
 
-
-  async getTokens() {
+  async checkoutPayment(data) {
     try {
-      const res = await axios.post(`${this.URI}/tokens`)
-      return res.data.tokens
+      const res = await axios.post(`/api/checkout_sessions`, {items: data})
+      return {sucess: true, ...res.data};
     } catch (e) {
-      return { count: 0, rows: []}
+      return { success: false}
     }
   }
 
-  async addToken(token) {
+  async getPaymentIntent(data) {
     try {
-      const res = await axios.post(`${this.URI}/token`, token)
-      return { new: res.data.new, tokens: res.data.tokens.rows}
+      const res = await axios.post(`/api/checkout/getClientIntent`, {items: data})
+      return {success: true, ...res.data};
     } catch (e) {
-      return { new: -1, tokens: []}
-    }
-  }
-
-  async updateToken(token) {
-    try {
-      const res = await axios.put(`${this.URI}/token`, token)
-      console.log("+++++++++++++++++++", res.data)
-      return res.data.tokens.rows
-    } catch (e) {
-      return []
-    }
-  }
-
-  async getAddresses(tokenId) {
-    try {
-      const res = await axios.post(`${this.URI}/addresses`, {tokenId})
-      return res.data.addresses.rows
-    } catch (e) {
-      return []
+      return { success: false}
     }
   }
 }

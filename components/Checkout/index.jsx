@@ -15,13 +15,13 @@ import { toast } from 'react-toastify';
 import { useRouter } from "next/router";
 import { setMyBag } from "store/slices/utilSlice";
 
+
 export default function Checkout() {
     const dispatch = useDispatch();
     const router = useRouter();
     const { userId, firstName, lastName, phone, email, address, country, state, city, apartment, zipcode, shippingAddress } = useAuth();
     const { myBag } = useUtil();
     const [ isValidShippingAddress, checkShipping] = useState(false);
-
     const [updatedFields, setUpdatedFields] = useState([])
 
     const [_country, setCountry] = useState(country ? country : { "value": "US", "group": "U", "text": "United States" });
@@ -68,7 +68,6 @@ export default function Checkout() {
             setState(state);
         } else {
             const bb = JSON.parse(shippingAddress);
-            console.log(bb);
             setFirstName({ value: bb.firstName, error: '', newValue: bb.firstName, });
             setLastName({ value: bb.lastName, error: '', newValue: bb.lastName, });
             setEmail({ value: bb.email, error: '', newValue: bb.email, });
@@ -162,24 +161,27 @@ export default function Checkout() {
         }
     }
 
-    const onStripeClicked = async (data) => {
+    const onStripeClicked = async (data, formRef) => {
+        // formRef.current.submit();
         try {
-            const res = await UTILS_API.createOrder({...data, myBag});
-            console.log(res)
+            // await UTILS_API.checkoutPayment(myBag);
 
-            toast.success('Your order placed successfully!', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
+            // const res = await UTILS_API.createOrder({...data, myBag});
+            // console.log(res)
 
-            dispatch(setMyBag({myBag: []}));
-            router.push(`/order?id=${res.data.order.id}`);
+            // toast.success('Your order placed successfully!', {
+            //     position: "bottom-right",
+            //     autoClose: 5000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            //     progress: undefined,
+            //     theme: "light",
+            // });
+
+            // dispatch(setMyBag({myBag: []}));
+            // router.push(`/order?id=${res.data.order.id}`);
         } catch (e) {
         }
     }
@@ -243,7 +245,7 @@ export default function Checkout() {
                             <div className="bg-white flex flex-col px-[1.5rem] p-[24px] h-fit mb-[2rem] rounded-[0.5rem] shadow">
                                 <p className="text-[1.5rem] text-primary font-bold mb-[2rem]"> Shipping Address </p>
                                 <div className="flex flex-col md:flex-row mb-[1.5rem]">
-                                    <div className="grow pr-[0px] md:pr-[0.75rem] mb-[1.5rem] md:mb-[0rem]">
+                                    <div className="w-1/2 pr-[0px] md:pr-[0.75rem] mb-[1.5rem] md:mb-[0rem]">
                                         <input type="text" value={_firstName.value} onChange={(e) => { onChangeUserInfo("firstname", e.target.value) }} className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="First Name" />
                                     </div>
                                     <div className="grow pl-[0px] md:pl-[0.75rem]">

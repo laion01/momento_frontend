@@ -69,8 +69,6 @@ export default function Header() {
     const tryAuthToken = async () => {
         try {
             const token = localStorage.getItem('authToken')
-            console.log("_________ auth token", token)
-            console.log(!token, !!token, !!!token)
 
             if (token) {
                 const { data } = await AUTH_API.me(token);

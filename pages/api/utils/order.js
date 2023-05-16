@@ -91,6 +91,7 @@ export default async function handler(req, res) {
             const products = req.body.myBag
             console.log("------------------ 444", products.length)
 
+            let totalPrice = 0;
             for(let i = 0 ; i < products.length; i++) {
                 const product = await db.Product.findOne({
                     where: {
@@ -105,12 +106,16 @@ export default async function handler(req, res) {
                         userId: req.body.userId,
                         orderId: order.id,
                         productId: product.id,
-                        price: products[i].price
+                        price: products.price
                     })
+                    totalPrice += product.price;
                     console.log("================ productId ", data)
                     data.save();
                 }
             }
+
+            order.totalPrice = totalPrice;
+            await order.save();
             
             console.log("------------------ 5", order)
 

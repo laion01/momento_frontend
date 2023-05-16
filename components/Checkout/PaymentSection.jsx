@@ -1,14 +1,33 @@
 import Image from "next/image";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import CountrySelector from "components/utils/Buttons/CountrySelector";
 import StateSelector from "components/utils/Buttons/StateSelector";
 import stateList from "../../config/CountryData";
-import { useAuth } from "store/hook";
+import { useAuth, useUtil } from "store/hook";
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+const stripePromise = loadStripe('pk_test_51JS6iTJi8Mhamixz7ZfPhC0Yn3sp7ft7RJZO1zn228RPbN8vUpkbNELlxP8n8Bx1WOPH21vx2X4iRxGgLpVnTaUH00vYOcpgTO');
+import CheckoutForm from "./CheckoutForm";
+import UTILS_API from "api/Util";
+import PaymentCard from "./PaymentCard";
 
-export default function PaymentSection({ firstName, lastName, email, phone, address, city, apartment, state, country, zipcode, onBack, onPaypalClicked, onStripeClicked }) {
+import {
+    PaymentElement,
+    useStripe,
+    useElements
+} from "@stripe/react-stripe-js";
+
+// import * as dotenv from 'dotenv';
+
+// dotenv.config();
+
+import { faCcStripe } from "@fortawesome/free-brands-svg-icons";
+
+export default function PaymentSection({ firstName, lastName, email, phone, address, city, apartment, state, country, zipcode, onBack, onStripeClicked }) {
     const { userId } = useAuth();
+    const { myBag } = useUtil();
     const [billingAddrOption, setBillingAddrOption] = useState(1);
     const [updatedFields, setUpdatedFields] = useState([])
 
@@ -24,10 +43,28 @@ export default function PaymentSection({ firstName, lastName, email, phone, addr
     const [_zipcode, setZipcode] = useState(zipcode);
     const [_phone, setPhone] = useState(phone);
 
+    const [clientSecret, setClientSecret] = useState("");
+    const [message, setMessage] = useState("");
+
+    const formRef = useRef(null)
+
+    // const [ client_secret, setClientSecret] = useState("")
+
+    useEffect(() => {
+        if(myBag?.length > 0)
+            getPaymentIntent();
+    }, [myBag]);
+
+    const getPaymentIntent = async () => {
+        const res = await UTILS_API.getPaymentIntent(myBag);
+        if (res.success) {
+            setClientSecret(res.secret);
+        }
+    }
+
     const onOptionchaged = (val) => {
         setBillingAddrOption(val)
     }
-
 
     const onChangeUserInfo = (field, value) => {
         const list = JSON.parse(JSON.stringify(updatedFields));
@@ -74,36 +111,56 @@ export default function PaymentSection({ firstName, lastName, email, phone, addr
         setUpdatedFields([...list]);
     }
 
-    const onStripe = () => {
-        onStripeClicked({
-            userId,
-            billingAddress: {
-                firstName: firstName.value,
-                lastName: lastName.value,
-                email: email.value,
-                phone: phone.value,
-                country, state,
-                city: city.value,
-                apartment: apartment.value,
-                address: address.value,
-                zipcode: zipcode.value,
-            },
-            shippingAddress: {
-                firstName: _firstName.value,
-                lastName: _lastName.value,
-                email: _email.value,
-                phone: _phone.value,
-                country: _country, state: _state,
-                city: _city.value,
-                apartment: _apartment.value,
-                address: _address.value,
-                zipcode: _zipcode.value,
-            },
-        })
-    }
+    const onStripe = async () => {
+        // onStripeClicked({
+        //     userId,
+        //     billingAddress: {
+        //         firstName: firstName.value,
+        //         lastName: lastName.value,
+        //         email: email.value,
+        //         phone: phone.value,
+        //         country, state,
+        //         city: city.value,
+        //         apartment: apartment.value,
+        //         address: address.value,
+        //         zipcode: zipcode.value,
+        //     },
+        //     shippingAddress: {
+        //         firstName: _firstName.value,
+        //         lastName: _lastName.value,
+        //         email: _email.value,
+        //         phone: _phone.value,
+        //         country: _country, state: _state,
+        //         city: _city.value,
+        //         apartment: _apartment.value,
+        //         address: _address.value,
+        //         zipcode: _zipcode.value,
+        //     },
+        // }, formRef)
 
-    const onPaypal = () => {
+        try {
+            console.log("submit", formRef)
+            if(!formRef) return ;
+            // await UTILS_API.checkoutPayment(myBag);
 
+            // const res = await UTILS_API.createOrder({...data, myBag});
+            // console.log(res)
+
+            // toast.success('Your order placed successfully!', {
+            //     position: "bottom-right",
+            //     autoClose: 5000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            //     progress: undefined,
+            //     theme: "light",
+            // });
+
+            // dispatch(setMyBag({myBag: []}));
+            // router.push(`/order?id=${res.data.order.id}`);
+        } catch (e) {
+        }
     }
 
     return (
@@ -144,10 +201,50 @@ export default function PaymentSection({ firstName, lastName, email, phone, addr
                         <Image alt="" src="/images/discover.svg" width={32} height={24} />
                     </button>
                 </div>
-                <div className="flex mb-[1.5rem]">
+                {/* <form action="/api/checkout_sessions" method="POST">
+                    <section>
+                        <button type="submit" role="link">
+                            Checkout
+                        </button>
+                    </section>
+                    <style jsx>
+                        {`
+                            section {
+                                background: #ffffff;
+                                display: flex;
+                                flex-direction: column;
+                                width: 400px;
+                                height: 112px;
+                                border-radius: 6px;
+                                justify-content: space-between;
+                            }
+                            button {
+                                height: 36px;
+                                background: #556cd6;
+                                border-radius: 4px;
+                                color: white;
+                                border: 0;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: all 0.2s ease;
+                                box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                            }
+                            button:hover {
+                                opacity: 0.8;
+                            }
+                        `}
+                    </style>
+                </form> */}
+                { clientSecret &&
+                    <Elements options={{ clientSecret: clientSecret, appearance: { theme: 'light', labels: 'floating' } }} stripe={stripePromise}>
+                        <PaymentCard formRef={formRef}/>
+                    </Elements>
+                }
+
+                {/* <div className="flex mb-[1.5rem]">
                     <div className="w-1/2 flex h-[3rem] items-center mr-[0.75rem] px-[0.625rem] border-[1px] border-[#D4D4D4] rounded-[0.25rem]">
-                        <div className="w-[32px] h-[24px] mr-[0.625rem]">
-                            <Image src="/images/cardicon.svg" alt="" width={32} height={24} />
+                        <div className="w-[32px] h-[24px] mr-[0.625rem] text-primary">
+                            <FontAwesomeSvgIcon icon={faCcStripe} width={24} height={24} />
                         </div>
                         <input type="text" className="text-[1rem] leading-[1.6875rem] outline-none" placeholder="Card Number" />
                     </div>
@@ -162,7 +259,7 @@ export default function PaymentSection({ firstName, lastName, email, phone, addr
                     <div className="w-1/2 flex h-[3rem] items-center grow ml-[0.75rem] px-[0.625rem] border-[1px] border-[#D4D4D4] rounded-[0.25rem]">
                         <input type="text" className="grow text-[1rem] leading-[1.6875rem] outline-none" placeholder="Security Code" />
                     </div>
-                </div>
+                </div> */}
 
                 <div className="flex flex-col mb-[1.5rem]">
                     <p className="text-[1.5rem] font-bold leading-[2.25rem] text-primary">
@@ -229,14 +326,6 @@ export default function PaymentSection({ firstName, lastName, email, phone, addr
                 }
             </div>
 
-            <div className="w-full flex justify-end items-center">
-                {/* <button className="w-[14.25rem] h-[2.75rem]">
-                    <Image alt="" src="/images/PaypalButton.png" width={228} height={44} />
-                </button> */}
-                <button className="h-[3rem] rounded-full bg-[#996D01] disabled:bg-[#BCB9B3] px-[24px] text-white text-[1rem]"
-                    onClick={() => {onStripe()}}
-                > Pay Now </button>
-            </div>
         </div>
     )
 }
