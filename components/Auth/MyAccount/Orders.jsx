@@ -27,9 +27,10 @@ export default function Orders({}) {
                     <thead>
                         <tr className="px-[30px] text-[1rem] leading-[1.6875rem] h-[5rem] border-b-[1px] border-[#D4D4D4] flex items-center">
                             <th className="text-left text-[#9E785D] text-[0.875rem] leading-[1.375] w-[80px] text-center"> Order ID </th>
-                            <th className="text-left text-[#9E785D] text-[0.875rem] leading-[1.375] w-[80px] text-center"> Items </th>
+                            <th className="text-left text-[#9E785D] text-[0.875rem] leading-[1.375] w-[80px]"> Items </th>
                             <th className="text-left text-[#9E785D] text-[1rem] leading-[1.375] w-[120px] font-medium"> Total Price </th>
-                            <th className="text-left text-[#9E785D] text-[1rem] leading-[1.375] w-min-[300px] grow font-medium"> Created </th>
+                            <th className="text-left text-[#9E785D] text-[1rem] leading-[1.375] w-[240px] font-medium"> Created </th>
+                            <th className="text-left text-[#9E785D] text-[1rem] leading-[1.375] w-[280px] grow font-medium"> Payment Id </th>
 
                             <th className="text-left text-[#9E785D] text-[0.875rem] leading-[1.375] w-[120px]">
                                 Actions

@@ -4,20 +4,23 @@
     "password": "postgres",
     "database": "postgres://postgres:postgres@localhost:5432/momento",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   },
   "test": {
     "username": "postgres",
     "password": "postgres",
     "database": "postgres",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   },
   "production": {
     "username": "postgres",
     "password": "postgres",
     "database": "postgres://postgres:postgres@localhost:5432/momento",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   }
 }

@@ -265,7 +265,7 @@ export default function Locket() {
                             </div>
                             <div className="bg-[#D4D4D4] h-[2px] my-[24px]" />
                             <button className="w-fit h-[4rem] rounded-full bg-[#996D01] px-[32px] text-white text-[1rem] flex items-center justify-center"
-                                onClick={() => { openDlg(true) }}
+                                onClick={() => { openDlg(true) }} disabled={true}
                             >
                                 <div className="w-[2rem] h-[2rem] mr-[0.875rem] flex justify-center items-center">
                                     <Image alt="" width={32} height={32} src="/images/upload.svg" />

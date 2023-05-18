@@ -1,18 +1,21 @@
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon"
-import { faAngleDown, faAngleUp, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faAngleDown, faAngleUp, faCartPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import UploadFileDlg from "components/utils/UploadFileDlg";
 import Item from "./Item";
 import UTILS_API from "api/Util";
 import { useRouter } from "next/router";
-import { useAuth } from "store/hook";
+import { useAuth, useUtil } from "store/hook";
+import Button from "components/utils/Buttons/Button";
+import { useDispatch } from "react-redux";
+import { setOrders } from "store/slices/utilSlice";
 
-
-
-export default function Order() {
+export default function OrderAdminView() {
+    const dispatch = useDispatch()
     const router = useRouter();
     const { userId } = useAuth();
+    const { orders } = useUtil();
     const [ orderOwner, setOrderOwner] = useState(0);
     const [isOpen, openItems] = useState(true);
     const [products, setProducts] = useState([]);
@@ -23,6 +26,7 @@ export default function Order() {
     const [totalPrice, setTotalPrice] = useState(0);
     const [subTotalPrice, setSubTotalPrice] = useState(0);
     const [status, setStatus] = useState(2);
+    const [user, setUser] = useState({first_name: "", last_name: ""});
 
 
     useEffect(() => {
@@ -34,6 +38,7 @@ export default function Order() {
             return ;
         try{
             const data = await UTILS_API.getOrder(router.query.id);
+
             setCustomerName(`${data.User.first_name} ${data.User.last_name}`)
             const state = JSON.parse(data.shippingAddress.state);
             const country = JSON.parse(data.shippingAddress.country);
@@ -57,19 +62,32 @@ export default function Order() {
             setTotalPrice(data.totalPrice ? data.totalPrice : sp);
             setProducts([...ans])
             setStatus(data.status);
+            setUser(data.User);
         } catch (e) {
             
         }
-        
+    }
+
+    useEffect(() => {
+        orders.map((order) => {
+            if(order.id == orderId) {
+                setViewed()
+            }
+        })
+    }, [orderId, orders])
+
+    const setViewed = async () => {
+        const orderData = await UTILS_API.setOrderViewed(orderId);
+        dispatch(setOrders({orders: orderData.rows}));
     }
 
     return (
         <div className="mx-[20px] md:mx-[40px] bg-[#F5F5F5] flex flex-col items-center justify-center pt-[20px] pb-[8rem]">
             <div className="container grow flex flex-col justify-center items-center relative">
-                <h2 className="text-[2.5rem] md:text-[3rem] lg:text-[4rem] leading-[3.75rem] text-[#AC8118] text-center font-bold mt-[100px] mb-[2.5rem]">
-                    { status == 1 ? "Order placed, thanks!" : "Order not completed yet. "} 
+                <h2 className="text-[2.5rem] md:text-[3rem] lg:text-[4rem] leading-[3.75rem] text-[#AC8118] text-center font-bold mt-[100px] mb-[1rem]">
+                    { status == 1 ? "Order placed successfully" : "Order is Pending now."} 
                 </h2>
-                <p className="text-[1.125rem] font-light leading-[2.25rem] text-[#747067] mb-[2.5rem]"> Confirmation will be sent to your email. </p>
+                <p className="text-[1.25rem] font-light leading-[2.25rem] text-[#747067] mb-[2.5rem]"> Order Created by <span className="font-bold">{user.first_name} {user.last_name}</span> </p>
                 <p className="text-[1.125rem] font-bold leading-[2.25rem] text-[#747067] mb-[2.5rem] text-center"> 
                     Shipping to {customerName}, {shippingAddress} <br/>
                     Estimated delivery: June 23, 2021 
@@ -78,7 +96,6 @@ export default function Order() {
                     <p className="text-[1rem] text-[#747067] text-center grow"> <span className="font-bold"> Order Number: </span> #{orderId} </p>
                     <div className="w-[1px] bg-[#747067] h-full"></div>
                     <p className="text-[1rem] text-[#747067] text-center grow"><span className="font-bold"> Order Date: </span> {createdAt} </p>
-
                 </div>
                 <div className="bg-white flex flex-col p-[1.5rem] h-fit mx-[50px] mb-[2rem] shadow-md min-w-[540px]">
                     <div className="flex justify-between items-center mb-[1.5rem] pb-[1.5rem] border-b-[1px] border-b-[#D4D4D4]">
@@ -120,7 +137,6 @@ export default function Order() {
                     </div>
                 </div>
             </div>
-            
             { status == 0 && 
                 <div className="flex">
                     <button className="mx-[0.25rem] h-[3rem] rounded-full bg-[#e0e0e0] text-primary hover:px-[1.675rem] px-[1.5rem] text-black text-[1rem] hover:shadow transition-all duration-300 flex items-center" onClick={(e) => { router.push('/lockets')}}> 
@@ -133,7 +149,6 @@ export default function Order() {
                     {/* <Button label="Proceed to Checkout" onClick={() => { router.push("/checkout")}}/> */}
                 </div>
             }
-            
         </div>
     )
 }

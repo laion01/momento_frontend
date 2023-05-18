@@ -47,14 +47,14 @@ export default async function handler(req, res) {
             const billingAddress = await db.Address.build({
                 country: JSON.stringify(req.body.billingAddress.country),
                 state: JSON.stringify(req.body.billingAddress.state),
-                city: req.body.billingAddress.city,
-                apartment: req.body.billingAddress.apartment,
-                address: req.body.billingAddress.address,
-                zipcode: req.body.billingAddress.zipcode,
-                email: req.body.billingAddress.email,
-                phone: req.body.billingAddress.phone,
-                firstName: req.body.billingAddress.firstName,
-                lastName: req.body.billingAddress.lastName,
+                city: req.body.billingAddress.city.value,
+                apartment: req.body.billingAddress.apartment.value,
+                address: req.body.billingAddress.address.value,
+                zipcode: req.body.billingAddress.zipcode.value,
+                email: req.body.billingAddress.email.value,
+                phone: req.body.billingAddress.phone.value,
+                firstName: req.body.billingAddress.firstName.value,
+                lastName: req.body.billingAddress.lastName.value,
             })
             await billingAddress.save();
             console.log("------------------ billingAddress 2", billingAddress.id)
@@ -62,34 +62,31 @@ export default async function handler(req, res) {
             const shippingAddress = await db.Address.build({
                 country: JSON.stringify(req.body.shippingAddress.country),
                 state: JSON.stringify(req.body.shippingAddress.state),
-                city: req.body.shippingAddress.city,
-                apartment: req.body.shippingAddress.apartment,
-                address: req.body.shippingAddress.address,
-                zipcode: req.body.shippingAddress.zipcode,
-                email: req.body.shippingAddress.email,
-                phone: req.body.shippingAddress.phone,
-                firstName: req.body.shippingAddress.firstName,
-                lastName: req.body.shippingAddress.lastName,
+                city: req.body.shippingAddress.city.value,
+                apartment: req.body.shippingAddress.apartment.value,
+                address: req.body.shippingAddress.address.value,
+                zipcode: req.body.shippingAddress.zipcode.value,
+                email: req.body.shippingAddress.email.value,
+                phone: req.body.shippingAddress.phone.value,
+                firstName: req.body.shippingAddress.firstName.value,
+                lastName: req.body.shippingAddress.lastName.value,
             })
 
             await shippingAddress.save();
-            console.log("------------------ shippingAddress 2", shippingAddress.id)
-
-            console.log("------------------ 3", shippingAddress.id)
             const order = await db.Order.build({
                 userId: req.body.userId,
                 billingAddressId: billingAddress.id,
                 shippingAddressId: shippingAddress.id,
                 // shoppingAddressId: shippingAddress.id;
+                pid: "",
                 createdAt: new Date(),
                 updatedAt: new Date()
             })
         
-            order.status = 1;
+            order.status = 0;
             await order.save()
 
             const products = req.body.myBag
-            console.log("------------------ 444", products.length)
 
             let totalPrice = 0;
             for(let i = 0 ; i < products.length; i++) {
@@ -100,7 +97,6 @@ export default async function handler(req, res) {
                         colorId: products[i].colorId,
                     }
                 })
-                console.log("================ productId ", product.id)
                 for(let j = 0 ; j< products[i].quantity; j++) {
                     const data = await db.SoldProduct.build({
                         userId: req.body.userId,
@@ -109,7 +105,6 @@ export default async function handler(req, res) {
                         price: products.price
                     })
                     totalPrice += product.price;
-                    console.log("================ productId ", data)
                     data.save();
                 }
             }
@@ -117,7 +112,6 @@ export default async function handler(req, res) {
             order.totalPrice = totalPrice;
             await order.save();
             
-            console.log("------------------ 5", order)
 
             res.json({ order })
         } catch (e) {
@@ -133,8 +127,6 @@ export default async function handler(req, res) {
             locket.type = req.body.locket.type;
             await locket.save()
 
-            console.log("------------------ 2")
-    
             const lockets = await db.Locket.findAndCountAll();
             res.statusCode = 200;
             res.json({ lockets })
@@ -149,8 +141,6 @@ export default async function handler(req, res) {
             const locket = await db.Locket.findByPk(req.body.locket.id)
             await locket.destroy()
 
-            console.log("------------------ 2")
-    
             const lockets = await db.Locket.findAndCountAll();
             res.statusCode = 200;
             res.json({ lockets })

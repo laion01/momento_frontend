@@ -16,11 +16,9 @@ export default async function handler(req, res) {
           quantity: item.quantity,
         })
         totalPrice += item.price * 100 * item.quantity
-        console.log("================== item Price: ", item.price)
 
       })
 
-      console.log("==================Price: ", totalPrice)
       const paymentIntent = await stripe.paymentIntents.create({
         amount: totalPrice,
         currency: "USD"

@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import UserDropdown from './UserDropdown';
 import NotificationMenu from './NotificationMenu';
 import BagMenu from './BagMenu';
-import { setColors, setMetals, setMyBag, setProducts, setLockets, setProductTypes } from 'store/slices/utilSlice';
+import { setColors, setMetals, setMyBag, setProducts, setLockets, setProductTypes, setOrders } from 'store/slices/utilSlice';
 import Button from 'components/utils/Buttons/Button';
 import AUTH_API from 'api/Auth';
 import { login, setShippingAddress } from 'store/slices/authSlice';
@@ -17,8 +17,8 @@ import UTILS_API from 'api/Util';
 export default function Header() {
     const router = useRouter();
     const dispatch = useDispatch();
-    const { myBag } = useUtil();
-    const { avatar } = useAuth();
+    const { myBag, orders } = useUtil();
+    const { avatar, role } = useAuth();
     const [isUserDropDown, openUserDropdown] = useState(false);
     const [isNotificationDropDown, openNotificationDropdown] = useState(false);
     const [isBagDropDown, openBagDropdown] = useState(false);
@@ -92,6 +92,11 @@ export default function Header() {
                     role: data.role,
                     authToken: data.authToken,
                 }))
+
+                if(data.role == 3) {
+                    const orderData = await UTILS_API.getUnViewedOrders();
+                    dispatch(setOrders({orders: orderData.rows}));
+                }
             } else {
                 console.log(!token, !!token, !!!token)
             }
@@ -120,17 +125,19 @@ export default function Header() {
             </Link>
             <div className='flex justify-center items-center'>
                 <Navbar className="hidden lg:block" />
-                <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
-                    <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { openNotificationDropdown(true) }}>
-                        <Image alt='' src='/images/bell.svg' width={40} height={40} />
-                        {ordersCount > 0 &&
-                            <p className='absolute text-white min-w-[1.625rem] min-h-[1.625rem] px-[0.25rem] -top-[0.25rem] -right-[0.75rem] bg-primary rounded-[10px] rounded-bl-[0px] border-[0.125rem] border-white'>
-                                {ordersCount}
-                            </p>
-                        }
-                    </button>
-                    {isNotificationDropDown && <NotificationMenu onCloseMenu={() => { openNotificationDropdown(false) }} />}
-                </div>
+                { role == 3 &&
+                    <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
+                        <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { orders.length > 0 && openNotificationDropdown(true) }}>
+                            <Image alt='' src='/images/bell.svg' width={40} height={40} />
+                            {orders.length > 0 &&
+                                <p className='absolute text-white min-w-[1.625rem] min-h-[1.625rem] px-[0.25rem] -top-[0.25rem] -right-[0.75rem] bg-primary rounded-[10px] rounded-bl-[0px] border-[0.125rem] border-white'>
+                                    {orders.length}
+                                </p>
+                            }
+                        </button>
+                        {isNotificationDropDown && <NotificationMenu onCloseMenu={() => { openNotificationDropdown(false) }} />}
+                    </div>
+                }
                 <div className='w-[2.5rem] h-[2.5rem] mx-[1.25rem] relative'>
                     <button className='w-[2.5rem] h-[2.5rem]' onClick={() => { myBag.length && openBagDropdown(true) }}>
                         <Image alt='' src='/images/bag.png' width={40} height={40} />

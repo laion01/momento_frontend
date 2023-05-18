@@ -41,7 +41,15 @@ module.exports = {
         type: Sequelize.FLOAT,
         default: 0.0,
       },
+      pid: {
+        type: Sequelize.STRING,
+        defaultValue: '',
+      },
       status: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      adminViewed: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
       },

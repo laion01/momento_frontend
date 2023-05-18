@@ -153,10 +153,18 @@ class UtilsApi {
     }
   }
 
-
   async createOrder(data) {
     try {
       const res = await axios.post(`${this.URI}/order`, data)
+      return res;
+    } catch (e) {
+      return {}
+    }
+  }
+
+  async setPaymentId(orderId, pid) {
+    try {
+      const res = await axios.put(`${this.URI}/updatePaymentId`, {orderId, pid})
       return res;
     } catch (e) {
       return {}
@@ -204,6 +212,32 @@ class UtilsApi {
       return { success: false}
     }
   }
+
+  async getEstimations(data) {
+    try {
+      const res = await axios.post(`${this.URI}/getEstimations`, {items: data})
+      return {...res.data};
+    } catch (e) {
+      return { success: false}
+    }
+  }
+
+  async setOrderViewed(orderId) {
+    try {
+      const res = await axios.put(`${this.URI}/orderViewed`, { orderId })
+      return {...res.data.orders};
+    } catch (e) {
+      return { success: false}
+    }
+  } 
+  async getUnViewedOrders(orderId) {
+    try {
+      const res = await axios.get(`${this.URI}/orderViewed`, { orderId })
+      return {...res.data.orders};
+    } catch (e) {
+      return { success: false}
+    }
+  } 
 }
 
 const UTILS_API =  new UtilsApi()

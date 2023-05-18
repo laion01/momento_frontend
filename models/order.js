@@ -42,7 +42,9 @@ module.exports = (sequelize, DataTypes) => {
     shippingAddressId: DataTypes.INTEGER,
     shippingId: DataTypes.STRING,
     totalPrice: DataTypes.FLOAT,
+    pid: DataTypes.STRING, 
     status: DataTypes.INTEGER, 
+    adminViewed: DataTypes.INTEGER, 
   }, {
     sequelize,
     modelName: 'Order',

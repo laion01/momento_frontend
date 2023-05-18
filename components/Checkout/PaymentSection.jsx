@@ -12,6 +12,7 @@ const stripePromise = loadStripe('pk_test_51JS6iTJi8Mhamixz7ZfPhC0Yn3sp7ft7RJZO1
 import CheckoutForm from "./CheckoutForm";
 import UTILS_API from "api/Util";
 import PaymentCard from "./PaymentCard";
+import { setMyBag } from "store/slices/utilSlice";
 
 import {
     PaymentElement,
@@ -24,12 +25,16 @@ import {
 // dotenv.config();
 
 import { faCcStripe } from "@fortawesome/free-brands-svg-icons";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 export default function PaymentSection({ firstName, lastName, email, phone, address, city, apartment, state, country, zipcode, onBack, onStripeClicked }) {
     const { userId } = useAuth();
     const { myBag } = useUtil();
     const [billingAddrOption, setBillingAddrOption] = useState(1);
     const [updatedFields, setUpdatedFields] = useState([])
+    const dispatch = useDispatch();
+    const router = useRouter();
 
     const [_country, setCountry] = useState(country ? country : { "value": "US", "group": "U", "text": "United States" });
     const [_state, setState] = useState(state ? state : { abbreviation: "AL", name: "Alabama", country: "US" });
@@ -44,7 +49,8 @@ export default function PaymentSection({ firstName, lastName, email, phone, addr
     const [_phone, setPhone] = useState(phone);
 
     const [clientSecret, setClientSecret] = useState("");
-    const [message, setMessage] = useState("");
+    const [orderId, setOrderId] = useState(0);
+    const [pId, setPaymentId] = useState("");
 
     const formRef = useRef(null)
 
@@ -111,56 +117,41 @@ export default function PaymentSection({ firstName, lastName, email, phone, addr
         setUpdatedFields([...list]);
     }
 
-    const onStripe = async () => {
-        // onStripeClicked({
-        //     userId,
-        //     billingAddress: {
-        //         firstName: firstName.value,
-        //         lastName: lastName.value,
-        //         email: email.value,
-        //         phone: phone.value,
-        //         country, state,
-        //         city: city.value,
-        //         apartment: apartment.value,
-        //         address: address.value,
-        //         zipcode: zipcode.value,
-        //     },
-        //     shippingAddress: {
-        //         firstName: _firstName.value,
-        //         lastName: _lastName.value,
-        //         email: _email.value,
-        //         phone: _phone.value,
-        //         country: _country, state: _state,
-        //         city: _city.value,
-        //         apartment: _apartment.value,
-        //         address: _address.value,
-        //         zipcode: _zipcode.value,
-        //     },
-        // }, formRef)
+    const onCreateOrder = async () => {
+        if(!!orderId)
+            return ;
 
         try {
-            console.log("submit", formRef)
-            if(!formRef) return ;
-            // await UTILS_API.checkoutPayment(myBag);
+            const res = await UTILS_API.createOrder({ 
+                shippingAddress: {firstName, lastName, email, phone, address, city, apartment, state, country, zipcode}, 
+                billingAddress: {firstName: _firstName, lastName: _lastName, email: _email, phone: _phone, address: _address, city: _city, apartment: _apartment, state: _state, country: _country, zipcode: _zipcode}, 
+                myBag, userId
+            });
 
-            // const res = await UTILS_API.createOrder({...data, myBag});
-            // console.log(res)
+            setOrderId(res.data.order.id);
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
-            // toast.success('Your order placed successfully!', {
-            //     position: "bottom-right",
-            //     autoClose: 5000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            //     theme: "light",
-            // });
-
-            // dispatch(setMyBag({myBag: []}));
-            // router.push(`/order?id=${res.data.order.id}`);
+    const onPaymentSuccess = async (pid) => {
+        try {
+            setPaymentId(pid)
         } catch (e) {
         }
+    }
+
+    useEffect(() => {
+        console.log({orderId, pId})
+        if(orderId > 0 && pId != "") {
+            setPaymentIdOnDB();
+        }
+    }, [orderId, pId])
+
+    const setPaymentIdOnDB = async () => {
+        const res = await UTILS_API.setPaymentId(orderId, pId);
+        dispatch(setMyBag({myBag: []}));
+        router.push(`/order?id=${orderId}`);
     }
 
     return (
@@ -237,7 +228,7 @@ export default function PaymentSection({ firstName, lastName, email, phone, addr
                 </form> */}
                 { clientSecret &&
                     <Elements options={{ clientSecret: clientSecret, appearance: { theme: 'light', labels: 'floating' } }} stripe={stripePromise}>
-                        <PaymentCard formRef={formRef}/>
+                        <PaymentCard clientSecret={clientSecret} onSuccess={(r) => {onPaymentSuccess(r)}} onCreateOrder={() => {onCreateOrder()}} orderId={orderId}/>
                     </Elements>
                 }
 

@@ -3,10 +3,11 @@ import { useAuth, useUtil } from "store/hook";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import NotificationItem from "./NotificationItem";
+import OrderItem from "./OrderItem";
 
 export default function NotificationMenu({onCloseMenu}) {
     const dispatch = useDispatch();
-    const { notifications } = useUtil();
+    const { orders } = useUtil();
     const router = useRouter();
 
 
@@ -20,10 +21,9 @@ export default function NotificationMenu({onCloseMenu}) {
                 </div>
             </div>
             <div className="-mt-[1px] bg-white rounded-tr-[0px] rounded-[8px] flex flex-col p-[1.125rem] border-[1px] border-[#D4D4D4] drop-shadow z-[20]">
-                <NotificationItem />
-                <NotificationItem />
-                <NotificationItem />
-                <NotificationItem />
+                { orders.map((item, index) => 
+                    <OrderItem key={index} order={item} onCloseMenu={onCloseMenu}/>
+                )}
             </div>
         </div>
     )

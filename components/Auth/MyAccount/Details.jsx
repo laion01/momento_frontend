@@ -160,7 +160,6 @@ export default function Details() {
     const onSaveAvatar = async () => {
         try {
             const avatar = await uploadToServer();
-            alert(avatar + " uploaded")
             dispatch(setAvatar({ avatar }));
             setUploadedURL("");
         } catch (e) {

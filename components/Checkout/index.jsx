@@ -91,7 +91,14 @@ export default function Checkout() {
             p += item.price * item.quantity;
         })
         setTotalPrice(p);
+
+        getEstimatedPrice();
     }, [myBag])
+
+    const getEstimatedPrice = async () => {
+        const res = await UTILS_API.getEstimations(myBag);
+        console.log(res);
+    }
 
     useEffect(() => {
         checkShippingAddress()

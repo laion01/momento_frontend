@@ -6,59 +6,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import UTILS_API from "api/Util";
 
-const categories=['Silver', 'Yellow Gold'];
-const selectedCat=1;
-const colorItems=[1,2,3,4,5,6]
-const selectedColor=1
-const colors = [
-    {}, { 
-        image: "/images/colors/color_1.svg",
-        name: "",
-    }, { 
-        image: "/images/colors/color_2.svg",
-        name: "",
-    }, { 
-        image: "/images/colors/color_3.svg",
-        name: "",
-    }, { 
-        image: "/images/colors/color_4.svg",
-        name: "",
-    }, { 
-        image: "/images/colors/color_5.svg",
-        name: "",
-    }, { 
-        image: "/images/colors/color_6.svg",
-        name: "",
-    }, {}, {}, {}, {}
-    , { 
-        image: "/images/colors/color_11.svg",
-        name: "",
-    }, { 
-        image: "/images/colors/color_12.svg",
-        name: "",
-    }, { 
-        image: "/images/colors/color_13.svg",
-        name: "",
-    }, { 
-        image: "/images/colors/color_14.svg",
-        name: "",
-    }, { 
-        image: "/images/colors/color_15.svg",
-        name: "",
-    }, { 
-        image: "/images/colors/color_16.svg",
-        name: "",
-    }, {}, {}, {}
-]
-
 
 
 export default function LocketsGallery() {
-    const [isOpenDlg, openDlg] = useState(false);
-    const [selectedColor, selectColor] = useState(1);
-    const [selectedMetal, selectMetal] = useState(1);
-    const [quantity, setQuantity] = useState(1);
-
     const [locketIds, setLocketIds] = useState([]);
 
     useEffect(() => {
@@ -68,8 +18,6 @@ export default function LocketsGallery() {
     const load = async () => {
         const lockets = await UTILS_API.getLocketsGallery();
         setLocketIds([...lockets]);
-
-        console.log(lockets)
     }
 
     return (
