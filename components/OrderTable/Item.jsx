@@ -58,7 +58,7 @@ export default function Item({ index, data}) {
                             <div className="min-w-[120px] flex items-center"> 
                                 <p> Images: </p> 
                                 { images.map((item, index) => 
-                                    <button className="flex w-[1.5rem] h-[1.5rem] rounded-full overflow-hidden ml-[0.5rem]">
+                                    <button key={index} className="flex w-[1.5rem] h-[1.5rem] rounded-full overflow-hidden ml-[0.5rem]">
                                         <Image alt="" width={24} height={24} src={item.image}/>
                                     </button>
                                 )}

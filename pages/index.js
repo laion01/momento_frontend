@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { useEffect } from 'react';
-import Script from "next/script";
 import styles from '../styles/Home.module.css'
 import HeroSection from "components/LandingPage/HeroSection";
 import VideoSection from "components/LandingPage/VideoSection";
@@ -11,13 +10,19 @@ import LocketsSection from "components/LandingPage/LocketsSection";
 import NewsSection from "components/LandingPage/NewsSection";
 import ReviewSection from "components/LandingPage/ReviewSection";
 import FAQSection from "components/LandingPage/FAQSection";
-import Footer from 'components/layout/Footer';
 
 export default function Home() {
   useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://js.live.net/v7.2/OneDrive.js';
+    script.async = true;
+    document.body.appendChild(script);
 
-
+    return () => {
+      document.body.removeChild(script);
+    }
   }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -25,7 +30,6 @@ export default function Home() {
         <meta name="description" content="Momento" />
         <link rel="icon" href="/momento.png" />
       </Head>
-      <script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js"/>
 
       <main>
         <HeroSection />
