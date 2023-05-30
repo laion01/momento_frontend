@@ -44,7 +44,7 @@ export default function HeroSection() {
                     <button className="flex items-center px-[16px]  mb-[20px]"
                         onClick={() => {openVideo(true)}}
                     >
-                        <div className="w-[1.25rem] pl-[2px] h-[1.25rem] bg-[#996D01] rounded-full mr-[10px] text-white flex justify-center items-center">
+                        <div className="w-[1.5rem] pl-[2px] h-[1.5rem] bg-[#996D01] rounded-full mr-[10px] text-white flex justify-center items-center">
                             <FontAwesomeSvgIcon icon={faPlay} width={12} height={12} />
                         </div>
                         <p className="text-primary text-[1rem]"> Watch Video </p>

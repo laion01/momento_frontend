@@ -58,7 +58,7 @@ export default function MemoriesSection() {
                         <div className="w-[46.67px] h-[46.67px] pl-[5px] mix-blend-lighten bg-white rounded-full mr-[16px] flex justify-center items-center">
                             <FontAwesomeSvgIcon icon={faPlay} width={32} height={32} />
                         </div>  
-                        <p className="text-primary text-[2rem] text-white]"> How it works </p>
+                        <p className="text-white text-[2rem] text-white]"> How it works </p>
                     </button>
                 </div>
             </div>
