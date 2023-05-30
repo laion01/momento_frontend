@@ -119,6 +119,7 @@ class Backend {
         path: "/",
       })
     )
+    console.log("++++++++++++++++", context.req.cookies.authToken)
     return token;
   }
 
@@ -180,16 +181,19 @@ class Backend {
     var token = Math.floor(1000 + Math.random() * 9000);
     await this.sendEmailVerificatioinSMTP(emailAddress, token);
 
+    console.log("-----------------", token)
     context.res.setHeader(
       "Set-Cookie",
       cookie.serialize("verifyToken", token, {
         httpOnly: true,
         secure: false,
         sameSite: "strict",
-        maxAge: 60 * 60,
-        path: "/auth/verify",
+        maxAge: 60 * 60 * 24 * 7,
+        path: "/",
       })
     )
+    console.log("++++++++++++++++", context.req.cookies.verifyToken)
+    return token;
   }
 
   needVerification(context) {
@@ -214,7 +218,7 @@ class Backend {
             secure: false,
             sameSite: "strict",
             maxAge: 0,
-            path: "/auth/verify",
+            path: "/",
           })
         )
       } else {
@@ -231,7 +235,7 @@ class Backend {
         secure: false,
         sameSite: "strict",
         maxAge: 0,
-        path: "/auth/verify",
+        path: "/",
       })
     )
     return true;

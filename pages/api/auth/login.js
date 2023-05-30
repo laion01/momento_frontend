@@ -6,7 +6,7 @@ export default async function handler(req, res) {
       let user = await Backend.getAuthenticatedUser({req, res});
       let newUser = false;
 
-      if(!user) {
+      // if(!user) {
         newUser = true;
 
         if (typeof req.body.email !== "string") {
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
           return res.json({ error: "wrong_password" })
         }
 
-      }
+      // }
       
       if (!user.status) {
         res.statusCode = 401
@@ -43,9 +43,6 @@ export default async function handler(req, res) {
       // const currencies = await Database.Balances.getUserBalances(user.id);
       // const chains = await Database.Chains.findAndCountAll();
       let token = "";
-      console.log("___ 3 ")
-
-
 
       if(newUser) {
         token = await Backend.login({
@@ -60,8 +57,6 @@ export default async function handler(req, res) {
           role: user.role,
           status: user.status,
         })
-        console.log("_____________ token ", token)
-        // SMS.sendSms('+12055885568', "New account loggined!");
       } else {
         token = user.token
       }
