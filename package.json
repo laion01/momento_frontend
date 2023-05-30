@@ -31,6 +31,7 @@
     "next": "12.2.2",
     "next-videos": "1.4.0",
     "node-cache": "^5.1.2",
+    "nodemailer": "^6.9.2",
     "phaser": "^3.55.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -46,6 +47,8 @@
     "rsuite": "^5.33.1",
     "sequelize": "^6.31.0",
     "sharp": "^0.30.7",
+    "smtp-client": "^0.4.0",
+    "square": "^27.0.0",
     "stripe": "^12.5.0",
     "ups-shipping-api": "^1.0.0"
   },

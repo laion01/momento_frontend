@@ -144,7 +144,7 @@ async function getShippingRates() {
     const password = process.env.UPS_PASSWORD;
     const accessKey = process.env.UPS_ACCESS_KEY;
 
-    console.log({username, password, accessKey});
+    console.log({username, password, accessKey, apiUrl});
 
     const requestBody = {
       "RatingServiceSelectionRequest": {
@@ -196,20 +196,107 @@ async function getShippingRates() {
       }
     };
 
-    const config = {
-      auth: {
-        username,
-        password,
-        apiKey: accessKey
-      },
-      headers: {
-        'Content-Type': 'application/json'
+    const shipmentData = {
+      "ShipmentRequest": {
+        "Shipment": {
+          "Description": "The Wheelership UPS shipment",
+          "Shipper": {
+            "Name": "chi galatea",
+            "AttentionName": "asdfasdf",
+            "Phone": {
+              "Number": "1234567890",
+            },
+            "ShipperNumber": "1",
+            "Address": {
+              "AddressLine": "850 Washington Ave",
+              "City": "Carlstadt",
+              "StateProvinceCode": "NJ",
+              "PostalCode": "07072",
+              "CountryCode": "US"
+            }
+          },
+          "ShipTo": {
+            "Name": "asdf",
+            "AttentionName": "asdf",
+            "Phone": {
+              "Number": "1234567890",
+            },
+            "Address": {
+              "AddressLine": "850 Washington Ave",
+              "City": "Carlstadt",
+              "StateProvinceCode": "NJ",
+              "PostalCode": "07072",
+              "CountryCode": "US"
+            }
+          },
+          "ShipFrom": {
+            "Name": "The Wheelership LLC",
+            "AttentionName": "Shipping Dept",
+            "Phone": {
+              "Number": "8777888283"
+            },
+            "Address": {
+              "AddressLine": "850 Washington Ave",
+              "City": "Carlstadt",
+              "StateProvinceCode": "NJ",
+              "PostalCode": "07072",
+              "CountryCode": "US"
+            }
+          },
+          "PaymentInformation": {
+            "ShipmentCharge": {
+              "Type": "01",
+              "BillShipper": {
+                "AccountNumber": 1,
+              }
+            }
+          },
+          "Service": {
+            "Code": "03",
+            "Description": "Ground"
+          },
+          "Package": [
+            {
+              "Description": 123,
+              "Packaging": {
+                "Code": "02"
+              },
+              "PackageWeight": {
+                "UnitOfMeasurement": {
+                  "Code": "LBS"
+                },
+                "Weight": 1,
+              },
+              "PackageServiceOptions": ""
+            },
+          ],
+          "ShipmentRatingOptions": {
+            "NegotiatedRatesIndicator": {}
+          }
+        },
+        "LabelSpecification": {
+          "LabelImageFormat": {
+            "Code": "ZPL"
+          },
+          "LabelStockSize": {
+            "Width": "4",
+            "Height": "8"
+          }
+        }
       }
+    }
+
+    const config = {
+      headers: {
+        AccessLicenseNumber: accessKey,
+        Username: username,
+        Password: password
+    }
     };
 
-    const response = await axios.post(apiUrl, requestBody, config);
+    const response = await axios.post("https://wwwcie.ups.com/ship/v1/shipments", requestBody, config);
     console.log(response);
   } catch (error) {
-    // console.error(error);
+    console.error(error);
   }
 }

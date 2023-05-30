@@ -29,8 +29,8 @@ class AuthApi {
     return await axios.post(`${this.URI}/requireVerification`, {email, password})
   }
 
-  async verifyAccount(token) {
-    return await axios.post(`${this.URI}/verifyAccount`, {token})
+  async verifyAccount(token, email) {
+    return await axios.post(`${this.URI}/verifyAccount`, {token, email})
   }
 
   async signout() {

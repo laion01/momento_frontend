@@ -8,6 +8,7 @@ import { Button } from "rsuite";
 import { useRouter } from "next/router";
 import { BeatLoader } from "react-spinners";
 import { toast } from 'react-toastify';
+import UTILS_API from "api/Util";
 
 export default function PaymentCard({ onSuccess, onCreateOrder, orderId, clientSecret }) {
   const stripe = useStripe();
@@ -148,6 +149,7 @@ export default function PaymentCard({ onSuccess, onCreateOrder, orderId, clientS
           progress: undefined,
           theme: "light",
         });
+
       }
     }
 

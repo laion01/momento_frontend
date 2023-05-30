@@ -73,9 +73,15 @@ export default function Header() {
             if (token) {
                 const { data } = await AUTH_API.me(token);
 
+
+                if(data.status == 0)
+                {
+                    router.push("/auth/verify");
+                    return;
+                }
                 console.log("logedIn")
                 dispatch(login({
-                    logined: true,
+                    logined: data.logined,
                     fullname: `${data.first_name} ${data.last_name}`,
                     firstName: data.first_name,
                     lastName: data.last_name,
@@ -91,6 +97,7 @@ export default function Header() {
                     zipcode: data.zipcode,
                     role: data.role,
                     authToken: data.authToken,
+                    status: data.status
                 }))
 
                 if(data.role == 3) {

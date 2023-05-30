@@ -151,6 +151,9 @@ export default function PaymentSection({ firstName, lastName, email, phone, addr
     const setPaymentIdOnDB = async () => {
         const res = await UTILS_API.setPaymentId(orderId, pId);
         dispatch(setMyBag({myBag: []}));
+
+        // const shipping = await UTILS_API.requestUPS(orderId);
+        // console.log(shipping);
         router.push(`/order?id=${orderId}`);
     }
 

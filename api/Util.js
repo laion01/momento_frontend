@@ -222,6 +222,15 @@ class UtilsApi {
     }
   }
 
+  async requestUPS(data) {
+    try {
+      const res = await axios.post(`${this.URI}/requestShipping`, {items: data})
+      return {...res.data};
+    } catch (e) {
+      return { success: false}
+    }
+  }
+
   async setOrderViewed(orderId) {
     try {
       const res = await axios.put(`${this.URI}/orderViewed`, { orderId })
@@ -230,6 +239,7 @@ class UtilsApi {
       return { success: false}
     }
   } 
+
   async getUnViewedOrders(orderId) {
     try {
       const res = await axios.get(`${this.URI}/orderViewed`, { orderId })

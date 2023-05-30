@@ -34,7 +34,7 @@ export default async function handler(req, res) {
         zipcode: user.zipcode,
         avatar: user.avatar,
         status: user.status,
-        authToken: u.token
+        authToken: u.token,
       })
     } else {
       res.json({ error: "method_not_allowed" })

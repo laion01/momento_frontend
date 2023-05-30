@@ -27,7 +27,7 @@ import {
     reducers: {
       
       login: (state, action) => {
-        state.logined = true;
+        state.logined = action.payload['logined'];
         state.userId = action.payload['userId'];
         state.firstName = action.payload['firstName'];
         state.lastName = action.payload['lastName'];
@@ -64,6 +64,10 @@ import {
         localStorage.removeItem('shippingAddress');
       },
 
+      setLogin: (state) => {
+        state.logined = true;
+      },
+
       setAvatar: (state, action) => {
         state.avatar = action.payload['avatar'];
       }, 
@@ -78,6 +82,7 @@ import {
   export const {
     login,
     logout,
+    setLogin,
     setAvatar, 
     setShippingAddress
   } = loginSlice.actions;

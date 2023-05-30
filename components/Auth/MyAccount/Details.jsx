@@ -226,10 +226,13 @@ export default function Details() {
 
                         <h6 className="text-[1.5rem] leading-[2.25rem] font-bold text-primary my-[2rem]"> Change Password </h6>
                         <div className="flex mb-[1.5rem]">
-                            <input type="password" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="new Password" />
+                            <input type="password" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="Old password" />
+                        </div>
+                        <div className="flex mb-[1.5rem]">
+                            <input type="password" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="New password" />
                         </div>
                         <div className="flex mb-[2rem]">
-                            <input type="password" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="repeat Password" />
+                            <input type="password" className="w-full h-[3rem] px-[10px] text-[1rem] outline-none border-[1px] border-[#D4D4D4] rounded-[4px]" placeholder="Repeat password" />
                         </div>
 
                         <div className="flex justify-end">

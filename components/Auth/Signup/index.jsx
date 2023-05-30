@@ -5,8 +5,11 @@ import Link from "next/link";
 import AUTH_API from "api/Auth";
 import { toast } from 'react-toastify';
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { login } from "store/slices/authSlice";
 
 export default function Signup() {
+    const dispatch = useDispatch()
     const router = useRouter();
 
     const [firstName, setFirstName] = useState({
@@ -38,7 +41,30 @@ export default function Signup() {
                 password: password.value,
                 repeat: repeat.value,
             })
+
+            console.log(res);
+            
+
             if(res.data.success) {
+                dispatch(login({
+                    logined: res.data.loggedIn,
+                    fullname: `${res.data.first_name} ${res.data.last_name}`,
+                    firstName: res.data.first_name,
+                    lastName: res.data.last_name,
+                    phone: res.data.phone,
+                    email: `${res.data.email}`,
+                    avatar: res.data.avatar,
+                    userId: res.data.id,
+                    country: JSON.parse(res.data.country ? res.data.country : "{}"),
+                    state: JSON.parse(res.data.state ? res.data.state : "{}"),
+                    city: res.data.city,
+                    apartment: res.data.apartment,
+                    address: res.data.address,
+                    zipcode: res.data.zipcode,
+                    authToken: res.data.authToken,
+                    role: res.data.role,
+                }))
+
                 toast.success('Your account succesfully created.', {
                     position: "bottom-right",
                     autoClose: 5000,
@@ -50,7 +76,7 @@ export default function Signup() {
                     theme: "light",
                 });
                 // openRegister(false)
-                router.push({pathname: '/auth/signin'})
+                router.push({pathname: '/auth/verify'})
             } else {
                 toast.error('Signup failed!', {
                     position: "bottom-right",

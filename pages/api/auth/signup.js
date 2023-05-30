@@ -1,4 +1,5 @@
 import db from "models"
+import Backend from "backend"
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
@@ -53,7 +54,7 @@ export default async function handler(req, res) {
         first_name, last_name,
         email,
         password: '',
-        status: 1,
+        status: 0,
         createAt: new Date(),
         updatedAt: new Date(),
       })
@@ -75,9 +76,42 @@ export default async function handler(req, res) {
       //   email,
       //   first_name,
       //   emailVerification.token)
+
+      await Backend.createVerificationCode({
+        req, res
+      }, user.email)
+
+      const token = await Backend.login({
+        req, res
+      }, {
+        id: user.id, 
+        email: user.email, 
+        first_name: user.first_name, 
+        laste_name: user.last_name,
+        phone: user.phone,
+        avatar: user.avatar,
+        role: user.role,
+        status: user.status,
+      })
   
       res.statusCode = 200
-      res.json({ success: true })
+      res.json({ success: true,
+        loggedIn: false,
+        id: user.id,
+        email: user.email,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        avatar: user.avatar,
+        phone: user.phone,
+        country: user.country,
+        state: user.state,
+        city: user.city,
+        apartment: user.apartment,
+        address: user.address,
+        zipcode: user.zipcode,
+        role: user.role,
+        status: user.status,
+        authToken: token })
     } else {
       res.statusCode = 405
       res.json({ error: "method_not_allowed" })
