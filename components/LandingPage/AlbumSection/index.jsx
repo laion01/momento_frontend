@@ -48,7 +48,7 @@ export default function AlbumSection() {
                 <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#000000a0] z-50 flex justify-center items-center" onClick={() => {
                     openVideo(false)
                 }}>
-                    <video controls src="/videos/home_popup_video.mp4">
+                    <video controls src="/videos/home_popup_video.mp4" onClick={(e) => {e.stopPropagation()}}>
                         Your browser does not support the video tag.
                     </video>
                 </div>

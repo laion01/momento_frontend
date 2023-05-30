@@ -2,8 +2,10 @@ import Image from "next/image"
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon"
 import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
+import { useRouter } from "next/router"
 
 export default function MemoriesSection() {
+    const router = useRouter()
     const [isVideo, openVideo] = useState(false);
 
     return (
@@ -18,7 +20,9 @@ export default function MemoriesSection() {
                     <p className="text-[#747067] text-[1.125rem] leading-[2.25rem] text-left md:text-right mb-[2rem]">
                         Start a digital photo album by selecting photos from Google photos, ICloud photos or create one from scratch to bring photos from your phone into your Momento Photo Locket.
                     </p>
-                    <button className="text-white bg-[#996D01] rounded-full h-[3rem] px-[1.5rem] mb-[20px]"> Shop Now </button>
+                    <button className="text-white bg-[#996D01] rounded-full h-[3rem] px-[1.5rem] mb-[20px]"
+                        onClick={() => {router.push("/lockets")}}
+                    > Shop Now </button>
                 </div>
                 <div>
                     <Image alt="" width={406} height={488} src="/images/memory1.jpg"/>
@@ -68,7 +72,9 @@ export default function MemoriesSection() {
                     <p className="text-[#747067] text-[1.125rem] leading-[2.25rem] text-left md:text-right">
                     Imagine 50 years from now, you will say to your son and daughter, “every precious moment in your live from the day you were born is in this Momento Locket.
                     </p>
-                    <button className="text-white bg-[#996D01] rounded-full h-[3rem] px-[1.5rem] mb-[20px]"> Shop Now </button>
+                    <button className="text-white bg-[#996D01] rounded-full h-[3rem] px-[1.5rem] mb-[20px]"
+                        onClick={() => {router.push("/lockets")}}
+                    > Shop Now </button>
                 </div>
                 <div>
                     <Image alt="" width={406} height={488} src="/images/memory3.jpg"/>
@@ -79,7 +85,7 @@ export default function MemoriesSection() {
                 <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#000000a0] z-50 flex justify-center items-center" onClick={() => {
                     openVideo(false)
                 }}>
-                    <video controls src="/videos/home_popup_video.mp4">
+                    <video controls src="/videos/home_popup_video.mp4" onClick={(e) => {e.stopPropagation()}}>
                         Your browser does not support the video tag.
                     </video>
                 </div>
