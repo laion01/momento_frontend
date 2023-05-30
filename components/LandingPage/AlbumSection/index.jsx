@@ -1,8 +1,11 @@
 import Image from "next/image"
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon"
 import { faPlay } from "@fortawesome/free-solid-svg-icons"
+import { useState } from "react"
 
 export default function AlbumSection() {
+    const [isVideo, openVideo] = useState(false);
+
     return (
         <div className="mx-[20px] md:mx-[40px] w-[calc(100vw-40px)] md:w-[calc(100vw-80px)] bg-[#F5F5F5] flex flex-col justify-center relative pt-[120px]">
             <div className="flex flex-col md:flex-row justify-center items-center px-[1.5rem]">
@@ -33,7 +36,7 @@ export default function AlbumSection() {
                     <Image alt="" src={'/images/videoback2.jpg'} width={1372} height={780} />
                 </div>
                 <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-                    <button className="flex items-center px-[16px]">
+                    <button className="flex items-center px-[16px]" onClick={() => {openVideo(true)}}>
                         <div className="w-[46.67px] h-[46.67px] pl-[5px] mix-blend-lighten bg-white rounded-full mr-[16px] flex justify-center items-center">
                             <FontAwesomeSvgIcon icon={faPlay} width={32} height={32} />
                         </div>  
@@ -41,7 +44,13 @@ export default function AlbumSection() {
                     </button>
                 </div>
             </div>
-            
+            { isVideo &&
+                <div className="fixed w-[100vw] h-[100vh] bg-[#000000a0]">
+                    <video controls src="/videos/home_popup_video.mp4" width="320" height="240">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            }
         </div>
     )
 }
