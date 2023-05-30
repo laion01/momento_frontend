@@ -1,8 +1,11 @@
 import Image from "next/image"
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon"
 import { faPlay } from "@fortawesome/free-solid-svg-icons"
+import { useState } from "react"
 
 export default function MemoriesSection() {
+    const [isVideo, openVideo] = useState(false);
+
     return (
         <div className="mx-[20px] md:mx-[40px] w-[calc(100vw-40px)] md:w-[calc(100vw-80px)] bg-[#F5F5F5] flex flex-col justify-center relative pt-[20px]">
             <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] text-[#AC8118] text-center mt-[100px] mb-[40px]">
@@ -26,7 +29,7 @@ export default function MemoriesSection() {
                     <Image alt="" src={'/images/videoback3.jpg'} width={1372} height={780} />
                 </div>
                 <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-                    <button className="flex items-center px-[16px]">
+                    <button className="flex items-center px-[16px]" onClick={() => {openVideo(true)}}>
                         <div className="w-[46.67px] h-[46.67px] pl-[5px] mix-blend-lighten bg-white rounded-full mr-[16px] flex justify-center items-center">
                             <FontAwesomeSvgIcon icon={faPlay} width={32} height={32} />
                         </div>  
@@ -51,7 +54,7 @@ export default function MemoriesSection() {
                     <Image alt="" src={'/images/videoback4.jpg'} width={1372} height={780} />
                 </div>
                 <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-                    <button className="flex items-center px-[16px]">
+                    <button className="flex items-center px-[16px]" onClick={() => {openVideo(true)}}>
                         <div className="w-[46.67px] h-[46.67px] pl-[5px] mix-blend-lighten bg-white rounded-full mr-[16px] flex justify-center items-center">
                             <FontAwesomeSvgIcon icon={faPlay} width={32} height={32} />
                         </div>  
@@ -71,6 +74,16 @@ export default function MemoriesSection() {
                     <Image alt="" width={406} height={488} src="/images/memory3.jpg"/>
                 </div>
             </div>
+
+            { isVideo &&
+                <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#000000a0] z-50 flex justify-center items-center" onClick={() => {
+                    openVideo(false)
+                }}>
+                    <video controls src="/videos/home_popup_video.mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            }
         </div>
     )
 }

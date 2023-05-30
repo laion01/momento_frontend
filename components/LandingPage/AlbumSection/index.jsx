@@ -36,7 +36,7 @@ export default function AlbumSection() {
                     <Image alt="" src={'/images/videoback2.jpg'} width={1372} height={780} />
                 </div>
                 <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-                    <button className="flex items-center px-[16px]" onClick={() => {openVideo(true)}}>
+                    <button className="flex items-center px-[16px]" onClick={() => {openVideo(true), console.log("open video")}}>
                         <div className="w-[46.67px] h-[46.67px] pl-[5px] mix-blend-lighten bg-white rounded-full mr-[16px] flex justify-center items-center">
                             <FontAwesomeSvgIcon icon={faPlay} width={32} height={32} />
                         </div>  
@@ -45,8 +45,10 @@ export default function AlbumSection() {
                 </div>
             </div>
             { isVideo &&
-                <div className="fixed w-[100vw] h-[100vh] bg-[#000000a0]">
-                    <video controls src="/videos/home_popup_video.mp4" width="320" height="240">
+                <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#000000a0] z-50 flex justify-center items-center" onClick={() => {
+                    openVideo(false)
+                }}>
+                    <video controls src="/videos/home_popup_video.mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
